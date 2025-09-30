@@ -11,13 +11,13 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen gradient-hero">
       {/* Header */}
-      <header className="border-b border-white/10 bg-white/5 backdrop-blur">
+      <header className="border-b border-gray-200 bg-white">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <img src={evernileLogo} alt="Evernile Capital" className="h-8 w-auto" />
             </div>
-            <Badge variant="outline" className="border-white/20 text-white">
+            <Badge variant="outline" className="border-gray-300 text-gray-700">
               SME IPO Eligibility Checker
             </Badge>
           </div>
