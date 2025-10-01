@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -35,7 +35,7 @@ const QUESTIONS: Q[] = [
     options: [
       { text: "Less than or equal to 3:1", weight: 4 },
       { text: "More than 3:1", weight: 2 },
-      { text: "Don't know", weight: 2 },
+      { text: "Don't Know", weight: 2 },
     ],
   },
   {
@@ -54,7 +54,7 @@ const QUESTIONS: Q[] = [
     options: [
       { text: "Yes", weight: 4 },
       { text: "No", weight: 2 },
-      { text: "Don't know", weight: 2 },
+      { text: "Don't Know", weight: 2 },
     ],
   },
   {
@@ -63,7 +63,7 @@ const QUESTIONS: Q[] = [
     options: [
       { text: "More than 3 Crore", weight: 3 },
       { text: "Less than 3 Crore", weight: 2 },
-      { text: "Don't know", weight: 1 },
+      { text: "Don't Know", weight: 1 },
     ],
   },
   {
@@ -193,12 +193,63 @@ const SMEEligibility = () => {
     else setStep(QUESTIONS.length); // contact step
   };
 
+  const onPrevious = () => {
+    if (step > 0) setStep(step - 1);
+  };
+
   const canCreateReport = allAnswered && name.trim() !== "" && (email.trim() !== "" || phone.trim() !== "");
 
   const progressPct = useMemo(() => {
     const completed = Math.min(step, QUESTIONS.length);
     return Math.round((completed / QUESTIONS.length) * 100);
   }, [step]);
+
+  const AnimatedGauge = ({ score }: { score: number }) => {
+    const [animatedScore, setAnimatedScore] = useState(0);
+    
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setAnimatedScore(score);
+      }, 100);
+      return () => clearTimeout(timer);
+    }, [score]);
+
+    const pct = (animatedScore / 5) * 100;
+    const color = "#0a2a5e"; // evernile navy approx
+    
+    return (
+      <div className="flex flex-col items-center space-y-4">
+        <div className="relative w-full max-w-2xl">
+          <svg viewBox="0 0 100 50" className="w-full">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#0a2a5e" />
+                <stop offset="100%" stopColor="#0a2a5e" />
+              </linearGradient>
+            </defs>
+            <path d="M10,50 A40,40 0 0,1 90,50" fill="none" stroke="#e5e7eb" strokeWidth="10" strokeLinecap="round" />
+            <path 
+              d="M10,50 A40,40 0 0,1 90,50" 
+              fill="none" 
+              stroke="url(#g)" 
+              strokeWidth="10" 
+              strokeLinecap="round" 
+              strokeDasharray={`${pct} 100`}
+              style={{
+                transition: 'stroke-dasharray 2s ease-in-out'
+              }}
+            />
+          </svg>
+        </div>
+        <div className="text-2xl font-bold text-evernile-navy">
+          {animatedScore.toFixed(1)} out of 5
+        </div>
+        <div className="text-sm text-muted-foreground text-center">
+          The IPO readiness score is generated based on the data provided.
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -251,8 +302,9 @@ const SMEEligibility = () => {
             <CardContent className="space-y-6">
               {!showReport && step < QUESTIONS.length && current && (
                 <div className="space-y-6">
-                  <div className="text-xl font-bold text-left flex items-center gap-2">
-                    {current.question}
+                  <div className="flex justify-between items-center">
+                    <div className="text-xl font-bold text-left flex items-center gap-2">
+                      {current.question}
                     {current.id === 3 && (
                       <TooltipProvider>
                         <Tooltip>
@@ -310,6 +362,10 @@ const SMEEligibility = () => {
                       </TooltipProvider>
                               )}
                             </div>
+                    <div className="text-sm text-gray-500 font-medium">
+                      {step + 1}/{QUESTIONS.length}
+                    </div>
+                  </div>
                   <div className="space-y-3">
                     {current.options.map((o, index) => (
                       <OptionBox
@@ -321,7 +377,14 @@ const SMEEligibility = () => {
                       />
                     ))}
                               </div>
-                  <div className="flex justify-end pt-2">
+                  <div className="flex justify-between pt-2">
+                    {step > 0 ? (
+                      <Button onClick={onPrevious} variant="outline" className="border-evernile-navy text-evernile-navy hover:bg-evernile-navy hover:text-white">
+                        Previous
+                      </Button>
+                    ) : (
+                      <div></div>
+                    )}
                     <Button onClick={onNext} disabled={!canNext} className="bg-evernile-navy text-white">
                       Next
                     </Button>
@@ -331,7 +394,7 @@ const SMEEligibility = () => {
 
               {!showReport && step === QUESTIONS.length && (
                 <div className="space-y-4">
-                  <div className="text-lg font-semibold text-evernile-navy">Readiness assessment is completed</div>
+                  <div className="text-lg font-semibold text-evernile-navy">Almost there! Please fill out few details and generate your Readiness Assessment Report.</div>
                   <div className="text-lg font-medium">Your Details</div>
                   <div className="grid grid-cols-1 gap-4">
                     <div className="grid gap-1">
@@ -348,7 +411,7 @@ const SMEEligibility = () => {
                     </div>
             </div>
 
-                  <div className="flex justify-end">
+                  <div className="flex justify-center">
               <Button 
                       disabled={!canCreateReport}
                       onClick={() => setShowReport(true)}
@@ -362,25 +425,7 @@ const SMEEligibility = () => {
 
               {showReport && (
                 <div className="space-y-6">
-                  {/* Half gauge centered (thicker arc) */}
-                  <div className="flex justify-center">
-                    <div className="relative w-full max-w-2xl">
-                      <svg viewBox="0 0 100 50" className="w-full">
-                        <defs>
-                          <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor="#0a2a5e" />
-                            <stop offset="100%" stopColor="#0a2a5e" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M10,50 A40,40 0 0,1 90,50" fill="none" stroke="#e5e7eb" strokeWidth="10" strokeLinecap="round" />
-                        <path d="M10,50 A40,40 0 0,1 90,50" fill="none" stroke="url(#g)" strokeWidth="10" strokeLinecap="round" strokeDasharray={`${(scoreMeta.readiness/5)*100} 100`} />
-                      </svg>
-                    </div>
-                  </div>
-
-                  <div className="text-center text-sm text-muted-foreground">
-                    Based on the assessment, your company's SME IPO readiness score is <span className="font-bold">{scoreMeta.readiness.toFixed(1)}</span> out of 5.
-                  </div>
+                  <AnimatedGauge score={scoreMeta.readiness} />
 
                   <div className="text-lg font-bold text-center text-evernile-navy">{scoreMeta.label}</div>
                   <div className="pt-2">
