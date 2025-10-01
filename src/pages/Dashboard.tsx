@@ -20,11 +20,20 @@ const Dashboard = () => {
                 <div className="h-0.5 w-8 bg-evernile-red"></div>
               </div>
             </div>
-            <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-              <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-9 px-4">
-                Book session
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/admin')}
+                className="border-white text-white hover:bg-white hover:text-evernile-navy h-9 px-4"
+              >
+                Admin
               </Button>
-            </a>
+              <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
+                <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-9 px-4">
+                  Book session
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </header>

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Info, ArrowLeft } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useNavigate } from "react-router-dom";
+import { saveAssessmentResponse, type AssessmentResponse, type QuestionResponse } from "@/lib/supabase";
 
 type Option = { text: string; weight: number };
 type Q = { id: number; question: string; options: Option[] };
@@ -198,6 +199,37 @@ const SMEEligibility = () => {
   };
 
   const canCreateReport = allAnswered && name.trim() !== "" && (email.trim() !== "" || phone.trim() !== "");
+
+  const saveAssessmentData = async () => {
+    try {
+      const questionResponses: QuestionResponse[] = answerList.map(answer => {
+        const question = QUESTIONS.find(q => q.id === answer.questionId);
+    return {
+          question_id: answer.questionId,
+          question_text: question?.question || '',
+          selected_option: answer.selected,
+          option_weight: answer.weight
+        };
+      });
+
+      const assessmentData: Omit<AssessmentResponse, 'id' | 'created_at' | 'updated_at'> = {
+        assessment_type: 'sme',
+        user_name: name.trim(),
+        user_email: email.trim(),
+        user_phone: phone.trim() || undefined,
+        total_score: totalWeight,
+        readiness_score: scoreMeta.readiness,
+        readiness_label: scoreMeta.label,
+        responses: questionResponses
+      };
+
+      await saveAssessmentResponse(assessmentData);
+      console.log('Assessment data saved successfully');
+    } catch (error) {
+      console.error('Failed to save assessment data:', error);
+      // You might want to show a toast notification here
+    }
+  };
 
   const progressPct = useMemo(() => {
     const completed = Math.min(step, QUESTIONS.length);
@@ -414,7 +446,10 @@ const SMEEligibility = () => {
                   <div className="flex justify-center">
               <Button 
                       disabled={!canCreateReport}
-                      onClick={() => setShowReport(true)}
+                      onClick={async () => {
+                        await saveAssessmentData();
+                        setShowReport(true);
+                      }}
                       className="bg-evernile-red text-evernile-red-foreground"
                     >
                       Generate SME IPO Readiness Assessment Report

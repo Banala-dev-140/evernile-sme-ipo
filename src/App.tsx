@@ -8,6 +8,7 @@ import NSEEmerge from "./pages/NSEEmerge";
 import SMEEligibility from "./pages/SMEEligibility";
 import Results from "./pages/Results";
 import MainboardEligibility from "./pages/MainboardEligibility";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/sme-eligibility" element={<SMEEligibility />} />
           <Route path="/mainboard-eligibility" element={<MainboardEligibility />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
