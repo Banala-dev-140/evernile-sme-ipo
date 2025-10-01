@@ -12,11 +12,28 @@ export interface EmailData {
 
 export const sendAssessmentReport = async (emailData: EmailData): Promise<boolean> => {
   try {
+    // Try API first (production)
+    const apiSuccess = await sendAssessmentReportViaAPI(emailData);
+    if (apiSuccess) {
+      return true;
+    }
+    
+    // Fallback to mailto if API fails
+    console.warn('API email failed, falling back to mailto');
+    return sendAssessmentReportMailto(emailData);
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    // Fallback to mailto
+    return sendAssessmentReportMailto(emailData);
+  }
+};
+
+// Fallback mailto function
+const sendAssessmentReportMailto = async (emailData: EmailData): Promise<boolean> => {
+  try {
     // Create the email content
     const emailContent = generateEmailContent(emailData);
     
-    // For now, we'll use a simple approach with mailto
-    // In production, you'd integrate with an email service like SendGrid, AWS SES, etc.
     const subject = `${emailData.assessmentType.toUpperCase()} IPO Readiness Assessment Report`;
     const body = emailContent;
     
@@ -32,7 +49,7 @@ export const sendAssessmentReport = async (emailData: EmailData): Promise<boolea
     
     return true;
   } catch (error) {
-    console.error('Failed to send email:', error);
+    console.error('Failed to send email via mailto:', error);
     return false;
   }
 };
@@ -105,26 +122,37 @@ This email was generated automatically from the IPO Readiness Assessment Tool.
   `.trim();
 };
 
-// Alternative: Integration with email service (for production)
+// Production API integration
 export const sendAssessmentReportViaAPI = async (emailData: EmailData): Promise<boolean> => {
   try {
-    // This would integrate with your backend API that handles email sending
-    // Example with a hypothetical API endpoint
-    const response = await fetch('/api/send-assessment-report', {
+    const API_URL = import.meta.env.VITE_EMAIL_API_URL || 'http://localhost:3001';
+    
+    const response = await fetch(`${API_URL}/api/send-assessment-report`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         to: emailData.to,
-        from: 'bdinesh@evernile.com',
-        subject: `${emailData.assessmentType.toUpperCase()} IPO Readiness Assessment Report`,
-        html: generateEmailHTML(emailData),
-        text: generateEmailContent(emailData)
+        userName: emailData.userName,
+        assessmentType: emailData.assessmentType,
+        readinessScore: emailData.readinessScore,
+        readinessLabel: emailData.readinessLabel,
+        totalScore: emailData.totalScore,
+        dynamicPoints: emailData.dynamicPoints,
+        closingMessage: emailData.closingMessage
       })
     });
 
-    return response.ok;
+    const result = await response.json();
+    
+    if (result.success) {
+      console.log('Email sent successfully:', result.messageId);
+      return true;
+    } else {
+      console.error('Email sending failed:', result.error);
+      return false;
+    }
   } catch (error) {
     console.error('Failed to send email via API:', error);
     return false;
