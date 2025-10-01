@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import evernileLogo from "@/assets/evernile-logo.png";
-import { Info } from "lucide-react";
+import { Info, ArrowLeft } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useNavigate } from "react-router-dom";
 
 type Option = { text: string; weight: number };
 type Q = { id: number; question: string; options: Option[] };
@@ -152,19 +152,21 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   return points;
 }
 
-const OptionBox = ({ selected, onClick, text }: { selected: boolean; onClick: () => void; text: string }) => (
+const OptionBox = ({ selected, onClick, text, letter }: { selected: boolean; onClick: () => void; text: string; letter: string }) => (
   <button
     type="button"
     onClick={onClick}
-    className={`w-full rounded-md border px-4 py-3 text-left transition ${
+    className={`w-full rounded-md border px-4 py-3 text-left transition flex items-center gap-3 ${
       selected ? "border-evernile-navy bg-evernile-navy/10" : "border-gray-300 hover:border-evernile-navy/60"
     }`}
   >
-    {text}
+    <span className="font-medium text-evernile-navy">{letter}.</span>
+    <span>{text}</span>
   </button>
 );
 
 const SMEEligibility = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState<number>(0); // 0..QUESTIONS.length then contact
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const [name, setName] = useState<string>("");
@@ -200,46 +202,64 @@ const SMEEligibility = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header with larger logo and book consultation on report page */}
+      {/* Header with back button, logo, and title */}
       <header className="border-b border-gray-200 bg-white">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <img src={evernileLogo} alt="Evernile Capital" className="h-10 md:h-12 w-auto" />
-            {showReport ? (
-              <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-9 px-4">Book consultation</Button>
-              </a>
-            ) : (
-              <div className="w-48 md:w-80">
-                <div className="h-2 w-full rounded-full bg-gray-200">
-                  <div
-                    className="h-2 rounded-full bg-evernile-red transition-all"
-                    style={{ width: `${progressPct}%` }}
-                  />
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" onClick={() => navigate('/')} className="text-evernile-navy hover:text-evernile-navy/80">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Home
+              </Button>
+              <div className="h-6 border-l border-gray-300" />
+              <div className="flex flex-col items-center">
+                <div className="text-xl font-bold text-evernile-navy">EVERNILE</div>
+                <div className="flex items-center gap-2">
+                  <div className="h-0.5 w-6 bg-evernile-red"></div>
+                  <div className="text-xs text-evernile-navy">CAPITAL</div>
+                  <div className="h-0.5 w-6 bg-evernile-red"></div>
                 </div>
-                <div className="mt-1 text-[10px] text-right text-muted-foreground">{progressPct}%</div>
+              </div>
             </div>
-            )}
+            <div className="text-lg font-semibold text-evernile-navy">
+              SME IPO Readiness Assessment
+            </div>
           </div>
         </div>
       </header>
+
+      {/* Progress Bar */}
+      {!showReport && (
+        <div className="border-b border-gray-200 bg-white">
+          <div className="container mx-auto px-4 py-2">
+            <div className="h-2 w-full rounded-full bg-gray-200">
+              <div
+                className="h-2 rounded-full bg-evernile-red transition-all"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="container mx-auto px-4 py-10">
         <div className="max-w-2xl mx-auto">
           <Card className="bg-white">
             <CardHeader>
-              <CardTitle className="text-2xl">{showReport ? "SME IPO Readiness Assessment Report" : "SME IPO Readiness Assessment"}</CardTitle>
+              <CardTitle className="text-2xl">{showReport ? "SME IPO Readiness Assessment Report" : ""}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {!showReport && step < QUESTIONS.length && current && (
-                <div className="space-y-4 min-h-[50vh] flex flex-col justify-center">
-                  <div className="text-lg font-medium flex items-center gap-2 justify-center text-center">
+                <div className="space-y-6">
+                  <div className="text-xl font-bold text-left flex items-center gap-2">
                     {current.question}
                     {current.id === 3 && (
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Info className="h-4 w-4 text-evernile-navy/70" />
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                              <Info className="h-4 w-4 text-evernile-navy/70" />
+                            </Button>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>Debt-to-Equity ratio measures the relative proportion of debt and equity used to finance a company's assets.</p>
@@ -249,21 +269,22 @@ const SMEEligibility = () => {
                     )}
                   </div>
                   <div className="space-y-3">
-                    {current.options.map((o) => (
+                    {current.options.map((o, index) => (
                       <OptionBox
                         key={o.text}
                         text={o.text}
+                        letter={String.fromCharCode(97 + index)}
                         selected={answers[current.id]?.selected === o.text}
                         onClick={() => onSelect(current, o)}
                       />
                     ))}
-                              </div>
+                  </div>
                   <div className="flex justify-end pt-2">
                     <Button onClick={onNext} disabled={!canNext} className="bg-evernile-navy text-white">
                       Next
                     </Button>
-                            </div>
-                          </div>
+                  </div>
+                </div>
               )}
 
               {!showReport && step === QUESTIONS.length && (
@@ -286,13 +307,13 @@ const SMEEligibility = () => {
             </div>
 
                   <div className="flex justify-end">
-              <Button 
+                    <Button
                       disabled={!canCreateReport}
                       onClick={() => setShowReport(true)}
                       className="bg-evernile-red text-evernile-red-foreground"
                     >
-                      Create SME IPO Readiness Assessment report
-              </Button>
+                      Generate SME IPO Readiness Assessment Report
+                    </Button>
             </div>
           </div>
               )}
@@ -348,6 +369,13 @@ const SMEEligibility = () => {
           </Card>
         </div>
       </main>
+
+      {/* Copyright Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };

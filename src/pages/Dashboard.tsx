@@ -2,7 +2,6 @@ import { Gauge, ListChecks, ClipboardCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import evernileLogo from "@/assets/evernile-logo.png";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -13,7 +12,14 @@ const Dashboard = () => {
       <header className="border-b border-gray-200 bg-white">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <img src={evernileLogo} alt="Evernile Capital" className="h-10 w-auto" />
+            <div className="flex flex-col items-center">
+              <div className="text-2xl font-bold text-evernile-navy">EVERNILE</div>
+              <div className="flex items-center gap-2">
+                <div className="h-0.5 w-8 bg-evernile-red"></div>
+                <div className="text-sm text-evernile-navy">CAPITAL</div>
+                <div className="h-0.5 w-8 bg-evernile-red"></div>
+              </div>
+            </div>
             <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
               <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-9 px-4">
                 Book session
@@ -24,7 +30,7 @@ const Dashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 min-h-[calc(100vh-72px)] flex flex-col">
+      <main className="container mx-auto px-4 py-12 min-h-[calc(100vh-144px)] flex flex-col">
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
             IPO Readiness Assessment
@@ -110,6 +116,13 @@ const Dashboard = () => {
           </a>
         </div>
       </main>
+
+      {/* Copyright Footer */}
+      <footer className="bg-evernile-navy py-4">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-white">Copyright © 2025 Evernile. All Rights Reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };
