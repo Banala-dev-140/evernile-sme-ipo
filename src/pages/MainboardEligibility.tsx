@@ -7,6 +7,7 @@ import { Info, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { saveAssessmentResponse, type AssessmentResponse, type QuestionResponse } from "@/lib/supabase";
+import { sendAssessmentReport, type EmailData } from "@/lib/emailService";
 
 type Option = { text: string; weight: number };
 type Q = { id: number; question: string; options: Option[] };
@@ -130,6 +131,7 @@ const MainboardEligibility = () => {
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [showReport, setShowReport] = useState<boolean>(false);
+  const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
 
   const allAnswered = useMemo(() => Object.keys(answers).length === QUESTIONS.length, [answers]);
   const current = QUESTIONS[step];
@@ -158,15 +160,12 @@ const MainboardEligibility = () => {
 
   const saveAssessmentData = async () => {
     try {
-      const questionResponses: QuestionResponse[] = answerList.map(answer => {
-        const question = QUESTIONS.find(q => q.id === answer.questionId);
-        return {
-          question_id: answer.questionId,
-          question_text: question?.question || '',
-          selected_option: answer.selected,
-          option_weight: answer.weight
-        };
-      });
+      // Map answers to individual columns
+      const q1 = answers[1];
+      const q2 = answers[2];
+      const q3 = answers[3];
+      const q4 = answers[4];
+      const q5 = answers[5];
 
       const assessmentData: Omit<AssessmentResponse, 'id' | 'created_at' | 'updated_at'> = {
         assessment_type: 'mainboard',
@@ -176,7 +175,18 @@ const MainboardEligibility = () => {
         total_score: totalWeight,
         readiness_score: scoreMeta.readiness,
         readiness_label: scoreMeta.label,
-        responses: questionResponses
+        
+        // Mainboard IPO Questions
+        q1_type_of_company: q1?.selected,
+        q1_type_of_company_weight: q1?.weight,
+        q2_business_existence: q2?.selected,
+        q2_business_existence_weight: q2?.weight,
+        q3_paid_up_capital: q3?.selected,
+        q3_paid_up_capital_weight: q3?.weight,
+        q4_ipo_filing_timeline: q4?.selected,
+        q4_ipo_filing_timeline_weight: q4?.weight,
+        q5_pat_net_profit: q5?.selected,
+        q5_pat_net_profit_weight: q5?.weight
       };
 
       await saveAssessmentResponse(assessmentData);
@@ -184,6 +194,29 @@ const MainboardEligibility = () => {
     } catch (error) {
       console.error('Failed to save assessment data:', error);
       // You might want to show a toast notification here
+    }
+  };
+
+  const sendEmailReport = async () => {
+    try {
+      const emailData: EmailData = {
+        to: email.trim(),
+        userName: name.trim(),
+        assessmentType: 'mainboard',
+        readinessScore: scoreMeta.readiness,
+        readinessLabel: scoreMeta.label,
+        totalScore: totalWeight,
+        dynamicPoints: dynamicPoints,
+        closingMessage: closingMessage(scoreMeta.readiness)
+      };
+
+      const success = await sendAssessmentReport(emailData);
+      if (success) {
+        setIsEmailSent(true);
+        setShowReport(true);
+      }
+    } catch (error) {
+      console.error('Failed to send email report:', error);
     }
   };
 
@@ -363,32 +396,33 @@ const MainboardEligibility = () => {
                       disabled={!canCreateReport}
                       onClick={async () => {
                         await saveAssessmentData();
-                        setShowReport(true);
+                        await sendEmailReport();
                       }}
                       className="bg-evernile-red text-evernile-red-foreground"
                     >
-                      Generate IPO Readiness Assessment Report
+                      Generate & Email IPO Readiness Assessment Report
                     </Button>
                   </div>
                 </div>
               )}
 
               {showReport && (
-                <div className="space-y-6">
-                  <AnimatedGauge score={scoreMeta.readiness} />
-
-                  <div className="text-lg font-bold text-center text-evernile-navy">{scoreMeta.label}</div>
-                  <div className="pt-2">
-                    <div className="font-medium mb-2">Assessment:</div>
-                    <ul className="list-disc pl-5 space-y-1">
-                      {dynamicPoints.map((p) => (
-                        <li key={p}>{p}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="pt-2">
-                    <div className="font-medium mb-1">Summary</div>
-                    <p>{closingMessage(scoreMeta.readiness)}</p>
+                <div className="space-y-6 text-center">
+                  <div className="space-y-4">
+                    <div className="text-6xl">📧</div>
+                    <h2 className="text-2xl font-bold text-evernile-navy">Report Sent Successfully!</h2>
+                    <p className="text-lg text-gray-600">
+                      Your Mainboard IPO Readiness Assessment report has been sent to <strong>{email}</strong>
+                    </p>
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800">
+                        <strong>Readiness Score:</strong> {scoreMeta.readiness} out of 5<br/>
+                        <strong>Readiness Level:</strong> {scoreMeta.label}
+                      </p>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      Please check your email inbox (and spam folder) for the detailed report.
+                    </p>
                   </div>
                   
                   {/* Book Readiness Call and Contact Details side by side */}

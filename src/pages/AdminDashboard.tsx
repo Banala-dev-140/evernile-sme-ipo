@@ -38,7 +38,28 @@ const AdminDashboard = () => {
       'Readiness Score': response.readiness_score,
       'Readiness Label': response.readiness_label,
       'Created At': new Date(response.created_at || '').toLocaleString(),
-      'Responses': JSON.stringify(response.responses)
+      
+      // Mainboard IPO Questions
+      'Q1 - Type of Company': response.q1_type_of_company || '',
+      'Q1 - Type Weight': response.q1_type_of_company_weight || '',
+      'Q2 - Business Existence': response.q2_business_existence || '',
+      'Q2 - Business Weight': response.q2_business_existence_weight || '',
+      'Q3 - Paid up Capital': response.q3_paid_up_capital || '',
+      'Q3 - Capital Weight': response.q3_paid_up_capital_weight || '',
+      'Q4 - IPO Filing Timeline': response.q4_ipo_filing_timeline || '',
+      'Q4 - Timeline Weight': response.q4_ipo_filing_timeline_weight || '',
+      'Q5 - PAT/Net Profit': response.q5_pat_net_profit || '',
+      'Q5 - Profit Weight': response.q5_pat_net_profit_weight || '',
+      
+      // SME IPO Questions
+      'Q3 - D/E Ratio': response.q3_debt_equity_ratio || '',
+      'Q3 - D/E Weight': response.q3_debt_equity_ratio_weight || '',
+      'Q4 - Net Worth': response.q4_net_worth || '',
+      'Q4 - Net Worth Weight': response.q4_net_worth_weight || '',
+      'Q5 - Operating Profit': response.q5_operating_profit || '',
+      'Q5 - Operating Weight': response.q5_operating_profit_weight || '',
+      'Q6 - Net Tangible Assets': response.q6_net_tangible_assets || '',
+      'Q6 - Assets Weight': response.q6_net_tangible_assets_weight || ''
     }));
 
     const csvContent = [

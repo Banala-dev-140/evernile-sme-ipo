@@ -15,7 +15,29 @@ export interface AssessmentResponse {
   total_score: number
   readiness_score: number
   readiness_label: string
-  responses: QuestionResponse[]
+  
+  // Mainboard IPO Questions (5 questions)
+  q1_type_of_company?: string
+  q1_type_of_company_weight?: number
+  q2_business_existence?: string
+  q2_business_existence_weight?: number
+  q3_paid_up_capital?: string
+  q3_paid_up_capital_weight?: number
+  q4_ipo_filing_timeline?: string
+  q4_ipo_filing_timeline_weight?: number
+  q5_pat_net_profit?: string
+  q5_pat_net_profit_weight?: number
+  
+  // SME IPO Questions (7 questions)
+  q3_debt_equity_ratio?: string
+  q3_debt_equity_ratio_weight?: number
+  q4_net_worth?: string
+  q4_net_worth_weight?: number
+  q5_operating_profit?: string
+  q5_operating_profit_weight?: number
+  q6_net_tangible_assets?: string
+  q6_net_tangible_assets_weight?: number
+  
   created_at?: string
   updated_at?: string
 }
