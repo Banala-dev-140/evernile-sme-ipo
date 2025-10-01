@@ -22,7 +22,7 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 2,
-    question: "Business existence period",
+    question: "The Business has been in existence for",
     options: [
       { text: "Under 2 years", weight: 2 },
       { text: "Under 3 years", weight: 3 },
@@ -31,7 +31,7 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 3,
-    question: "Debt-to-Equity (D/E) Ratio",
+    question: "What is the Debt-to-Equity (D/E) Ratio of the company",
     options: [
       { text: "Less than or equal to 3:1", weight: 4 },
       { text: "More than 3:1", weight: 2 },
@@ -40,7 +40,7 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 4,
-    question: "Net Worth in preceding financial year",
+    question: "Net Worth of the company in the preceding financial year",
     options: [
       { text: "Not Yet Positive", weight: 1 },
       { text: "Less than 1 Crore", weight: 2 },
@@ -50,7 +50,7 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 5,
-    question: "Operating profit positive for last 2 out of 3 financial years",
+    question: "Is operating profit positive for last 2 out of 3 financial years",
     options: [
       { text: "Yes", weight: 4 },
       { text: "No", weight: 2 },
@@ -59,7 +59,7 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 6,
-    question: "Net Tangible Assets",
+    question: "Net Tangible Assets of the company",
     options: [
       { text: "More than 3 Crore", weight: 3 },
       { text: "Less than 3 Crore", weight: 2 },
@@ -89,15 +89,15 @@ function mapScore(total: number): { readiness: number; label: string } {
 
 function closingMessage(score: number): string {
   if (score === 4.5) {
-    return "Based on the assessment, your company shows high SME IPO readiness. Book a consultation with our experts to discuss next steps and detailed evaluation.";
+    return "Based on the data provided in the assessment, your company has a high IPO readiness. To understand how to proceed ahead with the SME IPO, please book a Readiness call with our team.";
   } else if (score === 4.0) {
-    return "Based on the assessment, your company has good SME IPO readiness. Please book a consultation to move forward with confidence.";
+    return "Based on the data provided in the assessment, your company has a good IPO readiness. To understand how to proceed ahead with the SME IPO, please book a Readiness call with our team.";
   } else if (score === 3.5) {
-    return "Based on the assessment, your company shows moderate SME IPO readiness. Schedule a consultation for tailored guidance.";
+    return "Based on the data provided in the assessment, your company shows moderate IPO readiness. To explore the next steps and improve readiness, please book a Readiness call with our team.";
   } else if (score === 3.0) {
-    return "Based on the assessment, your company has basic SME IPO readiness. Book a consultation for strategy to enhance compliance.";
+    return "Based on the data provided in the assessment, your company has basic IPO readiness. We recommend booking a Readiness call with our team to assist in progressing further.";
   }
-  return "Based on the assessment, your company needs to improve SME IPO readiness. Consult our advisory team for focused planning.";
+  return "Based on the data provided in the assessment, your company needs to enhance its IPO readiness. To understand how to strengthen your position, please book a Readiness call with our team.";
 }
 
 function generateDynamicPoints(answers: Answer[]): string[] {
@@ -203,26 +203,26 @@ const SMEEligibility = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header with back button, logo, and title */}
-      <header className="border-b border-gray-200 bg-white">
+        <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4">
               <Button variant="ghost" onClick={() => navigate('/')} className="text-evernile-navy hover:text-evernile-navy/80">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Home
               </Button>
-              <div className="h-6 border-l border-gray-300" />
-              <div className="flex flex-col items-center">
-                <div className="text-xl font-bold text-evernile-navy">EVERNILE</div>
-                <div className="flex items-center gap-2">
-                  <div className="h-0.5 w-6 bg-evernile-red"></div>
-                  <div className="text-xs text-evernile-navy">CAPITAL</div>
-                  <div className="h-0.5 w-6 bg-evernile-red"></div>
+                <div className="h-6 border-l border-gray-300" />
+                <div className="flex flex-col items-center">
+                  <div className="text-xl font-bold text-evernile-navy">EVERNILE</div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-0.5 w-6 bg-evernile-red"></div>
+                    <div className="text-xs text-evernile-navy">CAPITAL</div>
+                    <div className="h-0.5 w-6 bg-evernile-red"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="text-lg font-semibold text-evernile-navy">
-              SME IPO Readiness Assessment
+              <div className="text-lg font-semibold text-evernile-navy">
+                SME IPO Readiness Assessment
             </div>
           </div>
         </div>
@@ -236,10 +236,10 @@ const SMEEligibility = () => {
               <div
                 className="h-2 rounded-full bg-evernile-red transition-all"
                 style={{ width: `${progressPct}%` }}
-              />
-            </div>
+            />
           </div>
         </div>
+      </div>
       )}
 
       <main className="container mx-auto px-4 py-10">
@@ -262,12 +262,54 @@ const SMEEligibility = () => {
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Debt-to-Equity ratio measures the relative proportion of debt and equity used to finance a company's assets.</p>
+                            <p>Debt-to-Equity ratio measures the relative proportion of debt and equity used to finance a company's assets. Formula: Total Debt / Total Equity.</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
                     )}
-                  </div>
+                    {current.id === 4 && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                              <Info className="h-4 w-4 text-evernile-navy/70" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Net Worth is the value of assets minus liabilities. Formula: Total Assets - Total Liabilities.</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                    {current.id === 5 && (
+                      <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                              <Info className="h-4 w-4 text-evernile-navy/70" />
+                                    </Button>
+                                  </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Operating profit is the profit earned from core business operations. Formula: Revenue - Operating Expenses.</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                      </TooltipProvider>
+                    )}
+                    {current.id === 6 && (
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                              <Info className="h-4 w-4 text-evernile-navy/70" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Net Tangible Assets are physical assets minus intangible assets and liabilities. Formula: Total Tangible Assets - Total Liabilities.</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                              )}
+                            </div>
                   <div className="space-y-3">
                     {current.options.map((o, index) => (
                       <OptionBox
@@ -278,13 +320,13 @@ const SMEEligibility = () => {
                         onClick={() => onSelect(current, o)}
                       />
                     ))}
-                  </div>
+                              </div>
                   <div className="flex justify-end pt-2">
                     <Button onClick={onNext} disabled={!canNext} className="bg-evernile-navy text-white">
                       Next
                     </Button>
-                  </div>
-                </div>
+                            </div>
+                          </div>
               )}
 
               {!showReport && step === QUESTIONS.length && (
@@ -307,21 +349,19 @@ const SMEEligibility = () => {
             </div>
 
                   <div className="flex justify-end">
-                    <Button
+              <Button 
                       disabled={!canCreateReport}
                       onClick={() => setShowReport(true)}
                       className="bg-evernile-red text-evernile-red-foreground"
                     >
                       Generate SME IPO Readiness Assessment Report
-                    </Button>
+              </Button>
             </div>
           </div>
               )}
 
               {showReport && (
                 <div className="space-y-6">
-                  <div className="text-xl font-semibold text-center">SME IPO Readiness Score</div>
-
                   {/* Half gauge centered (thicker arc) */}
                   <div className="flex justify-center">
                     <div className="relative w-full max-w-2xl">
@@ -339,10 +379,10 @@ const SMEEligibility = () => {
                   </div>
 
                   <div className="text-center text-sm text-muted-foreground">
-                    Based on the assessment, your company's SME IPO readiness score is {scoreMeta.readiness.toFixed(1)} out of 5.
+                    Based on the assessment, your company's SME IPO readiness score is <span className="font-bold">{scoreMeta.readiness.toFixed(1)}</span> out of 5.
                   </div>
 
-                  <div className="text-sm text-muted-foreground text-center">{scoreMeta.label}</div>
+                  <div className="text-lg font-bold text-center text-evernile-navy">{scoreMeta.label}</div>
                   <div className="pt-2">
                     <div className="font-medium mb-2">Assessment:</div>
                     <ul className="list-disc pl-5 space-y-1">
@@ -354,14 +394,27 @@ const SMEEligibility = () => {
                   <div className="pt-2">
                     <div className="font-medium mb-1">Summary</div>
                     <p>{closingMessage(scoreMeta.readiness)}</p>
-                    <p className="mt-4 text-xs text-muted-foreground">
-                      This is an initial readiness assessment and is not a substitute for a comprehensive evaluation. For full eligibility verification, book a detailed advisory session.
-                    </p>
-                    <div className="mt-4">
+                  </div>
+                  
+                  {/* Book Readiness Call and Contact Details side by side */}
+                  <div className="flex flex-col md:flex-row gap-4 mt-6">
+                    <div className="flex-1 p-4 bg-evernile-red rounded-lg flex items-center justify-center">
                       <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                        <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground">Book consultation</Button>
+                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-sm font-medium">Book Readiness Call</Button>
                       </a>
                     </div>
+                    <div className="flex-1 p-4 bg-gray-50 rounded-lg">
+                      <div className="text-sm font-medium text-gray-700 mb-2">Contact Details:</div>
+                      <div className="text-sm text-gray-600">Email: bdinesh@evernile.com</div>
+                      <div className="text-sm text-gray-600">Mobile: +91-8889926196</div>
+                    </div>
+                  </div>
+                  
+                  {/* Disclaimer at the end */}
+                  <div className="mt-6 pt-4 border-t border-gray-200">
+                    <p className="text-xs text-muted-foreground text-center">
+                      This is an initial readiness assessment and is not a substitute for a comprehensive evaluation. For full eligibility verification, please book a free consultation with us.
+                    </p>
                   </div>
                 </div>
               )}
@@ -370,12 +423,14 @@ const SMEEligibility = () => {
         </div>
       </main>
 
-      {/* Copyright Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
-        </div>
-      </footer>
+      {/* Copyright Footer - only show on question pages */}
+      {!showReport && (
+        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
+          </div>
+        </footer>
+      )}
     </div>
   );
 };
