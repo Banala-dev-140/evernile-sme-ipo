@@ -212,6 +212,13 @@ const MainboardEligibility = () => {
   const sendEmailReport = async () => {
     setIsGeneratingReport(true);
     try {
+      // Debug: Log the data being sent
+      console.log('📧 Mainboard Email Data being sent:');
+      console.log('  - answerList:', answerList);
+      console.log('  - dynamicPoints:', dynamicPoints);
+      console.log('  - scoreMeta:', scoreMeta);
+      console.log('  - totalWeight:', totalWeight);
+
       const emailData: EmailData = {
         to: email.trim(),
         userName: name.trim(),
@@ -222,6 +229,8 @@ const MainboardEligibility = () => {
         dynamicPoints: dynamicPoints,
         closingMessage: closingMessage(scoreMeta.readiness)
       };
+
+      console.log('📧 Final email data:', emailData);
 
       const success = await sendAssessmentReport(emailData);
       if (success) {

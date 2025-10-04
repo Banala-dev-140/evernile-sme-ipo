@@ -35,6 +35,16 @@ app.post('/api/send-assessment-report', async (req, res) => {
   try {
     const { to, userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = req.body;
 
+    // Debug: Log received data
+    console.log('📧 Received email data:');
+    console.log('  - to:', to);
+    console.log('  - userName:', userName);
+    console.log('  - assessmentType:', assessmentType);
+    console.log('  - readinessScore:', readinessScore);
+    console.log('  - readinessLabel:', readinessLabel);
+    console.log('  - dynamicPoints:', dynamicPoints);
+    console.log('  - closingMessage:', closingMessage);
+
     // Validate required fields
     if (!to || !userName || !assessmentType || !readinessScore || !readinessLabel) {
       return res.status(400).json({ 
