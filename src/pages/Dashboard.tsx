@@ -117,7 +117,7 @@ const Dashboard = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-12 mb-8">
-          <p className="text-white mb-4">Need guidance with the assessment, book a session with us, our team will guide through the assessment</p>
+          <p className="text-white mb-4">Need support with your assessment? Book a session with our team for tailored guidance.</p>
           <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
             <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground">
               Book session
@@ -127,7 +127,7 @@ const Dashboard = () => {
       </main>
 
       {/* Copyright Footer */}
-      <footer className="bg-evernile-navy py-4">
+      <footer className="fixed bottom-0 left-0 right-0 bg-evernile-navy py-4 z-10">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-white">Copyright © 2025 Evernile. All Rights Reserved.</p>
         </div>

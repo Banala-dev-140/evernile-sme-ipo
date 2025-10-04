@@ -170,7 +170,7 @@ const generateEmailHTML = (data) => {
           color: #0284c7;
         }
         .next-steps {
-          background: #fef3c7;
+          background:rgb(253, 253, 253);
           padding: 20px;
           border-radius: 4px;
           border-left: 4px solid #f59e0b;

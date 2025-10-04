@@ -176,6 +176,7 @@ const SMEEligibility = () => {
   const [phone, setPhone] = useState<string>("");
   const [showReport, setShowReport] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
+  const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
 
   const allAnswered = useMemo(() => Object.keys(answers).length === QUESTIONS.length, [answers]);
   const current = QUESTIONS[step];
@@ -250,6 +251,7 @@ const SMEEligibility = () => {
   };
 
   const sendEmailReport = async () => {
+    setIsGeneratingReport(true);
     try {
       const emailData: EmailData = {
         to: email.trim(),
@@ -269,6 +271,8 @@ const SMEEligibility = () => {
       }
     } catch (error) {
       console.error('Failed to send email report:', error);
+    } finally {
+      setIsGeneratingReport(false);
     }
   };
 
@@ -467,7 +471,7 @@ const SMEEligibility = () => {
 
               {!showReport && step === QUESTIONS.length && (
                 <div className="space-y-4">
-                  <div className="text-lg font-semibold text-evernile-navy">Almost there! Please fill out few details and generate your Readiness Assessment Report.</div>
+                  <div className="text-lg font-semibold text-evernile-navy">Almost there! Please fill out few details and generate your IPO Readiness Assessment Report.</div>
                   <div className="text-lg font-medium">Your Details</div>
                   <div className="grid grid-cols-1 gap-4">
                     <div className="grid gap-1">
@@ -485,17 +489,24 @@ const SMEEligibility = () => {
             </div>
 
                   <div className="flex justify-center">
-                    <Button 
-                      disabled={!canCreateReport}
+              <Button 
+                      disabled={!canCreateReport || isGeneratingReport}
                       onClick={async () => {
                         await saveAssessmentData();
                         await sendEmailReport();
                       }}
                       className="bg-evernile-red text-evernile-red-foreground"
                     >
-                      Generate & Email SME IPO Readiness Assessment Report
-                    </Button>
-                  </div>
+                      {isGeneratingReport ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Generating Report...
+                        </div>
+                      ) : (
+                        "Generate & Email SME IPO Readiness Assessment Report"
+                      )}
+              </Button>
+            </div>
           </div>
               )}
 
@@ -522,7 +533,7 @@ const SMEEligibility = () => {
                   <div className="flex flex-col md:flex-row gap-4 mt-6">
                     <div className="flex-1 p-4 bg-evernile-red rounded-lg flex items-center justify-center">
                       <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-sm font-medium">Book Readiness Call</Button>
+                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-base font-medium">Book call with our IPO Expert</Button>
                       </a>
                     </div>
                     <div className="flex-1 p-4 bg-gray-50 rounded-lg">
@@ -545,14 +556,12 @@ const SMEEligibility = () => {
         </div>
       </main>
 
-      {/* Copyright Footer - only show on question pages */}
-      {!showReport && (
-        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4">
-          <div className="container mx-auto px-4 text-center">
-            <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
-          </div>
-        </footer>
-      )}
+      {/* Copyright Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4 z-10">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };

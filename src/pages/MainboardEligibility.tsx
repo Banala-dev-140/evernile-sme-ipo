@@ -20,22 +20,24 @@ const QUESTIONS: Q[] = [
       { text: "Public Limited", weight: 4 },
       { text: "Private Limited", weight: 4 },
       { text: "Partnership Firm", weight: 2 },
+      { text: "Proprietorship", weight: 2 },
     ],
   },
   {
     id: 2,
     question: "The Business is in existence for",
     options: [
-      { text: "Under 2 years", weight: 2 },
-      { text: "Under 3 years", weight: 3 },
-      { text: "More than 3 years", weight: 4 },
+      { text: "0 to 2 Years", weight: 2 },
+      { text: "2 to 3 Years", weight: 3 },
+      { text: "3 to 10 Years", weight: 4 },
+      { text: "More than 10 Years", weight: 4 },
     ],
   },
   {
     id: 3,
     question: "Paid up Capital of the company is",
     options: [
-      { text: "Less than 10 Cr", weight: 1 },
+      { text: "Less than 10 Crore", weight: 1 },
       { text: "Equal to or more than 10 Crore", weight: 3 },
       { text: "Don't Know", weight: 1 },
     ],
@@ -46,16 +48,17 @@ const QUESTIONS: Q[] = [
     options: [
       { text: "In one year", weight: 3 },
       { text: "In two years", weight: 2 },
-      { text: "Not Sure", weight: 1 },
+      { text: "Not sure", weight: 1 },
     ],
   },
   {
     id: 5,
     question: "PAT/Net profit of the company for the last financial Year",
     options: [
-      { text: "Less than 10 Cr", weight: 3 },
-      { text: "More than 10 Cr", weight: 4 },
-      { text: "Don't Know", weight: 1 },
+      { text: "0 to 5 Crore", weight: 3 },
+      { text: "5 to 10 Crore", weight: 4 },
+      { text: "More than 10 Crore", weight: 4 },
+      { text: "Don't know", weight: 1 },
     ],
   },
 ];
@@ -67,18 +70,18 @@ function mapScore(total: number): { readiness: number; label: string } {
   if (total >= 14) return { readiness: 4.0, label: "Good IPO Readiness" };
   if (total >= 11) return { readiness: 3.5, label: "Moderate IPO Readiness" };
   if (total >= 8) return { readiness: 3.0, label: "Basic IPO Readiness" };
-  return { readiness: 2.5, label: "Needs Improvement" };
+  return { readiness: 2.5, label: "Low Readiness" };
 }
 
 function closingMessage(score: number): string {
   if (score === 4.5) {
-    return "Based on the data provided in the assessment, your company has a high IPO readiness. To understand how to proceed ahead with the mainboard IPO, please book a Readiness call with our team.";
+    return "Based on the data provided in the assessment, your company has a high IPO readiness. To understand how to proceed ahead with the mainboard IPO, please book a Readiness call with our IPO Expert Team.";
   } else if (score === 4.0) {
-    return "Based on the data provided in the assessment, your company has a good IPO readiness. To understand how to proceed ahead with the mainboard IPO, please book a Readiness call with our team.";
+    return "Based on the data provided in the assessment, your company has a good IPO readiness. To understand how to proceed ahead with the mainboard IPO, please book a Readiness call with our IPO Expert Team.";
   } else if (score === 3.5) {
-    return "Based on the data provided in the assessment, your company shows moderate IPO readiness. To explore the next steps and improve readiness, please book a Readiness call with our team.";
+    return "Based on the data provided in the assessment, your company shows moderate IPO readiness. To explore the next steps and improve readiness, please book a Readiness call with our IPO Expert team.";
   } else if (score === 3.0) {
-    return "Based on the data provided in the assessment, your company has basic IPO readiness. We recommend booking a Readiness call with our team to assist in progressing further.";
+    return "Based on the data provided in the assessment, your company has basic IPO readiness. We recommend booking a Readiness call with our IPO Expert team to assist in progressing further.";
   }
   return "Based on the data provided in the assessment, your company needs to enhance its IPO readiness. To understand how to strengthen your position, please book a Readiness call with our team.";
 }
@@ -89,9 +92,9 @@ function generateDynamicPoints(answers: Answer[]): string[] {
 
   const q2 = byId.get(2);
   if (q2) {
-    if (q2.selected === "Under 2 years" || q2.selected === "Under 3 years") {
+    if (q2.selected === "0 to 2 Years" || q2.selected === "2 to 3 Years") {
       points.push("As per regulatory guideline a company should be in existence for 3 or more years");
-    } else if (q2.selected === "More than 3 years") {
+    } else if (q2.selected === "3 to 10 Years" || q2.selected === "More than 10 Years") {
       points.push("Your company fulfills the regulatory criteria of existence for more than 3 years");
     }
   }
@@ -99,11 +102,11 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   const q3 = byId.get(3);
   if (q3) {
     if (q3.selected === "Equal to or more than 10 Crore") {
-      points.push("Your company fulfills the regulatory criteria of having a paid-up capital of equal to or more than 10 Cr");
-    } else if (q3.selected === "Less than 10 Cr") {
-      points.push("As per regulations, a company needs to have paid-up capital equal to or more than 10 Cr");
-    } else if (q3.selected === "Don't Know") {
-      points.push("As per regulations, a company needs to have paid-up capital equal to or more than 10 Cr; to understand how to calculate this, please book a session with our team");
+      points.push("Your company fulfills the regulatory criteria of having a paid-up capital of equal to or more than 10 Crore");
+    } else if (q3.selected === "Less than 10 Crore") {
+      points.push("As per regulations, a company needs to have paid-up capital equal to or more than 10 Crore");
+    } else if (q3.selected === "Don't know") {
+      points.push("As per regulations, a company needs to have paid-up capital equal to or more than 10 Crore; to understand this please book a session with IPO expert team");
     }
   }
 
@@ -132,6 +135,7 @@ const MainboardEligibility = () => {
   const [phone, setPhone] = useState<string>("");
   const [showReport, setShowReport] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
+  const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
 
   const allAnswered = useMemo(() => Object.keys(answers).length === QUESTIONS.length, [answers]);
   const current = QUESTIONS[step];
@@ -198,6 +202,7 @@ const MainboardEligibility = () => {
   };
 
   const sendEmailReport = async () => {
+    setIsGeneratingReport(true);
     try {
       const emailData: EmailData = {
         to: email.trim(),
@@ -217,6 +222,8 @@ const MainboardEligibility = () => {
       }
     } catch (error) {
       console.error('Failed to send email report:', error);
+    } finally {
+      setIsGeneratingReport(false);
     }
   };
 
@@ -374,7 +381,7 @@ const MainboardEligibility = () => {
 
               {!showReport && step === QUESTIONS.length && (
                 <div className="space-y-4">
-                  <div className="text-lg font-semibold text-evernile-navy">Almost there! Please fill out few details and generate your Readiness Assessment Report.</div>
+                  <div className="text-lg font-semibold text-evernile-navy">Almost there! Please fill out few details and generate your IPO Readiness Assessment Report.</div>
                   <div className="text-lg font-medium">Your Details</div>
                   <div className="grid grid-cols-1 gap-4">
                     <div className="grid gap-1">
@@ -393,14 +400,21 @@ const MainboardEligibility = () => {
 
                   <div className="flex justify-center">
                     <Button
-                      disabled={!canCreateReport}
+                      disabled={!canCreateReport || isGeneratingReport}
                       onClick={async () => {
                         await saveAssessmentData();
                         await sendEmailReport();
                       }}
                       className="bg-evernile-red text-evernile-red-foreground"
                     >
-                      Generate & Email IPO Readiness Assessment Report
+                      {isGeneratingReport ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Generating Report...
+                        </div>
+                      ) : (
+                        "Generate & Email IPO Readiness Assessment Report"
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -429,7 +443,7 @@ const MainboardEligibility = () => {
                   <div className="flex flex-col md:flex-row gap-4 mt-6">
                     <div className="flex-1 p-4 bg-evernile-red rounded-lg flex items-center justify-center">
                       <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-sm font-medium">Book Readiness Call</Button>
+                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-base font-medium">Book call with our IPO Expert</Button>
                       </a>
                     </div>
                     <div className="flex-1 p-4 bg-gray-50 rounded-lg">
@@ -452,14 +466,12 @@ const MainboardEligibility = () => {
         </div>
       </main>
 
-      {/* Copyright Footer - only show on question pages */}
-      {!showReport && (
-        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4">
-          <div className="container mx-auto px-4 text-center">
-            <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
-          </div>
-        </footer>
-      )}
+      {/* Copyright Footer */}
+      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4 z-10">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };
