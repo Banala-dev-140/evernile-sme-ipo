@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Info, ArrowLeft } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { saveAssessmentResponse, type AssessmentResponse, type QuestionResponse } from "@/lib/supabase";
 import { sendAssessmentReport, type EmailData } from "@/lib/emailService";
@@ -20,15 +21,17 @@ const QUESTIONS: Q[] = [
       { text: "Public Limited", weight: 4 },
       { text: "Private Limited", weight: 4 },
       { text: "Partnership Firm", weight: 2 },
+      { text: "Proprietorship", weight: 2 },
     ],
   },
   {
     id: 2,
     question: "The Business has been in existence for",
     options: [
-      { text: "Under 2 years", weight: 2 },
-      { text: "Under 3 years", weight: 3 },
-      { text: "More than 3 years", weight: 4 },
+      { text: "0 to 2 years", weight: 2 },
+      { text: "2 to 3 years", weight: 3 },
+      { text: "3 to 10 years", weight: 4 },
+      { text: "More than 10 years", weight: 4 },
     ],
   },
   {
@@ -37,7 +40,7 @@ const QUESTIONS: Q[] = [
     options: [
       { text: "Less than or equal to 3:1", weight: 4 },
       { text: "More than 3:1", weight: 2 },
-      { text: "Don't Know", weight: 2 },
+      { text: "Don't know", weight: 2 },
     ],
   },
   {
@@ -48,6 +51,7 @@ const QUESTIONS: Q[] = [
       { text: "Less than 1 Crore", weight: 2 },
       { text: "1 to 5 Crore", weight: 3 },
       { text: "More than 5 Crore", weight: 4 },
+      { text: "Don't know", weight: 1 },
     ],
   },
   {
@@ -74,7 +78,7 @@ const QUESTIONS: Q[] = [
     options: [
       { text: "In one year", weight: 3 },
       { text: "In two years", weight: 2 },
-      { text: "Not Sure", weight: 1 },
+      { text: "Not sure", weight: 1 },
     ],
   },
 ];
@@ -86,20 +90,20 @@ function mapScore(total: number): { readiness: number; label: string } {
   if (total >= 20) return { readiness: 4.0, label: "Good Readiness" };
   if (total >= 17) return { readiness: 3.5, label: "Moderate Readiness" };
   if (total >= 14) return { readiness: 3.0, label: "Basic Readiness" };
-  return { readiness: 2.5, label: "Needs Improvement" };
+  return { readiness: 2.5, label: "Low Readiness" };
 }
 
 function closingMessage(score: number): string {
   if (score === 4.5) {
-    return "Based on the data provided in the assessment, your company has a high IPO readiness. To understand how to proceed ahead with the SME IPO, please book a Readiness call with our team.";
+    return "Based on the data provided in the assessment, your company has a high IPO readiness. To understand how to proceed ahead with the SME IPO, please book a Readiness call with our IPO experts.";
   } else if (score === 4.0) {
-    return "Based on the data provided in the assessment, your company has a good IPO readiness. To understand how to proceed ahead with the SME IPO, please book a Readiness call with our team.";
+    return "Based on the data provided in the assessment, your company has a good IPO readiness. To understand how to proceed ahead with the SME IPO, please book a Readiness call with our IPO experts.";
   } else if (score === 3.5) {
-    return "Based on the data provided in the assessment, your company shows moderate IPO readiness. To explore the next steps and improve readiness, please book a Readiness call with our team.";
+    return "Based on the data provided in the assessment, your company shows moderate IPO readiness. To explore the next steps and improve readiness, please book a Readiness call with our IPO experts.";
   } else if (score === 3.0) {
-    return "Based on the data provided in the assessment, your company has basic IPO readiness. We recommend booking a Readiness call with our team to assist in progressing further.";
+    return "Based on the data provided in the assessment, your company has basic IPO readiness. We recommend booking a Readiness call with our IPO experts to assist in progressing further.";
   }
-  return "Based on the data provided in the assessment, your company needs to enhance its IPO readiness. To understand how to strengthen your position, please book a Readiness call with our team.";
+  return "Based on the data provided in the assessment, your company needs to enhance its IPO readiness. To understand how to strengthen your position, please book a Readiness call with our IPO experts.";
 }
 
 function generateDynamicPoints(answers: Answer[]): string[] {
@@ -108,9 +112,9 @@ function generateDynamicPoints(answers: Answer[]): string[] {
 
   const q2 = byId.get(2);
   if (q2) {
-    if (q2.selected === "More than 3 years") {
+    if (q2.selected === "3 to 10 years" || q2.selected === "More than 10 years") {
       points.push("Your company meets the SME IPO minimum operational history requirement of 3 years.");
-      } else {
+    } else {
       points.push("Building a consistent operational history of at least 3 years is essential to qualify for SME IPO listing.");
     }
   }
@@ -119,8 +123,10 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   if (q3) {
     if (q3.selected === "Less than or equal to 3:1") {
       points.push("Your company's leverage is within the optimal range, meeting regulatory financial strength standards.");
-    } else {
+    } else if (q3.selected === "More than 3:1") {
       points.push("Optimizing your debt-to-equity ratio will enhance financial stability and improve SME IPO eligibility.");
+    } else if (q3.selected === "Don't know") {
+      points.push("Debt to Equity Ratio is an important metric for SME IPO eligibility - book a call with IPO expert team to find your Debt to Equity Ratio");
     }
   }
 
@@ -128,8 +134,10 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   if (q4) {
     if (q4.selected === "1 to 5 Crore" || q4.selected === "More than 5 Crore") {
       points.push("Your net worth satisfies the minimum requirement for SME IPO listing eligibility.");
-    } else {
+    } else if (q4.selected === "Not Yet Positive" || q4.selected === "Less than 1 Crore") {
       points.push("Enhancing your net worth to meet or exceed ₹1 Crore will improve your SME IPO readiness.");
+    } else if (q4.selected === "Don't know") {
+      points.push("Net worth is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Net worth");
     }
   }
 
@@ -137,8 +145,10 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   if (q5) {
     if (q5.selected === "Yes") {
       points.push("Your profitability track record supports the operational viability required for SME IPO.");
-    } else {
+    } else if (q5.selected === "No") {
       points.push("Strengthening profitability for consecutive years is important to align with SME IPO standards.");
+    } else if (q5.selected === "Don't know") {
+      points.push("Operating Profit is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Operating Profit");
     }
   }
 
@@ -146,8 +156,10 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   if (q6) {
     if (q6.selected === "More than 3 Crore") {
       points.push("Your net tangible assets meet SME IPO listing requirements.");
-    } else {
+    } else if (q6.selected === "Less than 3 Crore") {
       points.push("Increasing net tangible assets will help meet the SME IPO eligibility threshold.");
+    } else if (q6.selected === "Don't know") {
+      points.push("Net Tangible Assets is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Net Tangible Assets");
     }
   }
 
@@ -177,6 +189,8 @@ const SMEEligibility = () => {
   const [showReport, setShowReport] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
   const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
+  const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
+  const [infoContent, setInfoContent] = useState<{ title: string; description: string; formula: string } | null>(null);
 
   const allAnswered = useMemo(() => Object.keys(answers).length === QUESTIONS.length, [answers]);
   const current = QUESTIONS[step];
@@ -195,6 +209,11 @@ const SMEEligibility = () => {
     if (current && !canNext) return;
     if (step < QUESTIONS.length - 1) setStep(step + 1);
     else setStep(QUESTIONS.length); // contact step
+  };
+
+  const openInfoModal = (title: string, description: string, formula: string) => {
+    setInfoContent({ title, description, formula });
+    setInfoModalOpen(true);
   };
 
   const onPrevious = () => {
@@ -383,60 +402,60 @@ const SMEEligibility = () => {
                     <div className="text-xl font-bold text-left flex items-center gap-2">
                       {current.question}
                     {current.id === 3 && (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                              <Info className="h-4 w-4 text-evernile-navy/70" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Debt-to-Equity ratio measures the relative proportion of debt and equity used to finance a company's assets. Formula: Total Debt / Total Equity.</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 w-6 p-0"
+                        onClick={() => openInfoModal(
+                          "Debt-to-Equity (D/E) Ratio",
+                          "The Debt-to-Equity (D/E) Ratio is a financial metric that measures a company's financial leverage by comparing its total debt to its shareholder equity.",
+                          "Debt-to-Equity Ratio = Total Debt / Shareholders' Equity"
+                        )}
+                      >
+                        <Info className="h-4 w-4 text-evernile-navy/70" />
+                      </Button>
                     )}
                     {current.id === 4 && (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                              <Info className="h-4 w-4 text-evernile-navy/70" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Net Worth is the value of assets minus liabilities. Formula: Total Assets - Total Liabilities.</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 w-6 p-0"
+                        onClick={() => openInfoModal(
+                          "Net Worth",
+                          "Net worth is the value of a company's assets minus its liabilities.",
+                          "Net Worth = Total Assets − Total Liabilities"
+                        )}
+                      >
+                        <Info className="h-4 w-4 text-evernile-navy/70" />
+                      </Button>
                     )}
                     {current.id === 5 && (
-                      <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                              <Info className="h-4 w-4 text-evernile-navy/70" />
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 w-6 p-0"
+                        onClick={() => openInfoModal(
+                          "Operating Profit",
+                          "Operating profit is the profit earned from a company's core business operations after deducting operating expenses but before interest and taxes.",
+                          "Operating Profit = Gross Profit − Operating Expenses − Depreciation − Amortization"
+                        )}
+                      >
+                        <Info className="h-4 w-4 text-evernile-navy/70" />
                                     </Button>
-                                  </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Operating profit is the profit earned from core business operations. Formula: Revenue - Operating Expenses.</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                      </TooltipProvider>
                     )}
                     {current.id === 6 && (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                              <Info className="h-4 w-4 text-evernile-navy/70" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Net Tangible Assets are physical assets minus intangible assets and liabilities. Formula: Total Tangible Assets - Total Liabilities.</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 w-6 p-0"
+                        onClick={() => openInfoModal(
+                          "Net Tangible Assets (NTA)",
+                          "Net Tangible Assets (NTA) represent the value of a company's physical assets after subtracting liabilities and intangible assets.",
+                          "Net Tangible Assets = Total Assets − Intangible Assets − Total Liabilities"
+                        )}
+                      >
+                        <Info className="h-4 w-4 text-evernile-navy/70" />
+                      </Button>
                               )}
                             </div>
                     <div className="text-sm text-gray-500 font-medium">
@@ -562,6 +581,30 @@ const SMEEligibility = () => {
           <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
         </div>
       </footer>
+
+      {/* Information Modal */}
+      <Dialog open={infoModalOpen} onOpenChange={setInfoModalOpen}>
+        <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-evernile-navy">
+              {infoContent?.title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-gray-700 leading-relaxed">
+              {infoContent?.description}
+            </p>
+            {infoContent?.formula && (
+              <div className="bg-gray-50 p-4 rounded-lg border">
+                <p className="text-sm font-medium text-gray-600 mb-2">Formula:</p>
+                <p className="font-mono text-lg font-semibold text-evernile-navy">
+                  {infoContent.formula}
+                </p>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

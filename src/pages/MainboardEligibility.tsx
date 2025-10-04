@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Info, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { saveAssessmentResponse, type AssessmentResponse, type QuestionResponse } from "@/lib/supabase";
 import { sendAssessmentReport, type EmailData } from "@/lib/emailService";
 
@@ -136,6 +137,8 @@ const MainboardEligibility = () => {
   const [showReport, setShowReport] = useState<boolean>(false);
   const [isEmailSent, setIsEmailSent] = useState<boolean>(false);
   const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
+  const [infoModalOpen, setInfoModalOpen] = useState<boolean>(false);
+  const [infoContent, setInfoContent] = useState<{ title: string; description: string; formula: string } | null>(null);
 
   const allAnswered = useMemo(() => Object.keys(answers).length === QUESTIONS.length, [answers]);
   const current = QUESTIONS[step];
@@ -154,6 +157,11 @@ const MainboardEligibility = () => {
     if (current && !canNext) return;
     if (step < QUESTIONS.length - 1) setStep(step + 1);
     else setStep(QUESTIONS.length); // contact step
+  };
+
+  const openInfoModal = (title: string, description: string, formula: string) => {
+    setInfoContent({ title, description, formula });
+    setInfoModalOpen(true);
   };
 
   const onPrevious = () => {
@@ -335,18 +343,18 @@ const MainboardEligibility = () => {
                     <div className="text-xl font-bold text-left flex items-center gap-2">
                       {current.question}
                     {current.id === 3 && (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                              <Info className="h-4 w-4 text-evernile-navy/70" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Paid-up capital is the amount of money a company has received from shareholders in exchange for shares.</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 w-6 p-0"
+                        onClick={() => openInfoModal(
+                          "Paid-up Capital",
+                          "Paid-up capital is the amount received by a company from shareholders for shares that have been fully paid for, forming part of the issued share capital, and cannot exceed the authorised capital set in the company's charter.",
+                          ""
+                        )}
+                      >
+                        <Info className="h-4 w-4 text-evernile-navy/70" />
+                      </Button>
                     )}
                     </div>
                     <div className="text-sm text-gray-500 font-medium">
@@ -472,6 +480,30 @@ const MainboardEligibility = () => {
           <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
         </div>
       </footer>
+
+      {/* Information Modal */}
+      <Dialog open={infoModalOpen} onOpenChange={setInfoModalOpen}>
+        <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-evernile-navy">
+              {infoContent?.title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-gray-700 leading-relaxed">
+              {infoContent?.description}
+            </p>
+            {infoContent?.formula && (
+              <div className="bg-gray-50 p-4 rounded-lg border">
+                <p className="text-sm font-medium text-gray-600 mb-2">Formula:</p>
+                <p className="font-mono text-lg font-semibold text-evernile-navy">
+                  {infoContent.formula}
+                </p>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
