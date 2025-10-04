@@ -79,14 +79,20 @@ const generateEmailHTML = (data) => {
       height: 110px;
       position: relative;
     }
-    .readiness-score-value {
-      font-size: 2em;
-      font-weight: bold;
-      color: #1e3c72;
-      margin-top: 18px;
-      margin-bottom: 0px;
-      letter-spacing: 0.02em;
-    }
+     .readiness-score-value {
+       font-size: 2em;
+       font-weight: bold;
+       color: #1e3c72;
+       margin-top: 18px;
+       margin-bottom: 8px;
+       letter-spacing: 0.02em;
+     }
+     .readiness-label {
+       font-size: 1.1em;
+       font-weight: 600;
+       color: #1e3c72;
+       margin-bottom: 0px;
+     }
     .assessment-section, .summary-section, .next-steps {
       margin-bottom: 32px;
     }
@@ -193,13 +199,12 @@ const generateEmailHTML = (data) => {
 <body>
   <div class="email-wrapper">
     <div class="header">
-      <div class="header-title">IPO Readiness Assessment Report</div>
-      <div class="header-subtitle">Evernile Capital</div>
+      <div class="header-title">IPO Readiness Assessment Report - Evernile Capital</div>
     </div>
     <div class="content">
       <div class="greeting">
-        <p>Dear <strong>Rahul Mehra</strong>,</p>
-        <p>Thank you for completing the <strong>Main Board IPO Readiness Assessment</strong>. We're pleased to present your comprehensive readiness analysis below:</p>
+        <p>Dear <strong>${userName}</strong>,</p>
+        <p>Thank you for completing the <strong>${assessmentType.toUpperCase()} IPO Readiness Assessment</strong>. We're pleased to present your comprehensive readiness analysis below:</p>
       </div>
       <div class="score-section">
         <div class="score-title">📊 Your Readiness Score</div>
@@ -214,22 +219,21 @@ const generateEmailHTML = (data) => {
               </linearGradient>
             </defs>
           </svg>
-          <div class="readiness-score-value">3.5/5</div>
+          <div class="readiness-score-value">${readinessScore}/5</div>
+          <div class="readiness-label">${readinessLabel}</div>
         </div>
       </div>
       <div class="assessment-section">
         <h3>🔍 Assessment Analysis</h3>
         <div class="assessment-points">
           <ul>
-            <li>Company meets profitability norm and minimum net worth requirement.</li>
-            <li>Promoter group shareholding is compliant.</li>
-            <li>No outstanding regulatory issues.</li>
+            ${dynamicPoints.map(point => `<li>${point}</li>`).join('')}
           </ul>
         </div>
       </div>
       <div class="summary-section">
         <h3>📋 Executive Summary</h3>
-        <p>Overall, your company is well prepared for IPO, with some documentation improvement recommended.</p>
+        <p>${closingMessage}</p>
       </div>
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
@@ -249,7 +253,7 @@ const generateEmailHTML = (data) => {
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var score = 3.5;
+      var score = ${readinessScore};
       var percent = score / 5;
       var angle = percent * 180;
       var radius = 90;
