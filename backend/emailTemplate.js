@@ -34,18 +34,18 @@ const generateEmailHTML = (data) => {
       padding: 38px 20px 22px 20px;
       border-radius: 16px 16px 0 0;
     }
-    .header-title {
-      font-size: 2.1em;
-      font-weight: bold;
-      margin-bottom: 7px;
-      letter-spacing: 0.02em;
-    }
-    .header-subtitle {
-      font-size: 1.05em;
-      font-weight: 500;
-      opacity: 0.82;
-      letter-spacing: 0.04em;
-    }
+     .header-title {
+       font-size: 2.1em;
+       font-weight: bold;
+       margin-bottom: 7px;
+       letter-spacing: 0.02em;
+     }
+     .header-subtitle {
+       font-size: 1.2em;
+       font-weight: 500;
+       opacity: 0.9;
+       letter-spacing: 0.03em;
+     }
     .content {
       padding: 32px 20px 28px 20px;
       color: #2c3e50;
@@ -70,15 +70,15 @@ const generateEmailHTML = (data) => {
       margin-bottom: 19px;
       letter-spacing: 0.01em;
     }
-    .gauge-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0 auto;
-      width: 220px;
-      height: 110px;
-      position: relative;
-    }
+     .gauge-container {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       margin: 0 auto;
+       width: 300px;
+       height: 150px;
+       position: relative;
+     }
      .readiness-score-value {
        font-size: 2em;
        font-weight: bold;
@@ -104,14 +104,14 @@ const generateEmailHTML = (data) => {
       margin-bottom: 16px;
       font-weight: 600;
     }
-    .assessment-points {
-      background: #fff;
-      padding: 24px 18px;
-      border-radius: 12px;
-      border-left: 4px solid #e74c3c;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      font-size: 1em;
-    }
+     .assessment-points {
+       background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+       padding: 24px 18px;
+       border-radius: 12px;
+       border-left: 4px solid #2196f3;
+       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+       font-size: 1em;
+     }
     .assessment-points ul {
       padding-left: 0;
       list-style: none;
@@ -122,14 +122,14 @@ const generateEmailHTML = (data) => {
       padding-left: 25px;
       position: relative;
     }
-    .assessment-points li::before {
-      content: '▶';
-      position: absolute;
-      left: 0;
-      color: #e74c3c;
-      font-size: 12px;
-      top: 2px;
-    }
+     .assessment-points li::before {
+       content: '▶';
+       position: absolute;
+       left: 0;
+       color: #2196f3;
+       font-size: 12px;
+       top: 2px;
+     }
     .summary-section {
       background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
       border-radius: 12px;
@@ -143,24 +143,25 @@ const generateEmailHTML = (data) => {
       padding: 22px 16px;
       text-align: center;
     }
-    .cta-button {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 15px 28px;
-      text-decoration: none;
-      border-radius: 8px;
-      display: inline-block;
-      margin: 20px 0;
-      font-weight: 600;
-      font-size: 1em;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-      transition: all 0.3s ease;
-      letter-spacing: 0.03em;
-    }
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 26px rgba(102, 126, 234, 0.27);
-    }
+     .cta-button {
+       background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+       color: #d32f2f;
+       padding: 15px 28px;
+       text-decoration: none;
+       border-radius: 8px;
+       display: inline-block;
+       margin: 20px 0;
+       font-weight: 600;
+       font-size: 1em;
+       box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+       transition: all 0.3s ease;
+       letter-spacing: 0.03em;
+       border: 2px solid #ffcdd2;
+     }
+     .cta-button:hover {
+       transform: translateY(-2px);
+       box-shadow: 0 8px 26px rgba(211, 47, 47, 0.3);
+     }
     .contact-info {
       background: white;
       padding: 17px 15px;
@@ -198,26 +199,29 @@ const generateEmailHTML = (data) => {
 </head>
 <body>
   <div class="email-wrapper">
-    <div class="header">
-      <div class="header-title">IPO Readiness Assessment Report - Evernile Capital</div>
-    </div>
+      <div class="header">
+        <div class="header-title">IPO Readiness Assessment Report</div>
+        <div class="header-subtitle">Evernile Capital</div>
+      </div>
     <div class="content">
       <div class="greeting">
         <p>Dear <strong>${userName}</strong>,</p>
         <p>Thank you for completing the <strong>${assessmentType.toUpperCase()} IPO Readiness Assessment</strong>. We're pleased to present your comprehensive readiness analysis below:</p>
       </div>
       <div class="score-section">
-        <div class="score-title">📊 Your Readiness Score</div>
+        <div class="score-title">Your Readiness Score</div>
         <div class="gauge-container">
-          <svg id="gauge" viewBox="0 0 220 110" width="220" height="110">
-            <path d="M 20 100 A 90 90 0 0 1 200 100" fill="none" stroke="#e9ecef" stroke-width="18"/>
-            <path id="gauge-fill" fill="none" stroke="url(#grad1)" stroke-width="18" stroke-linecap="round"/>
-            <defs>
-              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#667eea"/>
-                <stop offset="100%" stop-color="#764ba2"/>
-              </linearGradient>
-            </defs>
+          <svg id="gauge" viewBox="0 0 300 150" width="300" height="150">
+            <!-- Background arc -->
+            <path d="M 30 120 A 120 120 0 0 1 270 120" fill="none" stroke="#e9ecef" stroke-width="20" stroke-linecap="round"/>
+            <!-- Progress arc -->
+            <path id="gauge-fill" fill="none" stroke="#1e3c72" stroke-width="20" stroke-linecap="round"/>
+            <!-- Target marker -->
+            <line x1="225" y1="105" x2="225" y2="135" stroke="#95a5a6" stroke-width="2"/>
+            <text x="225" y="100" text-anchor="middle" font-size="12" fill="#95a5a6">3.5</text>
+            <!-- Scale labels -->
+            <text x="30" y="140" text-anchor="middle" font-size="14" fill="#95a5a6">0</text>
+            <text x="270" y="140" text-anchor="middle" font-size="14" fill="#95a5a6">5</text>
           </svg>
           <div class="readiness-score-value">${readinessScore}/5</div>
           <div class="readiness-label">${readinessLabel}</div>
@@ -238,7 +242,7 @@ const generateEmailHTML = (data) => {
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
         <p>Ready to take your IPO journey to the next level? Our expert team is here to guide you through every step of the process.</p>
-        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Schedule Your Free Consultation</a>
+        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book an IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
           <p>📧 <strong>Email:</strong> bdinesh@evernile.com<br>
@@ -256,14 +260,14 @@ const generateEmailHTML = (data) => {
       var score = ${readinessScore};
       var percent = score / 5;
       var angle = percent * 180;
-      var radius = 90;
-      var cx = 110;
-      var cy = 100;
+      var radius = 120;
+      var cx = 150;
+      var cy = 120;
       var rad = (180 - angle) * Math.PI / 180;
       var x = cx - radius * Math.cos(rad);
       var y = cy - radius * Math.sin(rad);
       var largeArcFlag = angle > 180 ? 1 : 0;
-      var pathD = 'M 20 100 A 90 90 0 '
+      var pathD = 'M 30 120 A 120 120 0 '
                 + (angle > 180 ? '1' : '0') + ' 1 '
                 + x + ' ' + y;
       var gaugeFill = document.getElementById('gauge-fill');
