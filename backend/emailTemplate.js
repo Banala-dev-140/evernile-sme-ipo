@@ -4,6 +4,52 @@
 const generateEmailHTML = (data) => {
   const { userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = data;
   
+  // Hardcoded assessment analysis based on readiness score
+  let assessmentAnalysis = [];
+  let executiveSummary = "";
+  
+  if (readinessScore >= 4.5) {
+    assessmentAnalysis = [
+      "Your company demonstrates exceptional alignment with IPO readiness criteria across all key areas.",
+      "Financial metrics, governance structure, and operational efficiency are well-positioned for public listing.",
+      "Strong market positioning and growth trajectory support successful IPO execution.",
+      "Minimal regulatory or compliance concerns identified in the assessment."
+    ];
+    executiveSummary = "Your company exhibits high IPO readiness with strong fundamentals across all critical areas. You are well-positioned to proceed with IPO planning and execution. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive listing strategy.";
+  } else if (readinessScore >= 4.0) {
+    assessmentAnalysis = [
+      "Your company shows strong IPO readiness with most key criteria well-aligned.",
+      "Financial performance and operational metrics meet or exceed industry standards.",
+      "Minor areas for enhancement identified that can be addressed during IPO preparation.",
+      "Solid foundation established for successful public listing."
+    ];
+    executiveSummary = "Your company demonstrates good IPO readiness with strong fundamentals. Most critical areas are well-positioned for public listing. We recommend booking a consultation with our IPO Expert Team to address minor enhancement areas and optimize your IPO strategy.";
+  } else if (readinessScore >= 3.5) {
+    assessmentAnalysis = [
+      "Your company shows moderate IPO readiness with several areas requiring attention.",
+      "Some financial or operational metrics need improvement before IPO consideration.",
+      "Strategic planning and preparation required to meet regulatory requirements.",
+      "Foundation exists but requires strengthening in key areas."
+    ];
+    executiveSummary = "Your company shows moderate IPO readiness with potential for improvement. Several areas require attention before proceeding with IPO planning. We recommend booking a consultation with our IPO Expert Team to develop a structured roadmap for enhancement.";
+  } else if (readinessScore >= 3.0) {
+    assessmentAnalysis = [
+      "Your company has basic IPO readiness with significant areas requiring development.",
+      "Multiple financial, operational, or governance aspects need substantial improvement.",
+      "Considerable preparation and restructuring may be necessary for IPO eligibility.",
+      "Long-term planning and expert guidance essential for IPO success."
+    ];
+    executiveSummary = "Your company has basic IPO readiness with several areas requiring significant development. Substantial preparation and strategic planning are needed before IPO consideration. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive improvement plan.";
+  } else {
+    assessmentAnalysis = [
+      "Your company requires substantial enhancement across multiple IPO readiness factors.",
+      "Fundamental changes in financial structure, governance, or operations are necessary.",
+      "Current readiness level indicates significant preparation required for IPO eligibility.",
+      "Immediate expert intervention and strategic planning essential for IPO success."
+    ];
+    executiveSummary = "Your company needs significant enhancement across multiple areas to achieve IPO readiness. Fundamental improvements in financial structure, governance, and operations are required. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive transformation strategy.";
+  }
+  
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -212,16 +258,13 @@ const generateEmailHTML = (data) => {
         <div class="score-title">Your Readiness Score</div>
         <div class="gauge-container">
           <svg id="gauge" viewBox="0 0 300 150" width="300" height="150">
-            <!-- Background arc -->
-            <path d="M 30 120 A 120 120 0 0 1 270 120" fill="none" stroke="#e9ecef" stroke-width="20" stroke-linecap="round"/>
-            <!-- Progress arc -->
-            <path id="gauge-fill" fill="none" stroke="#1e3c72" stroke-width="20" stroke-linecap="round"/>
-            <!-- Target marker -->
-            <line x1="225" y1="105" x2="225" y2="135" stroke="#95a5a6" stroke-width="2"/>
-            <text x="225" y="100" text-anchor="middle" font-size="12" fill="#95a5a6">3.5</text>
+            <!-- Background arc (light gray) -->
+            <path d="M 30 120 A 120 120 0 0 1 270 120" fill="none" stroke="#e0e0e0" stroke-width="20" stroke-linecap="round"/>
+            <!-- Progress arc (light teal) -->
+            <path id="gauge-fill" fill="none" stroke="#80cbc4" stroke-width="20" stroke-linecap="round"/>
             <!-- Scale labels -->
-            <text x="30" y="140" text-anchor="middle" font-size="14" fill="#95a5a6">0</text>
-            <text x="270" y="140" text-anchor="middle" font-size="14" fill="#95a5a6">5</text>
+            <text x="30" y="140" text-anchor="middle" font-size="16" fill="#2c3e50" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif">0</text>
+            <text x="270" y="140" text-anchor="middle" font-size="16" fill="#2c3e50" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif">5</text>
           </svg>
           <div class="readiness-score-value">${readinessScore}/5</div>
           <div class="readiness-label">${readinessLabel}</div>
@@ -231,13 +274,13 @@ const generateEmailHTML = (data) => {
         <h3>🔍 Assessment Analysis</h3>
         <div class="assessment-points">
           <ul>
-            ${dynamicPoints.map(point => `<li>${point}</li>`).join('')}
+            ${assessmentAnalysis.map(point => `<li>${point}</li>`).join('')}
           </ul>
         </div>
       </div>
       <div class="summary-section">
         <h3>📋 Executive Summary</h3>
-        <p>${closingMessage}</p>
+        <p>${executiveSummary}</p>
       </div>
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
@@ -258,18 +301,23 @@ const generateEmailHTML = (data) => {
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var score = ${readinessScore};
-      var percent = score / 5;
-      var angle = percent * 180;
-      var radius = 120;
-      var cx = 150;
-      var cy = 120;
-      var rad = (180 - angle) * Math.PI / 180;
+      var percent = score / 5; // Score is out of 5
+      var angle = percent * 180; // Max angle for semi-circle is 180 degrees
+      var radius = 120; // Radius of the arc
+      var cx = 150; // Center X of the SVG
+      var cy = 120; // Center Y of the SVG (adjusted for semi-circle base)
+      
+      // Calculate end point of the arc
+      var rad = (180 - angle) * Math.PI / 180; // Convert angle to radians, starting from 180 (left)
       var x = cx - radius * Math.cos(rad);
       var y = cy - radius * Math.sin(rad);
-      var largeArcFlag = angle > 180 ? 1 : 0;
-      var pathD = 'M 30 120 A 120 120 0 '
-                + (angle > 180 ? '1' : '0') + ' 1 '
-                + x + ' ' + y;
+      
+      var largeArcFlag = angle > 180 ? 1 : 0; // Not needed for 0-180 range, but good practice
+      
+      // Path for the filled arc
+      // M start_x start_y A radius_x radius_y rotation_angle large_arc_flag sweep_flag end_x end_y
+      var pathD = 'M 30 120 A 120 120 0 0 1 ' + x + ' ' + y;
+      
       var gaugeFill = document.getElementById('gauge-fill');
       if (gaugeFill) gaugeFill.setAttribute('d', pathD);
     });
@@ -283,6 +331,52 @@ const generateEmailHTML = (data) => {
 // Generate text version of email
 const generateEmailText = (data) => {
   const { userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = data;
+  
+  // Hardcoded assessment analysis based on readiness score
+  let assessmentAnalysis = [];
+  let executiveSummary = "";
+  
+  if (readinessScore >= 4.5) {
+    assessmentAnalysis = [
+      "Your company demonstrates exceptional alignment with IPO readiness criteria across all key areas.",
+      "Financial metrics, governance structure, and operational efficiency are well-positioned for public listing.",
+      "Strong market positioning and growth trajectory support successful IPO execution.",
+      "Minimal regulatory or compliance concerns identified in the assessment."
+    ];
+    executiveSummary = "Your company exhibits high IPO readiness with strong fundamentals across all critical areas. You are well-positioned to proceed with IPO planning and execution. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive listing strategy.";
+  } else if (readinessScore >= 4.0) {
+    assessmentAnalysis = [
+      "Your company shows strong IPO readiness with most key criteria well-aligned.",
+      "Financial performance and operational metrics meet or exceed industry standards.",
+      "Minor areas for enhancement identified that can be addressed during IPO preparation.",
+      "Solid foundation established for successful public listing."
+    ];
+    executiveSummary = "Your company demonstrates good IPO readiness with strong fundamentals. Most critical areas are well-positioned for public listing. We recommend booking a consultation with our IPO Expert Team to address minor enhancement areas and optimize your IPO strategy.";
+  } else if (readinessScore >= 3.5) {
+    assessmentAnalysis = [
+      "Your company shows moderate IPO readiness with several areas requiring attention.",
+      "Some financial or operational metrics need improvement before IPO consideration.",
+      "Strategic planning and preparation required to meet regulatory requirements.",
+      "Foundation exists but requires strengthening in key areas."
+    ];
+    executiveSummary = "Your company shows moderate IPO readiness with potential for improvement. Several areas require attention before proceeding with IPO planning. We recommend booking a consultation with our IPO Expert Team to develop a structured roadmap for enhancement.";
+  } else if (readinessScore >= 3.0) {
+    assessmentAnalysis = [
+      "Your company has basic IPO readiness with significant areas requiring development.",
+      "Multiple financial, operational, or governance aspects need substantial improvement.",
+      "Considerable preparation and restructuring may be necessary for IPO eligibility.",
+      "Long-term planning and expert guidance essential for IPO success."
+    ];
+    executiveSummary = "Your company has basic IPO readiness with several areas requiring significant development. Substantial preparation and strategic planning are needed before IPO consideration. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive improvement plan.";
+  } else {
+    assessmentAnalysis = [
+      "Your company requires substantial enhancement across multiple IPO readiness factors.",
+      "Fundamental changes in financial structure, governance, or operations are necessary.",
+      "Current readiness level indicates significant preparation required for IPO eligibility.",
+      "Immediate expert intervention and strategic planning essential for IPO success."
+    ];
+    executiveSummary = "Your company needs significant enhancement across multiple areas to achieve IPO readiness. Fundamental improvements in financial structure, governance, and operations are required. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive transformation strategy.";
+  }
   
   return `
 Dear ${userName},
@@ -308,13 +402,13 @@ ${'='.repeat(30)}
 ASSESSMENT ANALYSIS
 ${'='.repeat(30)}
 
-${dynamicPoints.map((point, index) => `${index + 1}. ${point}`).join('\n\n')}
+${assessmentAnalysis.map((point, index) => `${index + 1}. ${point}`).join('\n\n')}
 
 ${'='.repeat(30)}
 SUMMARY
 ${'='.repeat(30)}
 
-${closingMessage}
+${executiveSummary}
 
 ${'='.repeat(30)}
 NEXT STEPS
