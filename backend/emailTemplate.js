@@ -27,7 +27,12 @@ const generateKeyAssessmentHighlights = (assessmentType, dynamicPoints) => {
       point.includes('net tangible assets') ||
       point.includes('Debt to Equity') ||
       point.includes('Operating Profit') ||
-      point.includes('Net Tangible Assets')
+      point.includes('Net Tangible Assets') ||
+      point.includes('SME IPO') ||
+      point.includes('financial strength') ||
+      point.includes('listing eligibility') ||
+      point.includes('operational viability') ||
+      point.includes('eligibility threshold')
     );
   }
   
@@ -93,22 +98,22 @@ const generateEmailHTML = (data) => {
       font-size: 1.08em;
       margin-bottom: 28px;
     }
-    .score-section {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border-radius: 14px;
-      border: 1px solid #e0e6ed;
-      padding: 34px 18px 45px 18px;
-      text-align: center;
-      margin-bottom: 35px;
-      position: relative;
-    }
-    .score-title {
-      font-size: 1.25em;
-      color: #1e3c72;
-      font-weight: 600;
-      margin-bottom: 19px;
-      letter-spacing: 0.01em;
-    }
+        .score-section {
+          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+          border-radius: 14px;
+          border: 1px solid #e0e6ed;
+          padding: 28px 18px 32px 18px;
+          text-align: center;
+          margin-bottom: 35px;
+          position: relative;
+        }
+        .score-title {
+          font-size: 1.6em;
+          color: #1e3c72;
+          font-weight: 600;
+          margin-bottom: 19px;
+          letter-spacing: 0.01em;
+        }
         .score-display {
           display: flex;
           flex-direction: column;
@@ -179,21 +184,21 @@ const generateEmailHTML = (data) => {
       padding: 22px 16px;
       text-align: center;
     }
-     .cta-button {
-       background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-       color: #d32f2f;
-       padding: 15px 28px;
-       text-decoration: none;
-       border-radius: 8px;
-       display: inline-block;
-       margin: 20px 0;
-       font-weight: 600;
-       font-size: 1em;
-       box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
-       transition: all 0.3s ease;
-       letter-spacing: 0.03em;
-       border: 2px solid #ffcdd2;
-     }
+        .cta-button {
+          background: #ffffff;
+          color: #d32f2f;
+          padding: 15px 28px;
+          text-decoration: none;
+          border-radius: 8px;
+          display: inline-block;
+          margin: 20px 0;
+          font-weight: 600;
+          font-size: 1em;
+          box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+          transition: all 0.3s ease;
+          letter-spacing: 0.03em;
+          border: 2px solid #d32f2f;
+        }
      .cta-button:hover {
        transform: translateY(-2px);
        box-shadow: 0 8px 26px rgba(211, 47, 47, 0.3);
@@ -275,7 +280,7 @@ const generateEmailHTML = (data) => {
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
         <p>Ready to take your IPO journey to the next level? Our expert team is here to guide you through every step of the process.</p>
-        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book IPO Expert</a>
+        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book our IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
           <p>📧 <strong>Email:</strong> bdinesh@evernile.com<br>
@@ -344,7 +349,7 @@ ${'='.repeat(30)}
 
 To proceed with your IPO journey, we recommend booking a consultation call with our team:
 
-📅 Book IPO Expert: https://calendly.com/bdinesh-evernile/30min
+📅 Book our IPO Expert: https://calendly.com/bdinesh-evernile/30min
 
 Contact Details:
 📧 Email: bdinesh@evernile.com
