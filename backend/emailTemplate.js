@@ -1,11 +1,44 @@
 // Email template generator for IPO Readiness Assessment Reports
 // This file contains the HTML and text email templates
 
+// Function to generate correct Key Assessment Highlights based on assessment type and user answers
+const generateKeyAssessmentHighlights = (assessmentType, dynamicPoints) => {
+  if (!dynamicPoints || dynamicPoints.length === 0) {
+    return [];
+  }
+  
+  // For Mainboard IPO: Only show Q2 and Q3 (Business Existence and Paid-up Capital)
+  if (assessmentType.toLowerCase() === 'mainboard') {
+    return dynamicPoints.filter(point => 
+      point.includes('regulatory guideline') || 
+      point.includes('regulatory criteria') ||
+      point.includes('paid-up capital') ||
+      point.includes('existence for')
+    );
+  }
+  
+  // For SME IPO: Show Q2, Q3, Q4, Q5, Q6 (Business Existence, D/E Ratio, Net Worth, Operating Profit, Net Tangible Assets)
+  if (assessmentType.toLowerCase() === 'sme') {
+    return dynamicPoints.filter(point => 
+      point.includes('operational history') ||
+      point.includes('leverage') ||
+      point.includes('net worth') ||
+      point.includes('profitability') ||
+      point.includes('net tangible assets') ||
+      point.includes('Debt to Equity') ||
+      point.includes('Operating Profit') ||
+      point.includes('Net Tangible Assets')
+    );
+  }
+  
+  return dynamicPoints;
+};
+
 const generateEmailHTML = (data) => {
   const { userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = data;
   
-  // Use actual dynamic assessment points from user answers
-  const keyAssessmentHighlights = dynamicPoints || [];
+  // Generate correct Key Assessment Highlights based on assessment type
+  const keyAssessmentHighlights = generateKeyAssessmentHighlights(assessmentType, dynamicPoints);
   
   // Use the actual closing message from the assessment logic
   const summary = closingMessage || "Thank you for completing the assessment.";
@@ -76,29 +109,26 @@ const generateEmailHTML = (data) => {
       margin-bottom: 19px;
       letter-spacing: 0.01em;
     }
-     .gauge-container {
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       margin: 0 auto;
-       width: 300px;
-       height: 150px;
-       position: relative;
-     }
-     .readiness-score-value {
-       font-size: 2em;
-       font-weight: bold;
-       color: #1e3c72;
-       margin-top: 18px;
-       margin-bottom: 8px;
-       letter-spacing: 0.02em;
-     }
-     .readiness-label {
-       font-size: 1.1em;
-       font-weight: 600;
-       color: #1e3c72;
-       margin-bottom: 0px;
-     }
+        .score-display {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .readiness-score-value {
+          font-size: 3.5em;
+          font-weight: bold;
+          color: #1e3c72;
+          margin: 20px 0 15px 0;
+          letter-spacing: 0.02em;
+        }
+        .readiness-label {
+          font-size: 1.7em;
+          font-weight: 600;
+          color: #1e3c72;
+          margin-bottom: 0px;
+        }
     .assessment-section, .summary-section, .next-steps {
       margin-bottom: 32px;
     }
@@ -201,12 +231,14 @@ const generateEmailHTML = (data) => {
         }
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
-      .gauge-container { width: 98vw; max-width: 220px; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
+      .readiness-score-value { font-size: 3em; }
+      .readiness-label { font-size: 1.5em; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .gauge-container { width: 96vw; max-width: 200px;}
+      .readiness-score-value { font-size: 2.5em; }
+      .readiness-label { font-size: 1.3em; }
     }
   </style>
 </head>
@@ -222,17 +254,8 @@ const generateEmailHTML = (data) => {
         <p>Thank you for completing the <strong>${assessmentType.toUpperCase()} IPO Readiness Assessment</strong>. We're pleased to present your comprehensive readiness analysis below:</p>
       </div>
       <div class="score-section">
-        <div class="score-title">Your Readiness Score</div>
-        <div class="gauge-container">
-          <svg id="gauge" viewBox="0 0 300 150" width="300" height="150">
-            <!-- Background arc (light gray) -->
-            <path d="M 30 120 A 120 120 0 0 1 270 120" fill="none" stroke="#e0e0e0" stroke-width="20" stroke-linecap="round"/>
-            <!-- Progress arc (light teal) -->
-            <path id="gauge-fill" fill="none" stroke="#80cbc4" stroke-width="20" stroke-linecap="round"/>
-            <!-- Scale labels -->
-            <text x="30" y="140" text-anchor="middle" font-size="16" fill="#2c3e50" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif">0</text>
-            <text x="270" y="140" text-anchor="middle" font-size="16" fill="#2c3e50" font-family="Segoe UI, Tahoma, Geneva, Verdana, sans-serif">5</text>
-          </svg>
+        <div class="score-title">IPO Readiness Score</div>
+        <div class="score-display">
           <div class="readiness-score-value">${readinessScore}/5</div>
           <div class="readiness-label">${readinessLabel}</div>
         </div>
@@ -267,30 +290,6 @@ const generateEmailHTML = (data) => {
       </div>
     </div>
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var score = ${readinessScore};
-      var percent = score / 5; // Score is out of 5
-      var angle = percent * 180; // Max angle for semi-circle is 180 degrees
-      var radius = 120; // Radius of the arc
-      var cx = 150; // Center X of the SVG
-      var cy = 120; // Center Y of the SVG (adjusted for semi-circle base)
-      
-      // Calculate end point of the arc
-      var rad = (180 - angle) * Math.PI / 180; // Convert angle to radians, starting from 180 (left)
-      var x = cx - radius * Math.cos(rad);
-      var y = cy - radius * Math.sin(rad);
-      
-      var largeArcFlag = angle > 180 ? 1 : 0; // Not needed for 0-180 range, but good practice
-      
-      // Path for the filled arc
-      // M start_x start_y A radius_x radius_y rotation_angle large_arc_flag sweep_flag end_x end_y
-      var pathD = 'M 30 120 A 120 120 0 0 1 ' + x + ' ' + y;
-      
-      var gaugeFill = document.getElementById('gauge-fill');
-      if (gaugeFill) gaugeFill.setAttribute('d', pathD);
-    });
-  </script>
 </body>
 </html>
 
@@ -301,8 +300,8 @@ const generateEmailHTML = (data) => {
 const generateEmailText = (data) => {
   const { userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = data;
   
-  // Use actual dynamic assessment points from user answers
-  const keyAssessmentHighlights = dynamicPoints || [];
+  // Generate correct Key Assessment Highlights based on assessment type
+  const keyAssessmentHighlights = generateKeyAssessmentHighlights(assessmentType, dynamicPoints);
   
   // Use the actual closing message from the assessment logic
   const summary = closingMessage || "Thank you for completing the assessment.";
