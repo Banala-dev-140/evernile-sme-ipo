@@ -4,51 +4,11 @@
 const generateEmailHTML = (data) => {
   const { userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = data;
   
-  // Hardcoded assessment analysis based on readiness score
-  let assessmentAnalysis = [];
-  let executiveSummary = "";
+  // Use actual dynamic assessment points from user answers
+  const keyAssessmentHighlights = dynamicPoints || [];
   
-  if (readinessScore >= 4.5) {
-    assessmentAnalysis = [
-      "Your company demonstrates exceptional alignment with IPO readiness criteria across all key areas.",
-      "Financial metrics, governance structure, and operational efficiency are well-positioned for public listing.",
-      "Strong market positioning and growth trajectory support successful IPO execution.",
-      "Minimal regulatory or compliance concerns identified in the assessment."
-    ];
-    executiveSummary = "Your company exhibits high IPO readiness with strong fundamentals across all critical areas. You are well-positioned to proceed with IPO planning and execution. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive listing strategy.";
-  } else if (readinessScore >= 4.0) {
-    assessmentAnalysis = [
-      "Your company shows strong IPO readiness with most key criteria well-aligned.",
-      "Financial performance and operational metrics meet or exceed industry standards.",
-      "Minor areas for enhancement identified that can be addressed during IPO preparation.",
-      "Solid foundation established for successful public listing."
-    ];
-    executiveSummary = "Your company demonstrates good IPO readiness with strong fundamentals. Most critical areas are well-positioned for public listing. We recommend booking a consultation with our IPO Expert Team to address minor enhancement areas and optimize your IPO strategy.";
-  } else if (readinessScore >= 3.5) {
-    assessmentAnalysis = [
-      "Your company shows moderate IPO readiness with several areas requiring attention.",
-      "Some financial or operational metrics need improvement before IPO consideration.",
-      "Strategic planning and preparation required to meet regulatory requirements.",
-      "Foundation exists but requires strengthening in key areas."
-    ];
-    executiveSummary = "Your company shows moderate IPO readiness with potential for improvement. Several areas require attention before proceeding with IPO planning. We recommend booking a consultation with our IPO Expert Team to develop a structured roadmap for enhancement.";
-  } else if (readinessScore >= 3.0) {
-    assessmentAnalysis = [
-      "Your company has basic IPO readiness with significant areas requiring development.",
-      "Multiple financial, operational, or governance aspects need substantial improvement.",
-      "Considerable preparation and restructuring may be necessary for IPO eligibility.",
-      "Long-term planning and expert guidance essential for IPO success."
-    ];
-    executiveSummary = "Your company has basic IPO readiness with several areas requiring significant development. Substantial preparation and strategic planning are needed before IPO consideration. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive improvement plan.";
-  } else {
-    assessmentAnalysis = [
-      "Your company requires substantial enhancement across multiple IPO readiness factors.",
-      "Fundamental changes in financial structure, governance, or operations are necessary.",
-      "Current readiness level indicates significant preparation required for IPO eligibility.",
-      "Immediate expert intervention and strategic planning essential for IPO success."
-    ];
-    executiveSummary = "Your company needs significant enhancement across multiple areas to achieve IPO readiness. Fundamental improvements in financial structure, governance, and operations are required. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive transformation strategy.";
-  }
+  // Use the actual closing message from the assessment logic
+  const summary = closingMessage || "Thank you for completing the assessment.";
   
   return `
 <!DOCTYPE html>
@@ -224,14 +184,21 @@ const generateEmailHTML = (data) => {
     .contact-info strong {
       color: #1e3c72;
     }
-    .disclaimer {
-      font-size: 11.5px;
-      color: #95a5a6;
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid #ccc;
-      line-height: 1.5;
-    }
+        .disclaimer {
+          font-size: 11.5px;
+          color: #95a5a6;
+          margin-top: 22px;
+          padding-top: 18px;
+          border-top: 1px solid #ccc;
+          line-height: 1.5;
+        }
+        .copyright {
+          text-align: center;
+          font-size: 11px;
+          color: #7f8c8d;
+          margin-top: 8px;
+          font-weight: 500;
+        }
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .gauge-container { width: 98vw; max-width: 220px; }
@@ -245,10 +212,10 @@ const generateEmailHTML = (data) => {
 </head>
 <body>
   <div class="email-wrapper">
-      <div class="header">
-        <div class="header-title">IPO Readiness Assessment Report</div>
-        <div class="header-subtitle">Evernile Capital</div>
-      </div>
+        <div class="header">
+          <div class="header-title">IPO Readiness Report</div>
+          <div class="header-subtitle">Evernile Capital</div>
+        </div>
     <div class="content">
       <div class="greeting">
         <p>Dear <strong>${userName}</strong>,</p>
@@ -271,21 +238,21 @@ const generateEmailHTML = (data) => {
         </div>
       </div>
       <div class="assessment-section">
-        <h3>🔍 Assessment Analysis</h3>
+        <h3>🔍 Key Assessment Highlights</h3>
         <div class="assessment-points">
           <ul>
-            ${assessmentAnalysis.map(point => `<li>${point}</li>`).join('')}
+            ${keyAssessmentHighlights.map(point => `<li>${point}</li>`).join('')}
           </ul>
         </div>
       </div>
       <div class="summary-section">
-        <h3>📋 Executive Summary</h3>
-        <p>${executiveSummary}</p>
+        <h3>📋 Summary</h3>
+        <p>${summary}</p>
       </div>
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
         <p>Ready to take your IPO journey to the next level? Our expert team is here to guide you through every step of the process.</p>
-        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book an IPO Expert</a>
+        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
           <p>📧 <strong>Email:</strong> bdinesh@evernile.com<br>
@@ -295,6 +262,8 @@ const generateEmailHTML = (data) => {
       </div>
       <div class="disclaimer">
         <strong>Disclaimer:</strong> This assessment provides an initial evaluation of your IPO readiness and should not be considered as financial or legal advice. For comprehensive guidance tailored to your specific situation, please consult with our qualified professionals.
+        <br><br>
+        <div class="copyright">Copyright © 2025 Evernile. All Rights Reserved.</div>
       </div>
     </div>
   </div>
@@ -332,51 +301,11 @@ const generateEmailHTML = (data) => {
 const generateEmailText = (data) => {
   const { userName, assessmentType, readinessScore, readinessLabel, totalScore, dynamicPoints, closingMessage } = data;
   
-  // Hardcoded assessment analysis based on readiness score
-  let assessmentAnalysis = [];
-  let executiveSummary = "";
+  // Use actual dynamic assessment points from user answers
+  const keyAssessmentHighlights = dynamicPoints || [];
   
-  if (readinessScore >= 4.5) {
-    assessmentAnalysis = [
-      "Your company demonstrates exceptional alignment with IPO readiness criteria across all key areas.",
-      "Financial metrics, governance structure, and operational efficiency are well-positioned for public listing.",
-      "Strong market positioning and growth trajectory support successful IPO execution.",
-      "Minimal regulatory or compliance concerns identified in the assessment."
-    ];
-    executiveSummary = "Your company exhibits high IPO readiness with strong fundamentals across all critical areas. You are well-positioned to proceed with IPO planning and execution. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive listing strategy.";
-  } else if (readinessScore >= 4.0) {
-    assessmentAnalysis = [
-      "Your company shows strong IPO readiness with most key criteria well-aligned.",
-      "Financial performance and operational metrics meet or exceed industry standards.",
-      "Minor areas for enhancement identified that can be addressed during IPO preparation.",
-      "Solid foundation established for successful public listing."
-    ];
-    executiveSummary = "Your company demonstrates good IPO readiness with strong fundamentals. Most critical areas are well-positioned for public listing. We recommend booking a consultation with our IPO Expert Team to address minor enhancement areas and optimize your IPO strategy.";
-  } else if (readinessScore >= 3.5) {
-    assessmentAnalysis = [
-      "Your company shows moderate IPO readiness with several areas requiring attention.",
-      "Some financial or operational metrics need improvement before IPO consideration.",
-      "Strategic planning and preparation required to meet regulatory requirements.",
-      "Foundation exists but requires strengthening in key areas."
-    ];
-    executiveSummary = "Your company shows moderate IPO readiness with potential for improvement. Several areas require attention before proceeding with IPO planning. We recommend booking a consultation with our IPO Expert Team to develop a structured roadmap for enhancement.";
-  } else if (readinessScore >= 3.0) {
-    assessmentAnalysis = [
-      "Your company has basic IPO readiness with significant areas requiring development.",
-      "Multiple financial, operational, or governance aspects need substantial improvement.",
-      "Considerable preparation and restructuring may be necessary for IPO eligibility.",
-      "Long-term planning and expert guidance essential for IPO success."
-    ];
-    executiveSummary = "Your company has basic IPO readiness with several areas requiring significant development. Substantial preparation and strategic planning are needed before IPO consideration. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive improvement plan.";
-  } else {
-    assessmentAnalysis = [
-      "Your company requires substantial enhancement across multiple IPO readiness factors.",
-      "Fundamental changes in financial structure, governance, or operations are necessary.",
-      "Current readiness level indicates significant preparation required for IPO eligibility.",
-      "Immediate expert intervention and strategic planning essential for IPO success."
-    ];
-    executiveSummary = "Your company needs significant enhancement across multiple areas to achieve IPO readiness. Fundamental improvements in financial structure, governance, and operations are required. We recommend booking a consultation with our IPO Expert Team to develop a comprehensive transformation strategy.";
-  }
+  // Use the actual closing message from the assessment logic
+  const summary = closingMessage || "Thank you for completing the assessment.";
   
   return `
 Dear ${userName},
@@ -384,7 +313,7 @@ Dear ${userName},
 Thank you for completing the ${assessmentType.toUpperCase()} IPO Readiness Assessment. Please find your detailed report below:
 
 ${'='.repeat(50)}
-IPO READINESS ASSESSMENT REPORT
+IPO READINESS REPORT
 ${'='.repeat(50)}
 
 Assessment Type: ${assessmentType.toUpperCase()} IPO
@@ -399,16 +328,16 @@ Readiness Level: ${readinessLabel}
 Total Score: ${totalScore} points
 
 ${'='.repeat(30)}
-ASSESSMENT ANALYSIS
+KEY ASSESSMENT HIGHLIGHTS
 ${'='.repeat(30)}
 
-${assessmentAnalysis.map((point, index) => `${index + 1}. ${point}`).join('\n\n')}
+${keyAssessmentHighlights.map((point, index) => `${index + 1}. ${point}`).join('\n\n')}
 
 ${'='.repeat(30)}
 SUMMARY
 ${'='.repeat(30)}
 
-${executiveSummary}
+${summary}
 
 ${'='.repeat(30)}
 NEXT STEPS
@@ -416,7 +345,7 @@ ${'='.repeat(30)}
 
 To proceed with your IPO journey, we recommend booking a consultation call with our team:
 
-📅 Book a Readiness Call: https://calendly.com/bdinesh-evernile/30min
+📅 Book IPO Expert: https://calendly.com/bdinesh-evernile/30min
 
 Contact Details:
 📧 Email: bdinesh@evernile.com
@@ -427,12 +356,13 @@ ${'='.repeat(50)}
 DISCLAIMER
 ${'='.repeat(50)}
 
-This is an initial readiness assessment and is not a substitute for a comprehensive evaluation. For full eligibility verification, please book a free consultation with us.
+This assessment provides an initial evaluation of your IPO readiness and should not be considered as financial or legal advice. For comprehensive guidance tailored to your specific situation, please consult with our qualified professionals.
+
+Copyright © 2025 Evernile. All Rights Reserved.
 
 ---
 Evernile Capital
 Email: bdinesh@evernile.com | Mobile: +91-8889926196 | Website: www.evernile.com
-This email was generated automatically from the IPO Readiness Assessment Tool.
   `;
 };
 
