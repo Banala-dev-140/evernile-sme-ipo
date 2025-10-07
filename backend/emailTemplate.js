@@ -102,7 +102,7 @@ const generateEmailHTML = (data) => {
           background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
           border-radius: 14px;
           border: 1px solid #e0e6ed;
-          padding: 28px 18px 32px 18px;
+          padding: 24px 18px 28px 18px;
           text-align: center;
           margin-bottom: 35px;
           position: relative;
@@ -121,18 +121,19 @@ const generateEmailHTML = (data) => {
           margin: 0 auto;
           text-align: center;
         }
-        .readiness-score-value {
-          font-size: 3.5em;
-          font-weight: bold;
+        .readiness-score-line {
+          font-size: 1.3em;
+          font-weight: 600;
           color: #1e3c72;
-          margin: 20px 0 15px 0;
-          letter-spacing: 0.02em;
+          margin: 15px 0 10px 0;
+          letter-spacing: 0.01em;
         }
-        .readiness-label {
-          font-size: 1.7em;
+        .readiness-level-line {
+          font-size: 1.3em;
           font-weight: 600;
           color: #1e3c72;
           margin-bottom: 0px;
+          letter-spacing: 0.01em;
         }
     .assessment-section, .summary-section, .next-steps {
       margin-bottom: 32px;
@@ -171,12 +172,15 @@ const generateEmailHTML = (data) => {
        font-size: 12px;
        top: 2px;
      }
-    .summary-section {
-      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-      border-radius: 12px;
-      border-left: 4px solid #2196f3;
-      padding: 20px 18px 22px 18px;
-    }
+        .summary-section h3 {
+          margin-bottom: 12px;
+        }
+        .summary-content {
+          background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+          border-radius: 12px;
+          border-left: 4px solid #2196f3;
+          padding: 20px 18px 22px 18px;
+        }
     .next-steps {
       background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
       border-radius: 12px;
@@ -186,7 +190,7 @@ const generateEmailHTML = (data) => {
     }
         .cta-button {
           background: #ffffff;
-          color: #d32f2f;
+          color: #2196f3;
           padding: 15px 28px;
           text-decoration: none;
           border-radius: 8px;
@@ -194,7 +198,7 @@ const generateEmailHTML = (data) => {
           margin: 20px 0;
           font-weight: 600;
           font-size: 1em;
-          box-shadow: 0 4px 15px rgba(211, 47, 47, 0.2);
+          box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
           transition: all 0.3s ease;
           letter-spacing: 0.03em;
           border: 2px solid #d32f2f;
@@ -237,13 +241,13 @@ const generateEmailHTML = (data) => {
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
-      .readiness-score-value { font-size: 3em; }
-      .readiness-label { font-size: 1.5em; }
+      .readiness-score-line { font-size: 1.2em; }
+      .readiness-level-line { font-size: 1.2em; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .readiness-score-value { font-size: 2.5em; }
-      .readiness-label { font-size: 1.3em; }
+      .readiness-score-line { font-size: 1.1em; }
+      .readiness-level-line { font-size: 1.1em; }
     }
   </style>
 </head>
@@ -261,8 +265,8 @@ const generateEmailHTML = (data) => {
       <div class="score-section">
         <div class="score-title">IPO Readiness Score</div>
         <div class="score-display">
-          <div class="readiness-score-value">${readinessScore}/5</div>
-          <div class="readiness-label">${readinessLabel}</div>
+          <div class="readiness-score-line">Readiness Score: ${readinessScore} out of 5</div>
+          <div class="readiness-level-line">Readiness Level: ${readinessLabel}</div>
         </div>
       </div>
       <div class="assessment-section">
@@ -275,12 +279,14 @@ const generateEmailHTML = (data) => {
       </div>
       <div class="summary-section">
         <h3>📋 Summary</h3>
-        <p>${summary}</p>
+        <div class="summary-content">
+          <p>${summary}</p>
+        </div>
       </div>
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
         <p>Ready to take your IPO journey to the next level? Our expert team is here to guide you through every step of the process.</p>
-        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book our IPO Expert</a>
+        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book Our IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
           <p>📧 <strong>Email:</strong> bdinesh@evernile.com<br>
@@ -349,7 +355,7 @@ ${'='.repeat(30)}
 
 To proceed with your IPO journey, we recommend booking a consultation call with our team:
 
-📅 Book our IPO Expert: https://calendly.com/bdinesh-evernile/30min
+📅 Book Our IPO Expert: https://calendly.com/bdinesh-evernile/30min
 
 Contact Details:
 📧 Email: bdinesh@evernile.com
