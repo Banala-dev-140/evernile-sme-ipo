@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Frontend Service
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend-builder
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./frontend/dist:/app/frontend/dist
+    command: ["npx", "serve", "-s", ".", "-l", "3000"]
+    restart: unless-stopped
+
+  # Backend Service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend-builder
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - GMAIL_USER=${GMAIL_USER}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+      - PORT=3001
+    volumes:
+      - ./backend:/app/backend
+    command: ["npm", "start"]
+    restart: unless-stopped
+    depends_on:
+      - frontend
+
+  # Development Service (for local development)
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - GMAIL_USER=${GMAIL_USER}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/backend/node_modules
+    command: ["sh", "-c", "cd backend && npm start & cd .. && npm run dev"]
+    restart: unless-stopped
+    profiles:
+      - dev

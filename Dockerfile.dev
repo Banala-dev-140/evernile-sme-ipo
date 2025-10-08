@@ -1,0 +1,35 @@
+# Development Dockerfile for Evernile IPO Assessment Platform
+FROM node:18-alpine
+
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY backend/package*.json ./backend/
+
+# Install dependencies
+RUN npm install
+RUN cd backend && npm install
+
+# Copy source code
+COPY . .
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
+
+# Change ownership
+RUN chown -R nextjs:nodejs /app
+
+# Switch to non-root user
+USER nextjs
+
+# Expose ports
+EXPOSE 3000 3001
+
+# Start development servers
+CMD ["dumb-init", "sh", "-c", "cd backend && npm start & npm run dev"]
