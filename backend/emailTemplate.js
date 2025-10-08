@@ -72,23 +72,24 @@ const generateEmailHTML = (data) => {
       overflow: hidden;
     }
     .header {
-      background: #ffffff;
-      color: #212529;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #ffffff;
       text-align: center;
       padding: 40px 20px 30px 20px;
-      border-bottom: 1px solid #e9ecef;
+      border-radius: 12px 12px 0 0;
     }
     .header-title {
       font-size: 2.0em;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #212529;
+      color: #ffffff;
       letter-spacing: 0.01em;
     }
     .header-subtitle {
       font-size: 1.2em;
       font-weight: 500;
-      color: #6c757d;
+      color: #ffffff;
+      opacity: 0.9;
       letter-spacing: 0.02em;
     }
     .content {
@@ -113,27 +114,31 @@ const generateEmailHTML = (data) => {
           background: #d4edda;
           border-radius: 8px;
           border: 1px solid #c3e6cb;
-          padding: 24px 28px;
+          padding: 20px 24px;
           text-align: center;
           display: flex;
           flex-direction: column;
           align-items: center;
+          max-width: 100%;
+          box-sizing: border-box;
         }
         .readiness-score-line {
-          font-size: 1.6em;
+          font-size: 1.4em;
           font-weight: 600;
           color: #28a745;
-          margin: 8px 0 8px 0;
+          margin: 6px 0 6px 0;
           letter-spacing: 0.01em;
           text-align: center;
+          word-wrap: break-word;
         }
         .readiness-level-line {
-          font-size: 1.6em;
+          font-size: 1.4em;
           font-weight: 600;
           color: #28a745;
           margin-bottom: 0px;
           letter-spacing: 0.01em;
           text-align: center;
+          word-wrap: break-word;
         }
     .assessment-section, .summary-section, .next-steps {
       margin-bottom: 32px;
@@ -189,7 +194,7 @@ const generateEmailHTML = (data) => {
     }
     .cta-button {
       background: #dc3545;
-      color: #ffffff;
+      color: #ffffff !important;
       padding: 12px 24px;
       text-decoration: none;
       border-radius: 6px;
@@ -239,15 +244,17 @@ const generateEmailHTML = (data) => {
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
-      .readiness-score-line { font-size: 1.5em; }
-      .readiness-level-line { font-size: 1.5em; }
+      .readiness-score-line { font-size: 1.3em; }
+      .readiness-level-line { font-size: 1.3em; }
       .score-title { font-size: 1.2em; }
+      .score-card { padding: 16px 20px; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .readiness-score-line { font-size: 1.4em; }
-      .readiness-level-line { font-size: 1.4em; }
+      .readiness-score-line { font-size: 1.2em; }
+      .readiness-level-line { font-size: 1.2em; }
       .score-title { font-size: 1.1em; }
+      .score-card { padding: 14px 18px; }
     }
   </style>
 </head>
