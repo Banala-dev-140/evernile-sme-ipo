@@ -58,41 +58,42 @@ const generateEmailHTML = (data) => {
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #f8f9fa;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       min-height: 100vh;
     }
     .email-wrapper {
       max-width: 650px;
       margin: 0 auto;
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       overflow: hidden;
     }
     .header {
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-      color: white;
+      background: #ffffff;
+      color: #212529;
       text-align: center;
-      padding: 38px 20px 22px 20px;
-      border-radius: 16px 16px 0 0;
+      padding: 40px 20px 30px 20px;
+      border-bottom: 1px solid #e9ecef;
     }
-     .header-title {
-       font-size: 2.1em;
-       font-weight: bold;
-       margin-bottom: 7px;
-       letter-spacing: 0.02em;
-     }
-     .header-subtitle {
-       font-size: 1.2em;
-       font-weight: 500;
-       opacity: 0.9;
-       letter-spacing: 0.03em;
-     }
+    .header-title {
+      font-size: 1.8em;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #212529;
+      letter-spacing: 0.01em;
+    }
+    .header-subtitle {
+      font-size: 1.0em;
+      font-weight: 500;
+      color: #6c757d;
+      letter-spacing: 0.02em;
+    }
     .content {
       padding: 32px 20px 28px 20px;
-      color: #2c3e50;
+      color: #495057;
     }
     .greeting {
       font-size: 1.08em;
@@ -102,35 +103,37 @@ const generateEmailHTML = (data) => {
           margin-bottom: 35px;
         }
         .score-title {
-          font-size: 1.6em;
-          color: #1e3c72;
+          font-size: 1.1em;
+          color: #212529;
           font-weight: 600;
           margin-bottom: 12px;
           letter-spacing: 0.01em;
         }
         .score-card {
-          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-          border-radius: 14px;
-          border: 1px solid #e0e6ed;
-          padding: 24px 18px 28px 18px;
+          background: #d4edda;
+          border-radius: 8px;
+          border: 1px solid #c3e6cb;
+          padding: 20px 24px;
           text-align: center;
           display: flex;
           flex-direction: column;
           align-items: center;
         }
         .readiness-score-line {
-          font-size: 1.3em;
+          font-size: 1.4em;
           font-weight: 600;
-          color: #1e3c72;
-          margin: 15px 0 10px 0;
+          color: #28a745;
+          margin: 8px 0 8px 0;
           letter-spacing: 0.01em;
+          text-align: center;
         }
         .readiness-level-line {
-          font-size: 1.3em;
+          font-size: 1.4em;
           font-weight: 600;
-          color: #1e3c72;
+          color: #28a745;
           margin-bottom: 0px;
           letter-spacing: 0.01em;
+          text-align: center;
         }
     .assessment-section, .summary-section, .next-steps {
       margin-bottom: 32px;
@@ -138,19 +141,18 @@ const generateEmailHTML = (data) => {
     .assessment-section h3,
     .summary-section h3,
     .next-steps h3 {
-      color: #1e3c72;
+      color: #212529;
       font-size: 1.1em;
       margin-bottom: 16px;
       font-weight: 600;
     }
-     .assessment-points {
-       background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-       padding: 24px 18px;
-       border-radius: 12px;
-       border-left: 4px solid #2196f3;
-       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-       font-size: 1em;
-     }
+    .assessment-points {
+      background: #f8f9fa;
+      padding: 20px 18px;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+      font-size: 1em;
+    }
     .assessment-points ul {
       padding-left: 0;
       list-style: none;
@@ -161,92 +163,91 @@ const generateEmailHTML = (data) => {
       padding-left: 25px;
       position: relative;
     }
-     .assessment-points li::before {
-       content: '▶';
-       position: absolute;
-       left: 0;
-       color: #2196f3;
-       font-size: 12px;
-       top: 2px;
-     }
+    .assessment-points li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #495057;
+      font-size: 16px;
+      top: 2px;
+    }
         .summary-section h3 {
           margin-bottom: 12px;
         }
         .summary-content {
-          background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-          border-radius: 12px;
-          border-left: 4px solid #2196f3;
-          padding: 20px 18px 22px 18px;
+          background: #f8f9fa;
+          border-radius: 8px;
+          border: 1px solid #e9ecef;
+          padding: 20px 18px;
         }
     .next-steps {
-      background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-      border-radius: 12px;
-      border-left: 4px solid #ff9800;
-      padding: 22px 16px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+      padding: 24px 20px;
       text-align: center;
     }
-        .cta-button {
-          background: #ffffff;
-          color: #2196f3;
-          padding: 15px 28px;
-          text-decoration: none;
-          border-radius: 8px;
-          display: inline-block;
-          margin: 20px 0;
-          font-weight: 600;
-          font-size: 1em;
-          box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
-          transition: all 0.3s ease;
-          letter-spacing: 0.03em;
-          border: 2px solid #d32f2f;
-        }
+    .cta-button {
+      background: #dc3545;
+      color: #ffffff;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+      margin: 20px 0;
+      font-weight: 600;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      letter-spacing: 0.02em;
+      border: none;
+    }
      .cta-button:hover {
        transform: translateY(-2px);
        box-shadow: 0 8px 26px rgba(211, 47, 47, 0.3);
      }
     .contact-info {
-      background: white;
-      padding: 17px 15px;
+      background: #f8f9fa;
+      padding: 20px 18px;
       border-radius: 8px;
-      margin: 18px 0 0 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin: 20px 0 0 0;
+      border: 1px solid #e9ecef;
       font-size: 1em;
     }
     .contact-info p {
       margin-bottom: 7px;
-      color: #2c3e50;
+      color: #495057;
       line-height: 1.5;
     }
     .contact-info strong {
-      color: #1e3c72;
+      color: #212529;
     }
         .disclaimer {
-          font-size: 11.5px;
-          color: #95a5a6;
-          margin-top: 22px;
-          padding-top: 18px;
-          border-top: 1px solid #ccc;
+          font-size: 12px;
+          color: #6c757d;
+          margin-top: 24px;
+          padding-top: 20px;
+          border-top: 1px solid #e9ecef;
           line-height: 1.5;
         }
         .copyright {
           text-align: center;
           font-size: 11px;
-          color: #7f8c8d;
+          color: #6c757d;
           margin-top: 8px;
           font-weight: 500;
         }
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
-      .readiness-score-line { font-size: 1.2em; }
-      .readiness-level-line { font-size: 1.2em; }
-      .score-title { font-size: 1.4em; }
+      .readiness-score-line { font-size: 1.3em; }
+      .readiness-level-line { font-size: 1.3em; }
+      .score-title { font-size: 1.0em; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .readiness-score-line { font-size: 1.1em; }
-      .readiness-level-line { font-size: 1.1em; }
-      .score-title { font-size: 1.3em; }
+      .readiness-score-line { font-size: 1.2em; }
+      .readiness-level-line { font-size: 1.2em; }
+      .score-title { font-size: 0.9em; }
     }
   </style>
 </head>
