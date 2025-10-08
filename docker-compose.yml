@@ -1,7 +1,32 @@
 version: '3.8'
 
 services:
-  # Frontend Service
+  # Evernile SME IPO - Complete Application
+  evernile-sme-ipo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: evernile-sme-ipo
+    ports:
+      - "3006:3000"   # Frontend (avoiding conflicts with existing services)
+      - "3007:3001"   # Backend API
+    environment:
+      - NODE_ENV=production
+      - GMAIL_USER=${GMAIL_USER}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+      - PORT=3001
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend/dist:/app/frontend/dist
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Service (standalone)
   frontend:
     build:
       context: .
@@ -16,7 +41,7 @@ services:
     command: ["npx", "serve", "-s", ".", "-l", "3000"]
     restart: unless-stopped
 
-  # Backend Service
+  # Backend Service (standalone)
   backend:
     build:
       context: .

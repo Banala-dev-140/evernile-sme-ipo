@@ -134,14 +134,105 @@ All colors MUST be HSL.
   }
   
   .financial-metric {
-    @apply text-2xl font-bold tracking-tight;
+    @apply text-xl sm:text-2xl font-bold tracking-tight;
   }
   
   .question-card {
-    @apply p-6 rounded-lg border border-border bg-card hover:shadow-md transition-shadow;
+    @apply p-4 sm:p-6 rounded-lg border border-border bg-card hover:shadow-md transition-shadow;
   }
   
   .eligibility-result {
-    @apply p-8 rounded-lg text-center font-medium;
+    @apply p-4 sm:p-8 rounded-lg text-center font-medium;
+  }
+  
+  /* Mobile-first responsive utilities */
+  .mobile-text-xs {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .mobile-text-sm {
+    @apply text-sm sm:text-base;
+  }
+  
+  .mobile-text-base {
+    @apply text-base sm:text-lg;
+  }
+  
+  .mobile-text-lg {
+    @apply text-lg sm:text-xl;
+  }
+  
+  .mobile-text-xl {
+    @apply text-xl sm:text-2xl;
+  }
+  
+  .mobile-text-2xl {
+    @apply text-2xl sm:text-3xl;
+  }
+  
+  .mobile-padding {
+    @apply p-4 sm:p-6;
+  }
+  
+  .mobile-margin {
+    @apply m-2 sm:m-4;
+  }
+  
+  .mobile-gap {
+    @apply gap-2 sm:gap-4;
+  }
+  
+  .mobile-space-y {
+    @apply space-y-2 sm:space-y-4;
+  }
+  
+  /* Touch-friendly buttons for mobile */
+  .mobile-button {
+    @apply min-h-[44px] min-w-[44px] touch-manipulation;
+  }
+  
+  /* Mobile-optimized forms */
+  .mobile-input {
+    @apply h-10 sm:h-11 text-sm sm:text-base;
+  }
+  
+  .mobile-label {
+    @apply text-sm sm:text-base;
+  }
+  
+  /* Mobile navigation */
+  .mobile-nav {
+    @apply flex flex-col sm:flex-row gap-2 sm:gap-4;
+  }
+  
+  /* Mobile cards */
+  .mobile-card {
+    @apply p-4 sm:p-6 rounded-lg shadow-sm;
+  }
+  
+  /* Mobile grid layouts */
+  .mobile-grid-1 {
+    @apply grid grid-cols-1 sm:grid-cols-2;
+  }
+  
+  .mobile-grid-2 {
+    @apply grid grid-cols-1 md:grid-cols-2;
+  }
+  
+  /* Mobile typography */
+  .mobile-heading {
+    @apply text-lg sm:text-xl md:text-2xl font-bold;
+  }
+  
+  .mobile-subheading {
+    @apply text-base sm:text-lg font-semibold;
+  }
+  
+  .mobile-body {
+    @apply text-sm sm:text-base;
+  }
+  
+  .mobile-caption {
+    @apply text-xs sm:text-sm;
   }
 }

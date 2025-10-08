@@ -338,29 +338,31 @@ const MainboardEligibility = () => {
     <div className="min-h-screen bg-white">
       {/* Header with back button, logo, and title */}
         <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Button variant="ghost" onClick={() => navigate('/')} className="text-evernile-navy hover:text-evernile-navy/80">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Home
-                </Button>
-                <div className="h-6 border-l border-gray-300" />
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 sm:gap-4">
+              <Button variant="ghost" onClick={() => navigate('/')} className="text-evernile-navy hover:text-evernile-navy/80 h-8 sm:h-10 px-2 sm:px-4 text-xs sm:text-sm">
+                <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Back</span>
+              </Button>
+                <div className="h-4 sm:h-6 border-l border-gray-300" />
                 <div className="flex flex-col items-center">
-                  <div className="text-xl font-bold text-evernile-navy">EVERNILE</div>
-                  <div className="flex items-center gap-2">
-                    <div className="h-0.5 w-6 bg-evernile-red"></div>
+                  <div className="text-lg sm:text-xl font-bold text-evernile-navy">EVERNILE</div>
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <div className="h-0.5 w-4 sm:w-6 bg-evernile-red"></div>
                     <div className="text-xs text-evernile-navy">CAPITAL</div>
-                    <div className="h-0.5 w-6 bg-evernile-red"></div>
+                    <div className="h-0.5 w-4 sm:w-6 bg-evernile-red"></div>
                   </div>
                 </div>
               </div>
-              <div className="text-lg font-semibold text-evernile-navy">
-                Mainboard IPO Readiness Assessment
-              </div>
+              <div className="text-sm sm:text-lg font-semibold text-evernile-navy text-right">
+                <span className="hidden sm:inline">Mainboard IPO Readiness Assessment</span>
+                <span className="sm:hidden">Mainboard IPO</span>
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
       {/* Progress Bar */}
       {!showReport && (
@@ -376,24 +378,24 @@ const MainboardEligibility = () => {
         </div>
       )}
 
-      <main className="container mx-auto px-4 py-10">
+      <main className="container mx-auto px-4 py-6 sm:py-10">
         <div className="max-w-2xl mx-auto">
           <Card className="bg-white">
-            <CardHeader>
-              <CardTitle className="text-2xl">{showReport ? "Mainboard IPO Readiness Assessment Report" : ""}</CardTitle>
+            <CardHeader className="px-4 sm:px-6">
+              <CardTitle className="text-lg sm:text-2xl">{showReport ? "Mainboard IPO Readiness Assessment Report" : ""}</CardTitle>
               {/* Helper text removed as requested */}
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
               {!showReport && step < QUESTIONS.length && current && (
                 <div className="space-y-6">
-                  <div className="flex justify-between items-center">
-                    <div className="text-xl font-bold text-left flex items-center gap-2">
-                      {current.question}
+                  <div className="flex justify-between items-start sm:items-center">
+                    <div className="text-lg sm:text-xl font-bold text-left flex items-start sm:items-center gap-2 flex-1">
+                      <span className="flex-1">{current.question}</span>
                     {current.id === 3 && (
                       <Button 
                         variant="ghost" 
                         size="sm" 
-                        className="h-6 w-6 p-0"
+                        className="h-6 w-6 p-0 flex-shrink-0"
                         onClick={() => openInfoModal(
                           "Paid-up Capital",
                           "Paid-up capital is the amount received by a company from shareholders for shares that have been fully paid for, forming part of the issued share capital, and cannot exceed the authorised capital set in the company's charter.",
@@ -408,7 +410,7 @@ const MainboardEligibility = () => {
                       {step + 1}/{QUESTIONS.length}
                     </div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {current.options.map((o, index) => (
                       <OptionBox
                         key={o.text}
@@ -418,16 +420,16 @@ const MainboardEligibility = () => {
                         onClick={() => onSelect(current, o)}
                       />
                     ))}
-                  </div>
-                  <div className="flex justify-between pt-2">
+                              </div>
+                  <div className="flex justify-between pt-2 gap-2">
                     {step > 0 ? (
-                      <Button onClick={onPrevious} variant="outline" className="border-evernile-navy text-evernile-navy hover:bg-evernile-navy hover:text-white">
+                      <Button onClick={onPrevious} variant="outline" className="border-evernile-navy text-evernile-navy hover:bg-evernile-navy hover:text-white h-10 sm:h-11 text-sm sm:text-base flex-1 sm:flex-none">
                         Previous
                       </Button>
                     ) : (
                       <div></div>
                     )}
-                    <Button onClick={onNext} disabled={!canNext} className="bg-evernile-navy text-white">
+                    <Button onClick={onNext} disabled={!canNext} className="bg-evernile-navy text-white h-10 sm:h-11 text-sm sm:text-base flex-1 sm:flex-none">
                       Next
                     </Button>
                   </div>
@@ -435,23 +437,23 @@ const MainboardEligibility = () => {
               )}
 
               {!showReport && step === QUESTIONS.length && (
-                <div className="space-y-4">
-                  <div className="text-lg font-semibold text-evernile-navy">Almost there! Please fill out few details and generate your IPO Readiness Assessment Report.</div>
-                  <div className="text-lg font-medium">Your Details</div>
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="text-base sm:text-lg font-semibold text-evernile-navy px-2">Almost there! Please fill out few details and generate your IPO Readiness Assessment Report.</div>
+                  <div className="text-base sm:text-lg font-medium">Your Details</div>
                   <div className="grid grid-cols-1 gap-4">
                     <div className="grid gap-1">
-                      <Label htmlFor="name">Name<span className="text-red-500">*</span></Label>
-                      <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
+                      <Label htmlFor="name" className="text-sm sm:text-base">Name<span className="text-red-500">*</span></Label>
+                      <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" className="h-10 sm:h-11 text-sm sm:text-base" />
                     </div>
                     <div className="grid gap-1">
-                      <Label htmlFor="email">Email ID<span className="text-red-500">*</span></Label>
-                      <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" />
+                      <Label htmlFor="email" className="text-sm sm:text-base">Email ID<span className="text-red-500">*</span></Label>
+                      <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" className="h-10 sm:h-11 text-sm sm:text-base" />
                     </div>
                     <div className="grid gap-1">
-                      <Label htmlFor="phone">Mobile No.</Label>
-                      <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="XXXXXXXXXX" />
+                      <Label htmlFor="phone" className="text-sm sm:text-base">Mobile No.</Label>
+                      <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="XXXXXXXXXX" className="h-10 sm:h-11 text-sm sm:text-base" />
                     </div>
-                  </div>
+            </div>
 
                   <div className="flex justify-center">
                     <Button
@@ -460,15 +462,18 @@ const MainboardEligibility = () => {
                         await saveAssessmentData();
                         await sendEmailReport();
                       }}
-                      className="bg-evernile-red text-evernile-red-foreground"
+                      className="bg-evernile-red text-evernile-red-foreground h-12 sm:h-14 w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8"
                     >
                       {isGeneratingReport ? (
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          Generating Report...
+                          <span className="text-sm sm:text-base">Generating Report...</span>
                         </div>
                       ) : (
-                        "Generate & Email IPO Readiness Assessment Report"
+                        <>
+                          <span className="hidden sm:inline">Generate & Email IPO Readiness Assessment Report</span>
+                          <span className="sm:hidden">Generate IPO Report</span>
+                        </>
                       )}
                     </Button>
                   </div>
@@ -496,15 +501,15 @@ const MainboardEligibility = () => {
                   
                   {/* Book Readiness Call and Contact Details side by side */}
                   <div className="flex flex-col md:flex-row gap-4 mt-6">
-                    <div className="flex-1 p-4 bg-evernile-red rounded-lg flex items-center justify-center">
+                    <div className="flex-1 p-3 sm:p-4 bg-evernile-red rounded-lg flex items-center justify-center">
                       <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-base font-medium">Book a call with our IPO Expert</Button>
+                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-sm sm:text-base font-medium">Book a call with our IPO Expert</Button>
                       </a>
                     </div>
-                    <div className="flex-1 p-4 bg-gray-50 rounded-lg">
-                      <div className="text-sm font-medium text-gray-700 mb-2">Contact Details:</div>
-                      <div className="text-sm text-gray-600">Email: bdinesh@evernile.com</div>
-                      <div className="text-sm text-gray-600">Mobile: +91-8889926196</div>
+                    <div className="flex-1 p-3 sm:p-4 bg-gray-50 rounded-lg">
+                      <div className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Contact Details:</div>
+                      <div className="text-xs sm:text-sm text-gray-600">Email: bdinesh@evernile.com</div>
+                      <div className="text-xs sm:text-sm text-gray-600">Mobile: +91-8889926196</div>
                     </div>
                   </div>
                   
