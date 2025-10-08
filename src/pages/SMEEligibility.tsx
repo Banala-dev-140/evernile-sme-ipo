@@ -561,7 +561,7 @@ const SMEEligibility = () => {
                   <div className="flex flex-col md:flex-row gap-4 mt-6">
                     <div className="flex-1 p-4 bg-evernile-red rounded-lg flex items-center justify-center">
                       <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-base font-medium">Book call with our IPO Expert</Button>
+                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-base font-medium">Book a call with our IPO Expert</Button>
                       </a>
                     </div>
                     <div className="flex-1 p-4 bg-gray-50 rounded-lg">

@@ -79,14 +79,14 @@ const generateEmailHTML = (data) => {
       border-bottom: 1px solid #e9ecef;
     }
     .header-title {
-      font-size: 1.8em;
+      font-size: 2.0em;
       font-weight: 700;
       margin-bottom: 8px;
       color: #212529;
       letter-spacing: 0.01em;
     }
     .header-subtitle {
-      font-size: 1.0em;
+      font-size: 1.2em;
       font-weight: 500;
       color: #6c757d;
       letter-spacing: 0.02em;
@@ -96,14 +96,14 @@ const generateEmailHTML = (data) => {
       color: #495057;
     }
     .greeting {
-      font-size: 1.08em;
+      font-size: 1.28em;
       margin-bottom: 28px;
     }
         .score-section {
           margin-bottom: 35px;
         }
         .score-title {
-          font-size: 1.1em;
+          font-size: 1.3em;
           color: #212529;
           font-weight: 600;
           margin-bottom: 12px;
@@ -113,14 +113,14 @@ const generateEmailHTML = (data) => {
           background: #d4edda;
           border-radius: 8px;
           border: 1px solid #c3e6cb;
-          padding: 20px 24px;
+          padding: 24px 28px;
           text-align: center;
           display: flex;
           flex-direction: column;
           align-items: center;
         }
         .readiness-score-line {
-          font-size: 1.4em;
+          font-size: 1.6em;
           font-weight: 600;
           color: #28a745;
           margin: 8px 0 8px 0;
@@ -128,7 +128,7 @@ const generateEmailHTML = (data) => {
           text-align: center;
         }
         .readiness-level-line {
-          font-size: 1.4em;
+          font-size: 1.6em;
           font-weight: 600;
           color: #28a745;
           margin-bottom: 0px;
@@ -142,7 +142,7 @@ const generateEmailHTML = (data) => {
     .summary-section h3,
     .next-steps h3 {
       color: #212529;
-      font-size: 1.1em;
+      font-size: 1.3em;
       margin-bottom: 16px;
       font-weight: 600;
     }
@@ -151,7 +151,7 @@ const generateEmailHTML = (data) => {
       padding: 20px 18px;
       border-radius: 8px;
       border: 1px solid #e9ecef;
-      font-size: 1em;
+      font-size: 1.2em;
     }
     .assessment-points ul {
       padding-left: 0;
@@ -167,8 +167,8 @@ const generateEmailHTML = (data) => {
       content: '•';
       position: absolute;
       left: 0;
-      color: #495057;
-      font-size: 16px;
+      color: #dc3545;
+      font-size: 18px;
       top: 2px;
     }
         .summary-section h3 {
@@ -196,7 +196,7 @@ const generateEmailHTML = (data) => {
       display: inline-block;
       margin: 20px 0;
       font-weight: 600;
-      font-size: 1em;
+      font-size: 1.2em;
       transition: all 0.3s ease;
       letter-spacing: 0.02em;
       border: none;
@@ -239,15 +239,15 @@ const generateEmailHTML = (data) => {
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
-      .readiness-score-line { font-size: 1.3em; }
-      .readiness-level-line { font-size: 1.3em; }
-      .score-title { font-size: 1.0em; }
+      .readiness-score-line { font-size: 1.5em; }
+      .readiness-level-line { font-size: 1.5em; }
+      .score-title { font-size: 1.2em; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .readiness-score-line { font-size: 1.2em; }
-      .readiness-level-line { font-size: 1.2em; }
-      .score-title { font-size: 0.9em; }
+      .readiness-score-line { font-size: 1.4em; }
+      .readiness-level-line { font-size: 1.4em; }
+      .score-title { font-size: 1.1em; }
     }
   </style>
 </head>
@@ -286,7 +286,7 @@ const generateEmailHTML = (data) => {
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
         <p>Ready to take your IPO journey to the next level? Our expert team is here to guide you through every step of the process.</p>
-        <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book Our IPO Expert</a>
+                <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book a call with our IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
           <p>📧 <strong>Email:</strong> bdinesh@evernile.com<br>
@@ -355,7 +355,7 @@ ${'='.repeat(30)}
 
 To proceed with your IPO journey, we recommend booking a consultation call with our team:
 
-📅 Book Our IPO Expert: https://calendly.com/bdinesh-evernile/30min
+    📅 Book a call with our IPO Expert: https://calendly.com/bdinesh-evernile/30min
 
 Contact Details:
 📧 Email: bdinesh@evernile.com
