@@ -169,12 +169,13 @@ const generateEmailHTML = (data) => {
       position: relative;
     }
     .assessment-points li::before {
-      content: '•';
+      content: '●';
       position: absolute;
       left: 0;
       color: #dc3545;
-      font-size: 18px;
-      top: 2px;
+      font-size: 16px;
+      top: 3px;
+      font-weight: bold;
     }
         .summary-section h3 {
           margin-bottom: 12px;
