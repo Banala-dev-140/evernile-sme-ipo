@@ -165,17 +165,8 @@ const generateEmailHTML = (data) => {
     .assessment-points li {
       margin-bottom: 13px;
       line-height: 1.6;
-      padding-left: 25px;
+      padding-left: 0;
       position: relative;
-    }
-    .assessment-points li::before {
-      content: '●';
-      position: absolute;
-      left: 0;
-      color: #dc3545;
-      font-size: 16px;
-      top: 3px;
-      font-weight: bold;
     }
         .summary-section h3 {
           margin-bottom: 12px;
@@ -281,7 +272,7 @@ const generateEmailHTML = (data) => {
         <h3>🔍 Key Assessment Highlights</h3>
         <div class="assessment-points">
           <ul>
-            ${keyAssessmentHighlights.map(point => `<li>${point}</li>`).join('')}
+            ${keyAssessmentHighlights.map(point => `<li>- ${point}</li>`).join('')}
           </ul>
         </div>
       </div>
