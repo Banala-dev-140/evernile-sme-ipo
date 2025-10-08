@@ -116,29 +116,29 @@ const generateEmailHTML = (data) => {
           border: 1px solid #c3e6cb;
           padding: 20px 24px;
           text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+          display: block;
           max-width: 100%;
           box-sizing: border-box;
         }
         .readiness-score-line {
-          font-size: 1.4em;
+          font-size: 1.3em;
           font-weight: 600;
           color: #28a745;
-          margin: 6px 0 6px 0;
+          margin: 8px 0 8px 0;
           letter-spacing: 0.01em;
           text-align: center;
           word-wrap: break-word;
+          display: block;
         }
         .readiness-level-line {
-          font-size: 1.4em;
+          font-size: 1.3em;
           font-weight: 600;
           color: #28a745;
           margin-bottom: 0px;
           letter-spacing: 0.01em;
           text-align: center;
           word-wrap: break-word;
+          display: block;
         }
     .assessment-section, .summary-section, .next-steps {
       margin-bottom: 32px;
@@ -244,15 +244,15 @@ const generateEmailHTML = (data) => {
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
-      .readiness-score-line { font-size: 1.3em; }
-      .readiness-level-line { font-size: 1.3em; }
+      .readiness-score-line { font-size: 1.2em; }
+      .readiness-level-line { font-size: 1.2em; }
       .score-title { font-size: 1.2em; }
       .score-card { padding: 16px 20px; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .readiness-score-line { font-size: 1.2em; }
-      .readiness-level-line { font-size: 1.2em; }
+      .readiness-score-line { font-size: 1.1em; }
+      .readiness-level-line { font-size: 1.1em; }
       .score-title { font-size: 1.1em; }
       .score-card { padding: 14px 18px; }
     }
