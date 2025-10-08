@@ -99,27 +99,24 @@ const generateEmailHTML = (data) => {
       margin-bottom: 28px;
     }
         .score-section {
-          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-          border-radius: 14px;
-          border: 1px solid #e0e6ed;
-          padding: 24px 18px 28px 18px;
-          text-align: center;
           margin-bottom: 35px;
-          position: relative;
         }
         .score-title {
           font-size: 1.6em;
           color: #1e3c72;
           font-weight: 600;
-          margin-bottom: 19px;
+          margin-bottom: 12px;
           letter-spacing: 0.01em;
         }
-        .score-display {
+        .score-card {
+          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+          border-radius: 14px;
+          border: 1px solid #e0e6ed;
+          padding: 24px 18px 28px 18px;
+          text-align: center;
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin: 0 auto;
-          text-align: center;
         }
         .readiness-score-line {
           font-size: 1.3em;
@@ -243,11 +240,13 @@ const generateEmailHTML = (data) => {
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
       .readiness-score-line { font-size: 1.2em; }
       .readiness-level-line { font-size: 1.2em; }
+      .score-title { font-size: 1.4em; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
       .readiness-score-line { font-size: 1.1em; }
       .readiness-level-line { font-size: 1.1em; }
+      .score-title { font-size: 1.3em; }
     }
   </style>
 </head>
@@ -264,7 +263,7 @@ const generateEmailHTML = (data) => {
       </div>
       <div class="score-section">
         <div class="score-title">IPO Readiness Score</div>
-        <div class="score-display">
+        <div class="score-card">
           <div class="readiness-score-line">Readiness Score: ${readinessScore} out of 5</div>
           <div class="readiness-level-line">Readiness Level: ${readinessLabel}</div>
         </div>
