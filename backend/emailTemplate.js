@@ -13,7 +13,9 @@ const generateKeyAssessmentHighlights = (assessmentType, dynamicPoints) => {
       point.includes('regulatory guideline') || 
       point.includes('regulatory criteria') ||
       point.includes('paid-up capital') ||
-      point.includes('existence for')
+      point.includes('existence for') ||
+      point.includes('should be in existence') ||
+      point.includes('fulfills the regulatory criteria')
     );
   }
   
@@ -32,7 +34,17 @@ const generateKeyAssessmentHighlights = (assessmentType, dynamicPoints) => {
       point.includes('financial strength') ||
       point.includes('listing eligibility') ||
       point.includes('operational viability') ||
-      point.includes('eligibility threshold')
+      point.includes('eligibility threshold') ||
+      point.includes('meets the SME IPO minimum') ||
+      point.includes('Building a consistent operational') ||
+      point.includes('leverage is within the optimal') ||
+      point.includes('Optimizing your debt-to-equity') ||
+      point.includes('satisfies the minimum requirement') ||
+      point.includes('Enhancing your net worth') ||
+      point.includes('profitability track record') ||
+      point.includes('Strengthening profitability') ||
+      point.includes('net tangible assets meet') ||
+      point.includes('Increasing net tangible assets')
     );
   }
   
