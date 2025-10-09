@@ -125,7 +125,7 @@ This email was generated automatically from the IPO Readiness Assessment Tool.
 // Production API integration
 export const sendAssessmentReportViaAPI = async (emailData: EmailData): Promise<boolean> => {
   try {
-    const API_URL = import.meta.env.VITE_EMAIL_API_URL || 'http://localhost:3001';
+    const API_URL = import.meta.env.VITE_EMAIL_API_URL || 'http://72.60.96.212:8013';
     
     const response = await fetch(`${API_URL}/api/send-assessment-report`, {
       method: 'POST',
