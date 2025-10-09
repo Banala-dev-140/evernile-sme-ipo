@@ -1,6 +1,6 @@
 # Production Configuration Guide
 
-## 🚀 For VPS Deployment (72.60.96.212:8013)
+## 🚀 For VPS Deployment (https://api.ipocompass.evernile.com)
 
 ### 1. **Stop Development Server**
 If you're running `npm run dev`, stop it and use the built version instead.
@@ -19,12 +19,12 @@ npx serve -s dist -l 3000
 
 ### 3. **Environment Variables**
 The frontend is now configured to use:
-- **Primary**: `VITE_EMAIL_API_URL=http://72.60.96.212:8013` (from .env)
-- **Fallback**: `http://72.60.96.212:8013` (hardcoded in emailService.ts)
+- **Primary**: `VITE_EMAIL_API_URL=https://api.ipocompass.evernile.com` (from .env)
+- **Fallback**: `https://api.ipocompass.evernile.com` (hardcoded in emailService.ts)
 
 ### 4. **Verify Configuration**
 Check that your frontend is calling the correct endpoint:
-- ✅ Should call: `http://72.60.96.212:8013/api/send-assessment-report`
+- ✅ Should call: `https://api.ipocompass.evernile.com/api/send-assessment-report`
 - ❌ Should NOT call: `http://localhost:3001/api/send-assessment-report`
 
 ## 🔧 Troubleshooting

@@ -11,7 +11,7 @@ cd evernile-sme-ipo
 ### 2. **Environment Configuration**
 ```bash
 # Create .env file for frontend
-echo "VITE_EMAIL_API_URL=http://72.60.96.212:8013" > .env
+echo "VITE_EMAIL_API_URL=https://api.ipocompass.evernile.com" > .env
 
 # Create .env file for backend
 cd backend
@@ -64,7 +64,7 @@ sudo nano /etc/nginx/sites-available/evernile-ipo
 # Add this configuration:
 server {
     listen 80;
-    server_name 72.60.96.212;
+    server_name api.ipocompass.evernile.com;
     
     location / {
         root /path/to/evernile-sme-ipo/dist;
@@ -92,8 +92,8 @@ sudo systemctl restart nginx
 - **Frontend**: Port 3000 (or 80 with nginx)
 - **Backend API**: Port 3001
 - **External Access**: 
-  - Frontend: `http://72.60.96.212:3000` (or `http://72.60.96.212`)
-  - Backend: `http://72.60.96.212:8013` (mapped from 3001)
+  - Frontend: `https://ipocompass.evernile.com` (or `https://ipocompass.evernile.com`)
+  - Backend: `https://api.ipocompass.evernile.com` (mapped from 3001)
 
 ## 📧 Email Configuration
 
@@ -117,8 +117,8 @@ docker-compose logs -f
 
 ## ✅ Verification
 
-1. **Health Check**: `curl http://72.60.96.212:8013/api/health`
-2. **Frontend**: Visit `http://72.60.96.212:3000`
+1. **Health Check**: `curl https://api.ipocompass.evernile.com/api/health`
+2. **Frontend**: Visit `https://ipocompass.evernile.com`
 3. **Test Email**: Complete an assessment and check email delivery
 
 ## 🔍 Troubleshooting

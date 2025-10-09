@@ -126,7 +126,7 @@ This email was generated automatically from the IPO Readiness Assessment Tool.
 export const sendAssessmentReportViaAPI = async (emailData: EmailData): Promise<boolean> => {
   try {
     // Direct HTTPS API URL (no proxy needed)
-    const API_URL = 'https://72.60.96.212:8013';
+    const API_URL = 'https://api.ipocompass.evernile.com';
     
     const fullUrl = `${API_URL}/api/send-assessment-report`;
     console.log('🌐 API Call Debug:', {
