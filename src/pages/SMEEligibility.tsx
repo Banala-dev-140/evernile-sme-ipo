@@ -147,7 +147,7 @@ function generateDynamicPoints(answers: Answer[]): string[] {
       points.push("Your profitability track record supports the operational viability required for SME IPO.");
     } else if (q5.selected === "No") {
       points.push("Strengthening profitability for consecutive years is important to align with SME IPO standards.");
-    } else if (q5.selected === "Don't know") {
+    } else if (q5.selected === "Don't Know") {
       points.push("Operating Profit is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Operating Profit");
     }
   }
@@ -158,7 +158,7 @@ function generateDynamicPoints(answers: Answer[]): string[] {
       points.push("Your net tangible assets meet SME IPO listing requirements.");
     } else if (q6.selected === "Less than 3 Crore") {
       points.push("Increasing net tangible assets will help meet the SME IPO eligibility threshold.");
-    } else if (q6.selected === "Don't know") {
+    } else if (q6.selected === "Don't Know") {
       points.push("Net Tangible Assets is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Net Tangible Assets");
     }
   }
