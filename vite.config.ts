@@ -16,8 +16,7 @@ export default defineConfig(({ mode }) => ({
       '/api': {
         target: 'http://72.60.96.212:8013',
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        secure: false
       }
     }
   },
