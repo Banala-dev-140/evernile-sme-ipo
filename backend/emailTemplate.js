@@ -15,7 +15,9 @@ const generateKeyAssessmentHighlights = (assessmentType, dynamicPoints) => {
       point.includes('paid-up capital') ||
       point.includes('existence for') ||
       point.includes('should be in existence') ||
-      point.includes('fulfills the regulatory criteria')
+      point.includes('fulfills the regulatory criteria') ||
+      point.includes('having a paid-up capital') ||
+      point.includes('needs to have paid-up capital')
     );
   }
   
