@@ -125,9 +125,22 @@ This email was generated automatically from the IPO Readiness Assessment Tool.
 // Production API integration
 export const sendAssessmentReportViaAPI = async (emailData: EmailData): Promise<boolean> => {
   try {
-    const API_URL = import.meta.env.VITE_EMAIL_API_URL || '';
+    // Direct HTTPS API URL (no proxy needed)
+    const API_URL = 'https://72.60.96.212:8013';
     
-    const response = await fetch(`${API_URL}/api/send-assessment-report`, {
+    const fullUrl = `${API_URL}/api/send-assessment-report`;
+    console.log('🌐 API Call Debug:', {
+      environment: import.meta.env.PROD ? 'PRODUCTION' : 'DEVELOPMENT',
+      apiUrl: API_URL,
+      fullUrl: fullUrl,
+      emailData: {
+        to: emailData.to,
+        assessmentType: emailData.assessmentType,
+        readinessScore: emailData.readinessScore
+      }
+    });
+
+    const response = await fetch(fullUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -144,13 +157,26 @@ export const sendAssessmentReportViaAPI = async (emailData: EmailData): Promise<
       })
     });
 
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      const textResponse = await response.text();
+      console.error('❌ Non-JSON response received:', {
+        status: response.status,
+        statusText: response.statusText,
+        contentType: contentType,
+        response: textResponse.substring(0, 200) + '...'
+      });
+      return false;
+    }
+
     const result = await response.json();
     
     if (result.success) {
-      console.log('Email sent successfully:', result.messageId);
+      console.log('✅ Email sent successfully:', result.messageId);
       return true;
     } else {
-      console.error('Email sending failed:', result.error);
+      console.error('❌ Email sending failed:', result.error);
       return false;
     }
   } catch (error) {

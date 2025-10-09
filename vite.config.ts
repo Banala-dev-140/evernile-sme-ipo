@@ -11,14 +11,7 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     allowedHosts: [
       'ipocompass.evernile.com'
-    ],
-    proxy: {
-      '/api': {
-        target: 'http://72.60.96.212:8013',
-        changeOrigin: true,
-        secure: false
-      }
-    }
+    ]
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
