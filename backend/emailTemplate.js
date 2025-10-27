@@ -276,7 +276,7 @@ const generateEmailHTML = (data) => {
       </div>
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
-        <p>Ready to take your IPO journey to the next level? Understand your company's valuation, IPO costs, timeline, and end-to-end process—book a call with our IPO expert today.</p>
+        <p>Ready to take your IPO journey to the next level? Understand your <strong>company's valuation, IPO costs, timeline, and end-to-end process</strong>—book a call with our IPO expert today.</p>
                 <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book a call with our IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
@@ -346,7 +346,7 @@ ${'='.repeat(30)}
 
 To proceed with your IPO journey, we recommend booking a consultation call with our team:
 
-Ready to take your IPO journey to the next level? Understand your company's valuation, IPO costs, timeline, and end-to-end process—book a call with our IPO expert today.
+Ready to take your IPO journey to the next level? Understand your **company's valuation, IPO costs, timeline, and end-to-end process**—book a call with our IPO expert today.
 
     📅 Book a call with our IPO Expert: https://calendly.com/bdinesh-evernile/30min
 
