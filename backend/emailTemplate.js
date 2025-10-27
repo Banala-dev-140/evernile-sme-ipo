@@ -71,14 +71,14 @@ const generateEmailHTML = (data) => {
       border-radius: 12px 12px 0 0;
     }
     .header-title {
-      font-size: 2.0em;
+      font-size: 2.2em;
       font-weight: 700;
       margin-bottom: 8px;
       color: #ffffff;
       letter-spacing: 0.01em;
     }
     .header-subtitle {
-      font-size: 1.2em;
+      font-size: 1.4em;
       font-weight: 500;
       color: #ffffff;
       opacity: 0.9;
@@ -89,14 +89,14 @@ const generateEmailHTML = (data) => {
       color: #495057;
     }
     .greeting {
-      font-size: 1.28em;
+      font-size: 1.5em;
       margin-bottom: 28px;
     }
         .score-section {
           margin-bottom: 35px;
         }
         .score-title {
-          font-size: 1.3em;
+          font-size: 1.5em;
           color: #212529;
           font-weight: 600;
           margin-bottom: 12px;
@@ -113,7 +113,7 @@ const generateEmailHTML = (data) => {
           box-sizing: border-box;
         }
         .readiness-score-line {
-          font-size: 1.3em;
+          font-size: 1.5em;
           font-weight: 600;
           color: #28a745;
           margin: 8px 0 8px 0;
@@ -123,7 +123,7 @@ const generateEmailHTML = (data) => {
           display: block;
         }
         .readiness-level-line {
-          font-size: 1.3em;
+          font-size: 1.5em;
           font-weight: 600;
           color: #28a745;
           margin-bottom: 0px;
@@ -139,7 +139,7 @@ const generateEmailHTML = (data) => {
     .summary-section h3,
     .next-steps h3 {
       color: #212529;
-      font-size: 1.3em;
+      font-size: 1.5em;
       margin-bottom: 16px;
       font-weight: 600;
     }
@@ -148,7 +148,7 @@ const generateEmailHTML = (data) => {
       padding: 20px 18px;
       border-radius: 8px;
       border: 1px solid #e9ecef;
-      font-size: 1.2em;
+      font-size: 1.4em;
     }
     .assessment-points ul {
       padding-left: 0;
@@ -185,7 +185,7 @@ const generateEmailHTML = (data) => {
       display: inline-block;
       margin: 20px 0;
       font-weight: 600;
-      font-size: 1.2em;
+      font-size: 1.4em;
       transition: all 0.3s ease;
       letter-spacing: 0.02em;
       border: none;
@@ -200,7 +200,7 @@ const generateEmailHTML = (data) => {
       border-radius: 8px;
       margin: 20px 0 0 0;
       border: 1px solid #e9ecef;
-      font-size: 1em;
+      font-size: 1.2em;
     }
     .contact-info p {
       margin-bottom: 7px;
@@ -211,7 +211,7 @@ const generateEmailHTML = (data) => {
       color: #212529;
     }
         .disclaimer {
-          font-size: 12px;
+          font-size: 14px;
           color: #6c757d;
           margin-top: 24px;
           padding-top: 20px;
@@ -220,7 +220,7 @@ const generateEmailHTML = (data) => {
         }
         .copyright {
           text-align: center;
-          font-size: 11px;
+          font-size: 13px;
           color: #6c757d;
           margin-top: 8px;
           font-weight: 500;
@@ -228,16 +228,16 @@ const generateEmailHTML = (data) => {
     @media (max-width: 700px) {
       .email-wrapper { max-width: 99vw; }
       .content, .header { padding-left: 7vw; padding-right: 7vw;}
-      .readiness-score-line { font-size: 1.2em; }
-      .readiness-level-line { font-size: 1.2em; }
-      .score-title { font-size: 1.2em; }
+      .readiness-score-line { font-size: 1.4em; }
+      .readiness-level-line { font-size: 1.4em; }
+      .score-title { font-size: 1.4em; }
       .score-card { padding: 16px 20px; }
     }
     @media (max-width: 480px) {
       .email-wrapper { max-width: 100vw; border-radius: 0; }
-      .readiness-score-line { font-size: 1.1em; }
-      .readiness-level-line { font-size: 1.1em; }
-      .score-title { font-size: 1.1em; }
+      .readiness-score-line { font-size: 1.3em; }
+      .readiness-level-line { font-size: 1.3em; }
+      .score-title { font-size: 1.3em; }
       .score-card { padding: 14px 18px; }
     }
   </style>
@@ -276,7 +276,7 @@ const generateEmailHTML = (data) => {
       </div>
       <div class="next-steps">
         <h3>🚀 Next Steps</h3>
-        <p>Ready to take your IPO journey to the next level? Our expert team is here to guide you through every step of the process.</p>
+        <p>Ready to take your IPO journey to the next level? Understand your company's valuation, IPO costs, timeline, and end-to-end process—book a call with our IPO expert today.</p>
                 <a href="https://calendly.com/bdinesh-evernile/30min" class="cta-button">Book a call with our IPO Expert</a>
         <div class="contact-info">
           <p><strong>📞 Get in Touch:</strong></p>
@@ -345,6 +345,8 @@ NEXT STEPS
 ${'='.repeat(30)}
 
 To proceed with your IPO journey, we recommend booking a consultation call with our team:
+
+Ready to take your IPO journey to the next level? Understand your company's valuation, IPO costs, timeline, and end-to-end process—book a call with our IPO expert today.
 
     📅 Book a call with our IPO Expert: https://calendly.com/bdinesh-evernile/30min
 
