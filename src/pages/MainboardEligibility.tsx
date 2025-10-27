@@ -36,15 +36,6 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 3,
-    question: "Paid up Capital of the company is",
-    options: [
-      { text: "Less than 10 Crore", weight: 1 },
-      { text: "Equal to or more than 10 Crore", weight: 3 },
-      { text: "Don't Know", weight: 1 },
-    ],
-  },
-  {
-    id: 4,
     question: "When are you planning to file the IPO",
     options: [
       { text: "In one year", weight: 3 },
@@ -53,7 +44,7 @@ const QUESTIONS: Q[] = [
     ],
   },
   {
-    id: 5,
+    id: 4,
     question: "PAT/Net profit of the company for the last financial Year",
     options: [
       { text: "0 to 5 Crore", weight: 3 },
@@ -67,9 +58,9 @@ const QUESTIONS: Q[] = [
 type Answer = { questionId: number; selected: string; weight: number };
 
 function mapScore(total: number): { readiness: number; label: string } {
-  if (total >= 17) return { readiness: 4.5, label: "High IPO Readiness" };
-  if (total >= 14) return { readiness: 4.0, label: "Good IPO Readiness" };
-  if (total >= 11) return { readiness: 3.5, label: "Moderate IPO Readiness" };
+  if (total >= 14) return { readiness: 4.5, label: "High IPO Readiness" };
+  if (total >= 12) return { readiness: 4.0, label: "Good IPO Readiness" };
+  if (total >= 10) return { readiness: 3.5, label: "Moderate IPO Readiness" };
   if (total >= 8) return { readiness: 3.0, label: "Basic IPO Readiness" };
   return { readiness: 2.5, label: "Low Readiness" };
 }
@@ -98,18 +89,6 @@ function generateDynamicPoints(answers: Answer[]): string[] {
       points.push("As per regulatory guideline a company should be in existence for 3 or more years");
     } else if (q2.selected === "3 to 10 Years" || q2.selected === "More than 10 Years") {
       points.push("Your company fulfills the regulatory criteria of existence for more than 3 years");
-    }
-  }
-
-  // Question 3: Paid-up Capital (Key Assessment Highlight)
-  const q3 = byId.get(3);
-  if (q3) {
-    if (q3.selected === "Equal to or more than 10 Crore") {
-      points.push("Your company fulfills the regulatory criteria of having a paid-up capital of equal to or more than 10 Crore");
-    } else if (q3.selected === "Less than 10 Crore") {
-      points.push("As per regulations, a company needs to have paid-up capital equal to or more than 10 Crore");
-    } else if (q3.selected === "Don't Know") {
-      points.push("As per regulations, a company needs to have paid-up capital equal to or more than 10 Crore; to understand this please book a session with IPO expert team");
     }
   }
 
@@ -179,7 +158,6 @@ const MainboardEligibility = () => {
       const q2 = answers[2];
       const q3 = answers[3];
       const q4 = answers[4];
-      const q5 = answers[5];
 
       const assessmentData: Omit<AssessmentResponse, 'id' | 'created_at' | 'updated_at'> = {
         assessment_type: 'mainboard',
@@ -195,12 +173,10 @@ const MainboardEligibility = () => {
         q1_type_of_company_weight: q1?.weight,
         q2_business_existence: q2?.selected,
         q2_business_existence_weight: q2?.weight,
-        q3_paid_up_capital: q3?.selected,
-        q3_paid_up_capital_weight: q3?.weight,
-        q4_ipo_filing_timeline: q4?.selected,
-        q4_ipo_filing_timeline_weight: q4?.weight,
-        q5_pat_net_profit: q5?.selected,
-        q5_pat_net_profit_weight: q5?.weight
+        q3_ipo_filing_timeline: q3?.selected,
+        q3_ipo_filing_timeline_weight: q3?.weight,
+        q4_pat_net_profit: q4?.selected,
+        q4_pat_net_profit_weight: q4?.weight
       };
 
       await saveAssessmentResponse(assessmentData);
@@ -355,20 +331,6 @@ const MainboardEligibility = () => {
                   <div className="flex justify-between items-start sm:items-center">
                     <div className="text-lg sm:text-xl font-bold text-left flex items-start sm:items-center gap-2 flex-1">
                       <span className="flex-1">{current.question}</span>
-                    {current.id === 3 && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="h-6 w-6 p-0 flex-shrink-0"
-                        onClick={() => openInfoModal(
-                          "Paid-up Capital",
-                          "Paid-up capital is the amount received by a company from shareholders for shares that have been fully paid for, forming part of the issued share capital, and cannot exceed the authorised capital set in the company's charter.",
-                          ""
-                        )}
-                      >
-                        <Info className="h-4 w-4 text-evernile-navy/70" />
-                      </Button>
-                    )}
                     </div>
                     <div className="text-sm text-gray-500 font-medium">
                       {step + 1}/{QUESTIONS.length}

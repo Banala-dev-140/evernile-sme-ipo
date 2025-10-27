@@ -36,36 +36,17 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 3,
-    question: "What is the Debt-to-Equity (D/E) Ratio of the company",
+    question: "PAT/Net profit of the company for the last financial Year",
     options: [
-      { text: "Less than or equal to 3:1", weight: 4 },
-      { text: "More than 3:1", weight: 2 },
-      { text: "Don't know", weight: 2 },
-    ],
-  },
-  {
-    id: 4,
-    question: "Net Worth of the company in the preceding financial year",
-    options: [
-      { text: "Not Yet Positive", weight: 1 },
-      { text: "Less than 1 Crore", weight: 2 },
-      { text: "1 to 5 Crore", weight: 3 },
-      { text: "More than 5 Crore", weight: 4 },
+      { text: "0 to 5 Crore", weight: 3 },
+      { text: "5 to 10 Crore", weight: 4 },
+      { text: "More than 10 Crore", weight: 4 },
       { text: "Don't know", weight: 1 },
     ],
   },
   {
-    id: 5,
-    question: "Is operating profit positive for last 2 out of 3 financial years",
-    options: [
-      { text: "Yes", weight: 4 },
-      { text: "No", weight: 2 },
-      { text: "Don't Know", weight: 2 },
-    ],
-  },
-  {
-    id: 6,
-    question: "Net Tangible Assets of the company",
+    id: 4,
+    question: "Total Assets of the company",
     options: [
       { text: "More than 3 Crore", weight: 3 },
       { text: "Less than 3 Crore", weight: 2 },
@@ -73,7 +54,7 @@ const QUESTIONS: Q[] = [
     ],
   },
   {
-    id: 7,
+    id: 5,
     question: "Estimated time to file the IPO",
     options: [
       { text: "In one year", weight: 3 },
@@ -86,10 +67,10 @@ const QUESTIONS: Q[] = [
 type Answer = { questionId: number; selected: string; weight: number };
 
 function mapScore(total: number): { readiness: number; label: string } {
-  if (total >= 23) return { readiness: 4.5, label: "High Readiness" };
-  if (total >= 20) return { readiness: 4.0, label: "Good Readiness" };
-  if (total >= 17) return { readiness: 3.5, label: "Moderate Readiness" };
-  if (total >= 14) return { readiness: 3.0, label: "Basic Readiness" };
+  if (total >= 18) return { readiness: 4.5, label: "High Readiness" };
+  if (total >= 14) return { readiness: 4.0, label: "Good Readiness" };
+  if (total >= 12) return { readiness: 3.5, label: "Moderate Readiness" };
+  if (total >= 10) return { readiness: 3.0, label: "Basic Readiness" };
   return { readiness: 2.5, label: "Low Readiness" };
 }
 
@@ -110,56 +91,13 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   const points: string[] = [];
   const byId = new Map<number, Answer>(answers.map(a => [a.questionId, a]));
 
+  // Question 2: Business Existence Duration (Key Assessment Highlight)
   const q2 = byId.get(2);
   if (q2) {
     if (q2.selected === "3 to 10 years" || q2.selected === "More than 10 years") {
       points.push("Your company meets the SME IPO minimum operational history requirement of 3 years.");
     } else {
       points.push("Building a consistent operational history of at least 3 years is essential to qualify for SME IPO listing.");
-    }
-  }
-
-  const q3 = byId.get(3);
-  if (q3) {
-    if (q3.selected === "Less than or equal to 3:1") {
-      points.push("Your company's leverage is within the optimal range, meeting regulatory financial strength standards.");
-    } else if (q3.selected === "More than 3:1") {
-      points.push("Optimizing your debt-to-equity ratio will enhance financial stability and improve SME IPO eligibility.");
-    } else if (q3.selected === "Don't know") {
-      points.push("Debt to Equity Ratio is an important metric for SME IPO eligibility - book a call with IPO expert team to find your Debt to Equity Ratio");
-    }
-  }
-
-  const q4 = byId.get(4);
-  if (q4) {
-    if (q4.selected === "1 to 5 Crore" || q4.selected === "More than 5 Crore") {
-      points.push("Your net worth satisfies the minimum requirement for SME IPO listing eligibility.");
-    } else if (q4.selected === "Not Yet Positive" || q4.selected === "Less than 1 Crore") {
-      points.push("Enhancing your net worth to meet or exceed ₹1 Crore will improve your SME IPO readiness.");
-    } else if (q4.selected === "Don't know") {
-      points.push("Net worth is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Net worth");
-    }
-  }
-
-  const q5 = byId.get(5);
-  if (q5) {
-    if (q5.selected === "Yes") {
-      points.push("Your profitability track record supports the operational viability required for SME IPO.");
-    } else if (q5.selected === "No") {
-      points.push("Strengthening profitability for consecutive years is important to align with SME IPO standards.");
-    } else if (q5.selected === "Don't Know") {
-      points.push("Operating Profit is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Operating Profit");
-    }
-  }
-
-  const q6 = byId.get(6);
-  if (q6) {
-    if (q6.selected === "More than 3 Crore") {
-      points.push("Your net tangible assets meet SME IPO listing requirements.");
-    } else if (q6.selected === "Less than 3 Crore") {
-      points.push("Increasing net tangible assets will help meet the SME IPO eligibility threshold.");
-    } else if (q6.selected === "Don't Know") {
-      points.push("Net Tangible Assets is an important metric for SME IPO eligibility - book a call with IPO expert team to find your company's Net Tangible Assets");
     }
   }
 
@@ -227,11 +165,9 @@ const SMEEligibility = () => {
       // Map answers to individual columns
       const q1 = answers[1]; // Type of Company
       const q2 = answers[2]; // Business Existence
-      const q3 = answers[3]; // Debt-to-Equity Ratio
-      const q4 = answers[4]; // Net Worth
-      const q5 = answers[5]; // Operating Profit
-      const q6 = answers[6]; // Net Tangible Assets
-      const q7 = answers[7]; // IPO Filing Timeline
+      const q3 = answers[3]; // PAT/Net profit
+      const q4 = answers[4]; // Total Assets
+      const q5 = answers[5]; // IPO Filing Timeline
 
       const assessmentData: Omit<AssessmentResponse, 'id' | 'created_at' | 'updated_at'> = {
         assessment_type: 'sme',
@@ -242,23 +178,17 @@ const SMEEligibility = () => {
         readiness_score: scoreMeta.readiness,
         readiness_label: scoreMeta.label,
         
-        // Common questions (Q1, Q2, Q7)
+        // SME IPO Questions
         q1_type_of_company: q1?.selected,
         q1_type_of_company_weight: q1?.weight,
         q2_business_existence: q2?.selected,
         q2_business_existence_weight: q2?.weight,
-        q4_ipo_filing_timeline: q7?.selected,
-        q4_ipo_filing_timeline_weight: q7?.weight,
-        
-        // SME-specific questions
-        q3_debt_equity_ratio: q3?.selected,
-        q3_debt_equity_ratio_weight: q3?.weight,
-        q4_net_worth: q4?.selected,
-        q4_net_worth_weight: q4?.weight,
-        q5_operating_profit: q5?.selected,
-        q5_operating_profit_weight: q5?.weight,
-        q6_net_tangible_assets: q6?.selected,
-        q6_net_tangible_assets_weight: q6?.weight
+        q3_pat_net_profit: q3?.selected,
+        q3_pat_net_profit_weight: q3?.weight,
+        q4_total_assets: q4?.selected,
+        q4_total_assets_weight: q4?.weight,
+        q5_ipo_filing_timeline: q5?.selected,
+        q5_ipo_filing_timeline_weight: q5?.weight
       };
 
       await saveAssessmentResponse(assessmentData);
@@ -285,7 +215,7 @@ const SMEEligibility = () => {
         assessmentType: 'sme',
         readinessScore: scoreMeta.readiness,
         readinessLabel: scoreMeta.label,
-        totalWeight: totalWeight,
+        totalScore: totalWeight,
         dynamicPoints: dynamicPoints,
         closingMessage: closingMessage(scoreMeta.readiness)
       };
@@ -412,67 +342,11 @@ const SMEEligibility = () => {
                   <div className="flex justify-between items-start sm:items-center">
                     <div className="text-lg sm:text-xl font-bold text-left flex items-start sm:items-center gap-2 flex-1">
                       <span className="flex-1">{current.question}</span>
-                    {current.id === 3 && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="h-6 w-6 p-0 flex-shrink-0"
-                        onClick={() => openInfoModal(
-                          "Debt-to-Equity (D/E) Ratio",
-                          "The Debt-to-Equity (D/E) Ratio is a financial metric that measures a company's financial leverage by comparing its total debt to its shareholder equity.",
-                          "Debt-to-Equity Ratio = Total Debt / Shareholders' Equity"
-                        )}
-                      >
-                        <Info className="h-4 w-4 text-evernile-navy/70" />
-                      </Button>
-                    )}
-                    {current.id === 4 && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="h-6 w-6 p-0 flex-shrink-0"
-                        onClick={() => openInfoModal(
-                          "Net Worth",
-                          "Net worth is the value of a company's assets minus its liabilities.",
-                          "Net Worth = Total Assets − Total Liabilities"
-                        )}
-                      >
-                        <Info className="h-4 w-4 text-evernile-navy/70" />
-                      </Button>
-                    )}
-                    {current.id === 5 && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="h-6 w-6 p-0 flex-shrink-0"
-                        onClick={() => openInfoModal(
-                          "Operating Profit",
-                          "Operating profit is the profit earned from a company's core business operations after deducting operating expenses but before interest and taxes.",
-                          "Operating Profit = Gross Profit − Operating Expenses − Depreciation − Amortization"
-                        )}
-                      >
-                        <Info className="h-4 w-4 text-evernile-navy/70" />
-                                    </Button>
-                    )}
-                    {current.id === 6 && (
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="h-6 w-6 p-0 flex-shrink-0"
-                        onClick={() => openInfoModal(
-                          "Net Tangible Assets (NTA)",
-                          "Net Tangible Assets (NTA) represent the value of a company's physical assets after subtracting liabilities and intangible assets.",
-                          "Net Tangible Assets = Total Assets − Intangible Assets − Total Liabilities"
-                        )}
-                      >
-                        <Info className="h-4 w-4 text-evernile-navy/70" />
-                      </Button>
-                              )}
-                            </div>
+                    </div>
                     <div className="text-sm text-gray-500 font-medium">
                       {step + 1}/{QUESTIONS.length}
                     </div>
-                  </div>
+                            </div>
                   <div className="space-y-2 sm:space-y-3">
                     {current.options.map((o, index) => (
                       <OptionBox

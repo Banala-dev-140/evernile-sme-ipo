@@ -7,46 +7,24 @@ const generateKeyAssessmentHighlights = (assessmentType, dynamicPoints) => {
     return [];
   }
   
-  // For Mainboard IPO: Only show Q2 and Q3 (Business Existence and Paid-up Capital)
+  // For Mainboard IPO: Only show Q2 (Business Existence)
   if (assessmentType.toLowerCase() === 'mainboard') {
     return dynamicPoints.filter(point => 
       point.includes('regulatory guideline') || 
       point.includes('regulatory criteria') ||
-      point.includes('paid-up capital') ||
       point.includes('existence for') ||
       point.includes('should be in existence') ||
-      point.includes('fulfills the regulatory criteria') ||
-      point.includes('having a paid-up capital') ||
-      point.includes('needs to have paid-up capital')
+      point.includes('fulfills the regulatory criteria')
     );
   }
   
-  // For SME IPO: Show Q2, Q3, Q4, Q5, Q6 (Business Existence, D/E Ratio, Net Worth, Operating Profit, Net Tangible Assets)
+  // For SME IPO: Only show Q2 (Business Existence)
   if (assessmentType.toLowerCase() === 'sme') {
     return dynamicPoints.filter(point => 
       point.includes('operational history') ||
-      point.includes('leverage') ||
-      point.includes('net worth') ||
-      point.includes('profitability') ||
-      point.includes('net tangible assets') ||
-      point.includes('Debt to Equity') ||
-      point.includes('Operating Profit') ||
-      point.includes('Net Tangible Assets') ||
       point.includes('SME IPO') ||
-      point.includes('financial strength') ||
-      point.includes('listing eligibility') ||
-      point.includes('operational viability') ||
-      point.includes('eligibility threshold') ||
       point.includes('meets the SME IPO minimum') ||
-      point.includes('Building a consistent operational') ||
-      point.includes('leverage is within the optimal') ||
-      point.includes('Optimizing your debt-to-equity') ||
-      point.includes('satisfies the minimum requirement') ||
-      point.includes('Enhancing your net worth') ||
-      point.includes('profitability track record') ||
-      point.includes('Strengthening profitability') ||
-      point.includes('net tangible assets meet') ||
-      point.includes('Increasing net tangible assets')
+      point.includes('Building a consistent operational')
     );
   }
   
