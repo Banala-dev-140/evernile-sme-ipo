@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useNavigate } from "react-router-dom";
 import { saveAssessmentResponse, type AssessmentResponse, type QuestionResponse } from "@/lib/supabase";
 import { sendAssessmentReport, type EmailData } from "@/lib/emailService";
+import { logUserEvent } from "@/lib/logger";
 
 type Option = { text: string; weight: number };
 type Q = { id: number; question: string; options: Option[] };
@@ -138,6 +139,33 @@ const SMEEligibility = () => {
   const totalWeight = useMemo(() => answerList.reduce((t, a) => t + a.weight, 0), [answerList]);
   const scoreMeta = useMemo(() => mapScore(totalWeight), [totalWeight]);
   const dynamicPoints = useMemo(() => generateDynamicPoints(answerList), [answerList]);
+
+  useEffect(() => {
+    logUserEvent('sme_page_loaded');
+  }, []);
+
+  useEffect(() => {
+    if (step < QUESTIONS.length) {
+      const question = QUESTIONS[step];
+      logUserEvent('sme_question_loaded', {
+        questionId: question.id,
+        step: step + 1,
+        question: question.question
+      });
+    } else if (step === QUESTIONS.length && !showReport) {
+      logUserEvent('sme_contact_form_loaded');
+    }
+  }, [step, showReport]);
+
+  useEffect(() => {
+    if (showReport) {
+      logUserEvent('sme_report_viewed', {
+        readinessScore: scoreMeta.readiness,
+        readinessLabel: scoreMeta.label,
+        totalScore: totalWeight
+      });
+    }
+  }, [showReport, scoreMeta, totalWeight]);
 
   const onSelect = (q: Q, opt: Option) => {
     setAnswers(prev => ({ ...prev, [q.id]: { questionId: q.id, selected: opt.text, weight: opt.weight } }));

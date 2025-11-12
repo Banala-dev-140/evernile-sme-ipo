@@ -16,41 +16,25 @@ export interface AssessmentResponse {
   readiness_score: number
   readiness_label: string
   
-  // Mainboard IPO Questions (4 questions)
+  // Shared Questions (Q1-Q2)
   q1_type_of_company?: string
   q1_type_of_company_weight?: number
   q2_business_existence?: string
   q2_business_existence_weight?: number
+
+  // Mainboard IPO Questions (Q3-Q4)
   q3_ipo_filing_timeline?: string
   q3_ipo_filing_timeline_weight?: number
   q4_pat_net_profit?: string
   q4_pat_net_profit_weight?: number
-  
-  // Legacy fields (kept for backward compatibility)
-  q3_paid_up_capital?: string
-  q3_paid_up_capital_weight?: number
-  q4_ipo_filing_timeline?: string
-  q4_ipo_filing_timeline_weight?: number
-  q5_pat_net_profit?: string
-  q5_pat_net_profit_weight?: number
-  
-  // SME IPO Questions (5 questions)
-  q3_debt_equity_ratio?: string
-  q3_debt_equity_ratio_weight?: number
+
+  // SME IPO Questions (Q3-Q5)
   q3_pat_net_profit?: string
   q3_pat_net_profit_weight?: number
-  q4_net_worth?: string
-  q4_net_worth_weight?: number
   q4_total_assets?: string
   q4_total_assets_weight?: number
-  q4_pat_net_profit?: string
-  q4_pat_net_profit_weight?: number
-  q5_operating_profit?: string
-  q5_operating_profit_weight?: number
   q5_ipo_filing_timeline?: string
   q5_ipo_filing_timeline_weight?: number
-  q6_net_tangible_assets?: string
-  q6_net_tangible_assets_weight?: number
   
   created_at?: string
   updated_at?: string

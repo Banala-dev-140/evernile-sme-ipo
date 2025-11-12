@@ -101,6 +101,23 @@ app.post('/api/send-assessment-report', async (req, res) => {
   }
 });
 
+// Lightweight user event logger for Docker logs
+app.post('/api/log-user-event', (req, res) => {
+  const { eventType, payload, timestamp } = req.body || {};
+
+  const logTimestamp = timestamp || new Date().toISOString();
+  console.log('📝 [USER EVENT]', JSON.stringify({
+    timestamp: logTimestamp,
+    eventType: eventType || 'unknown_event',
+    ip: req.ip,
+    payload: payload || {}
+  }));
+
+  res.json({
+    success: true
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
