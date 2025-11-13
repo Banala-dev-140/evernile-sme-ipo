@@ -31,30 +31,30 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-5 sm:px-8 lg:px-10">
         <div className="mt-6 mb-6 text-center sm:mb-8">
-          <h1 className="mb-2 px-2 text-3xl font-semibold text-white sm:text-4xl">
+          <h1 className="mb-2 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)]">
             IPO Readiness Assessment
           </h1>
-          <p className="px-2 text-sm text-white/80 sm:text-base">
+          <p className="px-2 text-white/80 text-[clamp(14px,2.6vw,18px)]">
             Quick check for IPO readiness and compliance
           </p>
         </div>
 
-        <div className="grid w-full flex-1 items-stretch gap-5 md:grid-cols-2 lg:gap-7">
+        <div className="grid w-full flex-1 items-stretch gap-6 sm:gap-7 md:grid-cols-2">
           {/* Mainboard IPO Card */}
           <Card className="flex h-full flex-col justify-between border-2 border-[#1d3f91] bg-white shadow-md rounded-none">
-            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 lg:flex-row lg:items-center lg:gap-10">
-              <div className="flex w-full items-center justify-center lg:w-[42%]">
+            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 md:flex-row md:items-center md:gap-8">
+              <div className="flex w-full items-center justify-center md:w-[40%]">
                 <img
                   src={mainboardIllustration}
                   alt="Mainboard IPO illustration"
-                  className="max-h-40 w-full max-w-[230px] object-contain"
+                  className="max-h-40 w-full max-w-[220px] object-contain md:max-h-44"
                 />
               </div>
-              <div className="text-left lg:flex-1">
-                <CardTitle className="text-2xl font-semibold text-[#1d3f91] sm:text-3xl">
+              <div className="text-left md:flex-1">
+                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)]">
                   Mainboard IPO
                 </CardTitle>
-                <CardDescription className="mt-2 text-sm text-[#445b9c] sm:text-base">
+                <CardDescription className="mt-2 text-[#445b9c] text-[clamp(14px,2.6vw,18px)]">
                   For larger companies targeting main stock exchanges
               </CardDescription>
               </div>
@@ -62,7 +62,7 @@ const Dashboard = () => {
             <div className="px-6 pb-6">
               <Button 
                 variant="outline"
-                className="flex h-11 w-full items-center justify-center gap-3 border-2 border-[#1d3f91] text-sm font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 sm:text-base rounded-none"
+                className="flex h-11 w-full items-center justify-center gap-3 border-2 border-[#1d3f91] font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 rounded-none text-[clamp(14px,2.4vw,16px)]"
                 onClick={() => navigate("/mainboard-eligibility")}
               >
                 Start Assessment
@@ -75,19 +75,19 @@ const Dashboard = () => {
 
           {/* SME IPO Card */}
           <Card className="flex h-full flex-col justify-between border-2 border-[#1d3f91] bg-white shadow-md rounded-none">
-            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 lg:flex-row lg:items-center lg:gap-10">
-              <div className="flex w-full items-center justify-center lg:w-[42%]">
+            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 md:flex-row md:items-center md:gap-8">
+              <div className="flex w-full items-center justify-center md:w-[40%]">
                 <img
                   src={smeIllustration}
                   alt="SME IPO illustration"
-                  className="max-h-40 w-full max-w-[230px] object-contain"
+                  className="max-h-40 w-full max-w-[220px] object-contain md:max-h-44"
                 />
               </div>
-              <div className="text-left lg:flex-1">
-                <CardTitle className="text-2xl font-semibold text-[#1d3f91] sm:text-3xl">
+              <div className="text-left md:flex-1">
+                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)]">
                   SME IPO
                 </CardTitle>
-                <CardDescription className="mt-2 text-sm text-[#445b9c] sm:text-base">
+                <CardDescription className="mt-2 text-[#445b9c] text-[clamp(14px,2.6vw,18px)]">
                   For small & medium enterprises listing on SME platforms
                 </CardDescription>
               </div>
@@ -95,7 +95,7 @@ const Dashboard = () => {
             <div className="px-6 pb-6">
               <Button
                 variant="outline"
-                className="flex h-11 w-full items-center justify-center gap-3 border-2 border-[#1d3f91] text-sm font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 sm:text-base rounded-none"
+                className="flex h-11 w-full items-center justify-center gap-3 border-2 border-[#1d3f91] font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 rounded-none text-[clamp(14px,2.4vw,16px)]"
                 onClick={() => navigate("/sme-eligibility")}
               >
                 Start Assessment
@@ -109,29 +109,29 @@ const Dashboard = () => {
 
         {/* Bottom CTA */}
         <div className="mt-8 mb-4">
-          <div className="flex flex-col gap-6 rounded-xl border border-white/40 bg-[#0a1f4e] p-6 text-white shadow-lg sm:p-8 md:flex-row md:items-center md:justify-between">
-            <div className="flex-1 space-y-4">
+          <div className="flex flex-col gap-6 border border-white/40 bg-[#0a1f4e] p-6 text-white shadow-lg sm:p-8 md:flex-row md:items-center md:justify-between rounded-none">
+            <div className="flex-1 space-y-4 text-left">
               <div className="flex items-center gap-3">
                 <span className="text-2xl leading-none">✅</span>
-                <p className="text-base sm:text-lg">
+                <p className="text-[clamp(15px,2.4vw,18px)]">
                   <span className="font-semibold">Initial Criteria Check</span> – Eligibility & listing thresholds
                 </p>
                 </div>
               <div className="flex items-center gap-3">
                 <span className="text-2xl leading-none">✅</span>
-                <p className="text-base sm:text-lg">
+                <p className="text-[clamp(15px,2.4vw,18px)]">
                   <span className="font-semibold">Readiness Score</span> – Measure of preparedness level
                 </p>
                    </div>
               <div className="flex items-center gap-3">
                 <span className="text-2xl leading-none">✅</span>
-                <p className="text-base sm:text-lg">
+                <p className="text-[clamp(15px,2.4vw,18px)]">
                   <span className="font-semibold">Readiness Assessment</span> – Detailed evaluation & roadmap
                 </p>
                   </div>
                 </div>
-            <div className="flex flex-col gap-4 md:w-[300px]">
-              <p className="text-xs leading-relaxed text-white/80 sm:text-sm">
+            <div className="flex flex-col gap-4 md:w-[320px]">
+              <p className="text-white/80 text-[clamp(13px,2.2vw,16px)] leading-relaxed">
                 Need support with your assessment? Book a session with our team for tailored guidance.
               </p>
               <a
@@ -139,7 +139,7 @@ const Dashboard = () => {
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                <Button className="h-11 w-full bg-evernile-red text-base font-semibold text-white transition hover:bg-evernile-red/90 sm:h-12 rounded-none">
+                <Button className="h-11 w-full bg-evernile-red font-semibold text-white transition hover:bg-evernile-red/90 sm:h-12 rounded-none text-[clamp(14px,2.4vw,16px)]">
                   Book Session
                 </Button>
               </a>
