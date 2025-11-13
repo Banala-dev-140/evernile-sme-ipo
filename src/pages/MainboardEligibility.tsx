@@ -48,7 +48,7 @@ const QUESTIONS: Q[] = [
   },
   {
     id: 4,
-    question: "PAT/Net profit of the company for the last financial Year",
+    question: "PAT/Net profit of the company for the last Financial Year",
     options: [
       { text: "0 to 5 Crore", weight: 3 },
       { text: "5 to 10 Crore", weight: 4 },
@@ -397,157 +397,136 @@ const MainboardEligibility = () => {
               </Button>
             </div>
           </div>
+        ) : !showReport ? (
+          <div className="mt-12 flex flex-1 flex-col items-center text-left">
+            <div className="w-full max-w-3xl space-y-6">
+              <h2 className="text-xl font-semibold leading-snug sm:text-2xl">
+                Almost there! Please fill out few details & generate your IPO Readiness Assessment Report.
+              </h2>
+              <div>
+                <p className="text-sm font-medium tracking-wide text-white/80">
+                  Please fill in your details
+                </p>
+                <div className="mt-2 h-[2px] w-full bg-white/40" />
+              </div>
+              <div className="space-y-5">
+                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
+                  <Label htmlFor="name" className="text-sm text-white sm:text-base">
+                    Your Name<span className="text-evernile-red">*</span>
+                  </Label>
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your Name"
+                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                  />
+                </div>
+                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
+                  <Label htmlFor="email" className="text-sm text-white sm:text-base">
+                    Email ID<span className="text-evernile-red">*</span>
+                  </Label>
+                  <Input
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                  />
+                </div>
+                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
+                  <Label htmlFor="phone" className="text-sm text-white sm:text-base">
+                    Mobile No.
+                  </Label>
+                  <Input
+                    id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="xxxx xxxxx"
+                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                  />
+                </div>
+              </div>
+              <Button
+                disabled={!canCreateReport || isGeneratingReport}
+                onClick={async () => {
+                  await saveAssessmentData();
+                  await sendEmailReport();
+                }}
+                className="w-full rounded-none bg-evernile-red py-6 text-lg font-semibold text-white hover:bg-evernile-red/90"
+              >
+                {isGeneratingReport ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    <span>Generating Report...</span>
+                  </div>
+                ) : (
+                  "Generate & Email IPO Readiness Assessment Report"
+                )}
+              </Button>
+            </div>
+          </div>
         ) : (
           <div className="mt-10 flex-1">
-            {!showReport && (
-              <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-white/20">
-                <div
-                  className="h-full rounded-full bg-evernile-red transition-all duration-300"
-                  style={{ width: `${progressPct}%` }}
-                />
-              </div>
-            )}
             <div className="mx-auto w-full max-w-2xl">
               <Card className="bg-white text-evernile-navy shadow-lg">
                 <CardHeader className="px-6 pt-6">
                   <CardTitle className="text-xl font-semibold sm:text-2xl">
-                    {showReport
-                      ? "Mainboard IPO Readiness Assessment Report"
-                      : "Generate Your IPO Readiness Report"}
+                    Mainboard IPO Readiness Assessment Report
                   </CardTitle>
-                  {!showReport && (
-                    <CardDescription className="pt-2 text-sm text-evernile-navy/70 sm:text-base">
-                      Almost there! Share your details and we will email the detailed IPO readiness assessment report.
-                    </CardDescription>
-                  )}
                 </CardHeader>
                 <CardContent className="space-y-6 px-6 pb-6">
-                  {!showReport && step === QUESTIONS.length && (
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 gap-4">
-                        <div className="grid gap-1">
-                          <Label htmlFor="name" className="text-sm sm:text-base">
-                            Name<span className="text-evernile-red">*</span>
-                          </Label>
-                          <Input
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Your name"
-                            className="h-10 sm:h-11 text-sm sm:text-base"
-                          />
-                        </div>
-                        <div className="grid gap-1">
-                          <Label htmlFor="email" className="text-sm sm:text-base">
-                            Email ID<span className="text-evernile-red">*</span>
-                          </Label>
-                          <Input
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="you@company.com"
-                            className="h-10 sm:h-11 text-sm sm:text-base"
-                          />
-                        </div>
-                        <div className="grid gap-1">
-                          <Label htmlFor="phone" className="text-sm sm:text-base">
-                            Mobile No.
-                          </Label>
-                          <Input
-                            id="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="XXXXXXXXXX"
-                            className="h-10 sm:h-11 text-sm sm:text-base"
-                          />
-                        </div>
-                      </div>
+                  <div className="space-y-4 text-center">
+                    <div className="text-6xl">📧</div>
+                    <h2 className="text-2xl font-semibold text-evernile-navy">
+                      Report Sent Successfully!
+                    </h2>
+                    <p className="text-base text-gray-600 sm:text-lg">
+                      Your Mainboard IPO Readiness Assessment report has been sent to{" "}
+                      <strong>{email}</strong>
+                    </p>
+                    <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-left text-green-800">
+                      <p>
+                        <strong>Readiness Score:</strong> {scoreMeta.readiness} out of 5
+                      </p>
+                      <p>
+                        <strong>Readiness Level:</strong> {scoreMeta.label}
+                      </p>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      Please check your inbox (and spam folder) for the detailed report.
+                    </p>
+                  </div>
 
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={handlePrevious}
-                          className="w-full rounded-none border border-evernile-navy text-evernile-navy hover:bg-evernile-navy hover:text-white sm:w-auto"
-                        >
-                          ‹ Back
+                  <div className="mt-6 flex flex-col gap-4 md:flex-row">
+                    <div className="flex-1 rounded-lg bg-evernile-red p-4 text-white">
+                      <a
+                        href="https://calendly.com/bdinesh-evernile/30min"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        <Button className="h-auto w-full bg-transparent px-4 py-2 text-white hover:bg-white/10">
+                          Book a call with our IPO Expert
                         </Button>
-                        <Button
-                          disabled={!canCreateReport || isGeneratingReport}
-                          onClick={async () => {
-                            await saveAssessmentData();
-                            await sendEmailReport();
-                          }}
-                          className="w-full rounded-none bg-evernile-red text-white hover:bg-evernile-red/90 sm:w-auto"
-                        >
-                          {isGeneratingReport ? (
-                            <div className="flex items-center gap-2">
-                              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                              <span>Generating Report...</span>
-                            </div>
-                          ) : (
-                            "Generate & Email IPO Readiness Assessment Report"
-                          )}
-                        </Button>
+                      </a>
+                    </div>
+                    <div className="flex-1 rounded-lg bg-gray-50 p-4 text-left text-gray-700">
+                      <div className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+                        Contact Details
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Email: bdinesh@evernile.com
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Mobile: +91-8889926196
                       </div>
                     </div>
-                  )}
+                  </div>
 
-                  {showReport && (
-                    <div className="space-y-6 text-center">
-                      <div className="space-y-4">
-                        <div className="text-6xl">📧</div>
-                        <h2 className="text-2xl font-semibold text-evernile-navy">
-                          Report Sent Successfully!
-                        </h2>
-                        <p className="text-base text-gray-600 sm:text-lg">
-                          Your Mainboard IPO Readiness Assessment report has been sent to{" "}
-                          <strong>{email}</strong>
-                        </p>
-                        <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-left text-green-800">
-                          <p>
-                            <strong>Readiness Score:</strong> {scoreMeta.readiness} out of 5
-                          </p>
-                          <p>
-                            <strong>Readiness Level:</strong> {scoreMeta.label}
-                          </p>
-                        </div>
-                        <p className="text-sm text-gray-500">
-                          Please check your inbox (and spam folder) for the detailed report.
-                        </p>
-                      </div>
-
-                      <div className="mt-6 flex flex-col gap-4 md:flex-row">
-                        <div className="flex-1 rounded-lg bg-evernile-red p-4 text-white">
-                          <a
-                            href="https://calendly.com/bdinesh-evernile/30min"
-                            target="_blank"
-                            rel="noreferrer noopener"
-                          >
-                            <Button className="h-auto w-full bg-transparent px-4 py-2 text-white hover:bg-white/10">
-                              Book a call with our IPO Expert
-                            </Button>
-                          </a>
-                        </div>
-                        <div className="flex-1 rounded-lg bg-gray-50 p-4 text-left text-gray-700">
-                          <div className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
-                            Contact Details
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Email: bdinesh@evernile.com
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Mobile: +91-8889926196
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-6 border-t border-gray-200 pt-4 text-left text-xs text-gray-500">
-                        This is an initial readiness assessment and is not a substitute for a comprehensive evaluation.
-                        For full eligibility verification, please book a free consultation with us.
-                      </div>
-                    </div>
-                  )}
+                  <div className="mt-6 border-t border-gray-200 pt-4 text-left text-xs text-gray-500">
+                    This is an initial readiness assessment and is not a substitute for a comprehensive evaluation.
+                    For full eligibility verification, please book a free consultation with us.
+                  </div>
                 </CardContent>
               </Card>
             </div>
