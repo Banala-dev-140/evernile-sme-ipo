@@ -398,28 +398,26 @@ const MainboardEligibility = () => {
             </div>
           </div>
         ) : !showReport ? (
-          <div className="mt-8 flex flex-1 flex-col items-center text-left">
-            <div className="mb-4 text-center text-white">
-              <h1 className="text-3xl font-semibold sm:text-4xl">
-                Mainboard IPO Readiness Assessment
-              </h1>
-              <p className="mt-1 text-sm text-white/80 sm:text-base">
-                For larger companies targeting main stock exchanges
-              </p>
-            </div>
-            <div className="w-full max-w-4xl space-y-5">
-              <h2 className="text-xl font-semibold leading-snug sm:text-2xl">
+          <div className="mt-8 flex flex-1 flex-col items-center text-center text-white">
+            <div className="w-full max-w-4xl space-y-6">
+              <div>
+                <h1 className="text-3xl font-semibold sm:text-4xl">Mainboard IPO Readiness Assessment</h1>
+                <p className="mt-1 text-sm text-white/80 sm:text-base">
+                  For larger companies targeting main stock exchanges
+                </p>
+              </div>
+              <h2 className="text-left text-xl font-semibold leading-snug text-white sm:text-2xl">
                 Almost there! Please fill out few details & generate your IPO Readiness Assessment Report.
               </h2>
-              <div>
-                <p className="text-sm font-medium tracking-wide text-white/80">
+              <div className="text-left">
+                <p className="text-left text-sm font-medium tracking-wide text-white/80">
                   Please fill in your details
                 </p>
                 <div className="mt-2 h-[2px] w-full bg-white/40" />
               </div>
-              <div className="space-y-4">
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="name" className="text-sm text-white sm:text-base">
+              <div className="space-y-5">
+                <div className="grid items-center gap-4 text-white sm:grid-cols-[190px_minmax(0,1fr)]">
+                  <Label htmlFor="name" className="text-base font-medium text-white">
                     Your Name<span className="text-evernile-red">*</span>
                   </Label>
                   <Input
@@ -427,11 +425,11 @@ const MainboardEligibility = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="h-12 rounded-none border border-white/40 bg-transparent px-4 text-base text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
                   />
                 </div>
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="email" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-4 text-white sm:grid-cols-[190px_minmax(0,1fr)]">
+                  <Label htmlFor="email" className="text-base font-medium text-white">
                     Email ID<span className="text-evernile-red">*</span>
                   </Label>
                   <Input
@@ -439,11 +437,11 @@ const MainboardEligibility = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="h-12 rounded-none border border-white/40 bg-transparent px-4 text-base text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
                   />
                 </div>
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="phone" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-4 text-white sm:grid-cols-[190px_minmax(0,1fr)]">
+                  <Label htmlFor="phone" className="text-base font-medium text-white">
                     Mobile No.
                   </Label>
                   <Input
@@ -451,7 +449,7 @@ const MainboardEligibility = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="xxxx xxxxx"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="h-12 rounded-none border border-white/40 bg-transparent px-4 text-base text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
                   />
                 </div>
               </div>
@@ -475,8 +473,8 @@ const MainboardEligibility = () => {
             </div>
           </div>
         ) : !showReport ? (
-          <div className="mt-12 flex flex-1 flex-col items-center text-left">
-            <div className="w-full max-w-3xl space-y-6">
+          <div className="mt-14 flex flex-1 flex-col items-center text-left">
+            <div className="mt-6 w-full max-w-3xl space-y-6">
               <h2 className="text-xl font-semibold leading-snug sm:text-2xl">
                 Almost there! Please fill out few details & generate your IPO Readiness Assessment Report.
               </h2>
@@ -487,8 +485,8 @@ const MainboardEligibility = () => {
                 <div className="mt-2 h-[2px] w-full bg-white/40" />
               </div>
               <div className="space-y-5">
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="name" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-4 text-white sm:grid-cols-[190px_minmax(0,1fr)]">
+                  <Label htmlFor="name" className="text-base font-medium text-white">
                     Your Name<span className="text-evernile-red">*</span>
                   </Label>
                   <Input
@@ -496,11 +494,11 @@ const MainboardEligibility = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="h-12 rounded-none border border-white/40 bg-transparent px-4 text-base text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
                   />
                 </div>
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="email" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-4 text-white sm:grid-cols-[190px_minmax(0,1fr)]">
+                  <Label htmlFor="email" className="text-base font-medium text-white">
                     Email ID<span className="text-evernile-red">*</span>
                   </Label>
                   <Input
@@ -508,11 +506,11 @@ const MainboardEligibility = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="h-12 rounded-none border border-white/40 bg-transparent px-4 text-base text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
                   />
                 </div>
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="phone" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-4 text-white sm:grid-cols-[190px_minmax(0,1fr)]">
+                  <Label htmlFor="phone" className="text-base font-medium text-white">
                     Mobile No.
                   </Label>
                   <Input
@@ -520,7 +518,7 @@ const MainboardEligibility = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="xxxx xxxxx"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="h-12 rounded-none border border-white/40 bg-transparent px-4 text-base text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
                   />
                 </div>
               </div>
@@ -592,7 +590,7 @@ const MainboardEligibility = () => {
               </div>
               <div className="flex flex-col gap-3 text-left text-white md:flex-row md:gap-6">
                 <div className="flex-1 space-y-2">
-                  <p className="text-sm uppercase tracking-wide text-white/60">Contact Details</p>
+                  <p className="text-sm tracking-wide text-white/60">Contact Details</p>
                   <p className="text-base font-semibold">Banala Dinesh, Associate VP</p>
                   <p className="text-sm text-white/80">
                     <a href="mailto:bdinesh@evernile.com" className="underline hover:text-white">

@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Aileron"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -136,7 +136,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Aileron", "Inter", sans-serif;
+    font-family: "Aileron";
   }
   
   /* Financial Dashboard Gradients */

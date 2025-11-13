@@ -535,7 +535,7 @@ const SMEEligibility = () => {
               </div>
               <div className="flex flex-col gap-3 text-left text-white md:flex-row md:gap-6">
                 <div className="flex-1 space-y-2">
-                  <p className="text-sm uppercase tracking-wide text-white/60">Contact Details</p>
+                  <p className="text-sm tracking-wide text-white/60">Contact Details</p>
                   <p className="text-base font-semibold">Banala Dinesh, Associate VP</p>
                   <p className="text-sm text-white/80">
                     <a href="mailto:bdinesh@evernile.com" className="underline hover:text-white">
