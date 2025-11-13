@@ -538,11 +538,11 @@ const SMEEligibility = () => {
                   <p className="text-sm tracking-wide text-white/60">Contact Details</p>
                   <p className="text-base font-semibold">Banala Dinesh, Associate VP</p>
                   <p className="text-sm text-white/80">
-                    <a href="mailto:bdinesh@evernile.com" className="underline hover:text-white">
+                    <a href="mailto:bdinesh@evernile.com" className="text-[#9ecbff] underline hover:text-white">
                       bdinesh@evernile.com
                     </a>
                     ,{" "}
-                    <a href="tel:+918889926196" className="underline hover:text-white">
+                    <a href="tel:+918889926196" className="text-[#9ecbff] underline hover:text-white">
                       +91-8889926196
                     </a>
                   </p>

@@ -112,25 +112,19 @@ const Dashboard = () => {
           <div className="flex flex-col gap-6 rounded-xl border border-white/40 bg-[#0a1f4e] p-6 text-white shadow-lg sm:p-8 md:flex-row md:items-center md:justify-between">
             <div className="flex-1 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center bg-emerald-400 text-sm font-semibold text-[#0a1f4e]">
-                  ✓
-                </span>
+                <span className="text-2xl leading-none">✅</span>
                 <p className="text-base sm:text-lg">
                   <span className="font-semibold">Initial Criteria Check</span> – Eligibility & listing thresholds
                 </p>
                 </div>
               <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-none bg-emerald-400 text-sm font-semibold text-[#0a1f4e]">
-                  ✓
-                </span>
+                <span className="text-2xl leading-none">✅</span>
                 <p className="text-base sm:text-lg">
                   <span className="font-semibold">Readiness Score</span> – Measure of preparedness level
                 </p>
                    </div>
               <div className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-none bg-emerald-400 text-sm font-semibold text-[#0a1f4e]">
-                  ✓
-                </span>
+                <span className="text-2xl leading-none">✅</span>
                 <p className="text-base sm:text-lg">
                   <span className="font-semibold">Readiness Assessment</span> – Detailed evaluation & roadmap
                 </p>
