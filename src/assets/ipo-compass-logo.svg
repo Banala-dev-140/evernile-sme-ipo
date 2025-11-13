@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="64" viewBox="0 0 220 64">
+  <rect width="220" height="64" fill="#ffffff" rx="16" />
+  <g transform="translate(18,10)">
+    <rect width="44" height="44" rx="12" fill="#f2f6ff" />
+    <path d="M8 12h18" stroke="#ef3b54" stroke-width="3" stroke-linecap="round" />
+    <path d="M8 12v-4c0-2.2 1.8-4 4-4h10c2.2 0 4 1.8 4 4v4" stroke="#ef3b54" stroke-width="3" stroke-linecap="round" fill="none" />
+    <text x="17.5" y="11" font-family="Inter, Arial, sans-serif" font-size="10" fill="#ef3b54" font-weight="700" text-anchor="middle" dominant-baseline="middle">
+      IPO
+    </text>
+    <path d="M10 20c6 0 11 5 11 11s-5 11-11 11-11-5-11-11 5-11 11-11z" fill="none" stroke="#0f2f6b" stroke-width="3" />
+    <path d="M10 20v11l8 8" fill="none" stroke="#0f2f6b" stroke-width="3" stroke-linecap="round" />
+    <path d="M23 42c5 5 12 8 19 8" fill="none" stroke="#3d7bff" stroke-width="3" stroke-dasharray="2 4" stroke-linecap="round" />
+  </g>
+  <text x="120" y="36" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#0f2f6b">
+    IPO Compass
+  </text>
+</svg>
+

@@ -3,13 +3,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Info, ArrowLeft } from "lucide-react";
+import { Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { saveAssessmentResponse, type AssessmentResponse, type QuestionResponse } from "@/lib/supabase";
 import { sendAssessmentReport, type EmailData } from "@/lib/emailService";
 import { logUserEvent } from "@/lib/logger";
+import evernileLogo from "@/assets/Evernile Capital Logo_OG (1).png";
+import ipoCompassLogo from "@/assets/IPO Compass Logo.png";
 
 type Option = { text: string; weight: number };
 type Q = { id: number; question: string; options: Option[] };
@@ -96,16 +98,28 @@ function generateDynamicPoints(answers: Answer[]): string[] {
   return points;
 }
 
-const OptionBox = ({ selected, onClick, text, letter }: { selected: boolean; onClick: () => void; text: string; letter: string }) => (
+const OptionBox = ({
+  selected,
+  onClick,
+  text,
+  letter,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  text: string;
+  letter: string;
+}) => (
   <button
     type="button"
     onClick={onClick}
-    className={`w-full rounded-md border px-4 py-3 text-left transition flex items-center gap-3 ${
-      selected ? "border-evernile-navy bg-evernile-navy/10" : "border-gray-300 hover:border-evernile-navy/60"
+    className={`flex w-full items-center gap-4 border border-white/30 bg-white/5 px-5 py-4 text-left text-base transition-all duration-200 hover:bg-white/10 sm:px-6 sm:py-5 sm:text-lg ${
+      selected ? "border-evernile-red bg-[#0f2753] shadow-[0_0_0_3px_rgba(239,59,84,0.4)]" : ""
     }`}
   >
-    <span className="font-medium text-evernile-navy">{letter}.</span>
-    <span>{text}</span>
+    <span className="text-sm font-semibold uppercase tracking-wide text-white sm:text-base">
+      {letter}.
+    </span>
+    <span className="flex-1 text-white">{text}</span>
   </button>
 );
 
@@ -173,8 +187,12 @@ const MainboardEligibility = () => {
     setInfoModalOpen(true);
   };
 
-  const onPrevious = () => {
-    if (step > 0) setStep(step - 1);
+  const handlePrevious = () => {
+    if (step === 0) {
+      navigate("/");
+      return;
+    }
+    setStep(prev => Math.max(prev - 1, 0));
   };
 
   const canCreateReport = allAnswered && name.trim() !== "" && (email.trim() !== "" || phone.trim() !== "");
@@ -303,205 +321,262 @@ const MainboardEligibility = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header with back button, logo, and title */}
-        <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 sm:gap-4">
-              <Button variant="ghost" onClick={() => navigate('/')} className="text-evernile-navy hover:text-evernile-navy/80 h-8 sm:h-10 px-2 sm:px-4 text-xs sm:text-sm">
-                <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Back to Home</span>
-                <span className="sm:hidden">Back</span>
-              </Button>
-                <div className="h-4 sm:h-6 border-l border-gray-300" />
-                <div className="flex flex-col items-center">
-                  <div className="text-lg sm:text-xl font-bold text-evernile-navy">EVERNILE</div>
-                  <div className="flex items-center gap-1 sm:gap-2">
-                    <div className="h-0.5 w-4 sm:w-6 bg-evernile-red"></div>
-                    <div className="text-xs text-evernile-navy">CAPITAL</div>
-                    <div className="h-0.5 w-4 sm:w-6 bg-evernile-red"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="text-sm sm:text-lg font-semibold text-evernile-navy text-right">
-                <span className="hidden sm:inline">Mainboard IPO Readiness Assessment</span>
-                <span className="sm:hidden">Mainboard IPO</span>
-            </div>
-          </div>
+    <div className="flex min-h-screen flex-col bg-evernile-navy text-white">
+      <header className="sticky top-0 z-50 border-b border-white/30 bg-white">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-8 sm:py-5">
+          <img
+            src={evernileLogo}
+            alt="Evernile Capital"
+            className="h-9 w-auto sm:h-12"
+          />
+          <img
+            src={ipoCompassLogo}
+            alt="IPO Compass"
+            className="h-9 w-auto sm:h-12"
+          />
         </div>
       </header>
 
-      {/* Progress Bar */}
-      {!showReport && (
-        <div className="border-b border-gray-200 bg-white">
-          <div className="container mx-auto px-4 py-2">
-            <div className="h-2 w-full rounded-full bg-gray-200">
-              <div
-                className="h-2 rounded-full bg-evernile-red transition-all"
-                style={{ width: `${progressPct}%` }}
-              />
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-semibold sm:text-4xl">
+            Mainboard IPO Readiness Assessment
+          </h1>
+          <p className="mt-2 text-sm text-white/80 sm:text-base">
+            For larger companies targeting main stock exchanges
+          </p>
+        </div>
+
+        {!showReport && step < QUESTIONS.length && current ? (
+          <div className="mt-12 flex flex-1 flex-col items-center text-center">
+            <h2 className="text-2xl font-semibold sm:text-3xl">
+              {current.question}
+            </h2>
+            <div className="mt-4 flex w-full max-w-3xl items-center gap-4">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/20">
+                <div
+                  className="h-full rounded-full bg-evernile-red transition-all duration-300"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+              <span className="text-sm font-semibold text-white/80 sm:text-base">
+                {step + 1}/{QUESTIONS.length}
+              </span>
+            </div>
+            <div className="mt-10 grid w-full max-w-3xl gap-4 sm:grid-cols-2">
+              {current.options.map((o, index) => (
+                <OptionBox
+                  key={o.text}
+                  text={o.text}
+                  letter={String.fromCharCode(65 + index)}
+                  selected={answers[current.id]?.selected === o.text}
+                  onClick={() => onSelect(current, o)}
+                />
+              ))}
+            </div>
+            <div className="mt-10 flex w-full max-w-3xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <Button
+                type="button"
+                onClick={handlePrevious}
+                variant="outline"
+                className="w-full rounded-none border border-white/40 bg-transparent text-white hover:bg-white/10 sm:w-auto"
+              >
+                ‹ Previous
+              </Button>
+              <Button
+                type="button"
+                onClick={onNext}
+                disabled={!canNext}
+                className={`w-full rounded-none border text-white transition disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto ${
+                  canNext
+                    ? "border-evernile-red bg-evernile-red hover:bg-evernile-red/90"
+                    : "border-white bg-white text-evernile-navy hover:bg-white/90"
+                }`}
+              >
+                Continue ›
+              </Button>
             </div>
           </div>
-        </div>
-      )}
-
-      <main className="container mx-auto px-4 py-6 sm:py-10">
-        <div className="max-w-2xl mx-auto">
-          <Card className="bg-white">
-            <CardHeader className="px-4 sm:px-6">
-              <CardTitle className="text-lg sm:text-2xl">{showReport ? "Mainboard IPO Readiness Assessment Report" : ""}</CardTitle>
-              {/* Helper text removed as requested */}
-            </CardHeader>
-            <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
-              {!showReport && step < QUESTIONS.length && current && (
-                <div className="space-y-6">
-                  <div className="flex justify-between items-start sm:items-center">
-                    <div className="text-lg sm:text-xl font-bold text-left flex items-start sm:items-center gap-2 flex-1">
-                      <span className="flex-1">{current.question}</span>
-                    </div>
-                    <div className="text-sm text-gray-500 font-medium">
-                      {step + 1}/{QUESTIONS.length}
-                    </div>
-                  </div>
-                  <div className="space-y-2 sm:space-y-3">
-                    {current.options.map((o, index) => (
-                      <OptionBox
-                        key={o.text}
-                        text={o.text}
-                        letter={String.fromCharCode(97 + index)}
-                        selected={answers[current.id]?.selected === o.text}
-                        onClick={() => onSelect(current, o)}
-                      />
-                    ))}
-                              </div>
-                  <div className="flex justify-between pt-2 gap-2">
-                    {step > 0 ? (
-                      <Button onClick={onPrevious} variant="outline" className="border-evernile-navy text-evernile-navy hover:bg-evernile-navy hover:text-white h-10 sm:h-11 text-sm sm:text-base flex-1 sm:flex-none">
-                        Previous
-                      </Button>
-                    ) : (
-                      <div></div>
-                    )}
-                    <Button onClick={onNext} disabled={!canNext} className="bg-evernile-navy text-white h-10 sm:h-11 text-sm sm:text-base flex-1 sm:flex-none">
-                      Next
-                    </Button>
-                  </div>
-                </div>
-              )}
-
-              {!showReport && step === QUESTIONS.length && (
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="text-base sm:text-lg font-semibold text-evernile-navy px-2">Almost there! Please fill out few details and generate your IPO Readiness Assessment Report.</div>
-                  <div className="text-base sm:text-lg font-medium">Your Details</div>
-                  <div className="grid grid-cols-1 gap-4">
-                    <div className="grid gap-1">
-                      <Label htmlFor="name" className="text-sm sm:text-base">Name<span className="text-red-500">*</span></Label>
-                      <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" className="h-10 sm:h-11 text-sm sm:text-base" />
-                    </div>
-                    <div className="grid gap-1">
-                      <Label htmlFor="email" className="text-sm sm:text-base">Email ID<span className="text-red-500">*</span></Label>
-                      <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" className="h-10 sm:h-11 text-sm sm:text-base" />
-                    </div>
-                    <div className="grid gap-1">
-                      <Label htmlFor="phone" className="text-sm sm:text-base">Mobile No.</Label>
-                      <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="XXXXXXXXXX" className="h-10 sm:h-11 text-sm sm:text-base" />
-                    </div>
-            </div>
-
-                  <div className="flex justify-center">
-                    <Button
-                      disabled={!canCreateReport || isGeneratingReport}
-                      onClick={async () => {
-                        await saveAssessmentData();
-                        await sendEmailReport();
-                      }}
-                      className="bg-evernile-red text-evernile-red-foreground h-12 sm:h-14 w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8"
-                    >
-                      {isGeneratingReport ? (
-                        <div className="flex items-center gap-2">
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-sm sm:text-base">Generating Report...</span>
+        ) : (
+          <div className="mt-10 flex-1">
+            {!showReport && (
+              <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-white/20">
+                <div
+                  className="h-full rounded-full bg-evernile-red transition-all duration-300"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+            )}
+            <div className="mx-auto w-full max-w-2xl">
+              <Card className="bg-white text-evernile-navy shadow-lg">
+                <CardHeader className="px-6 pt-6">
+                  <CardTitle className="text-xl font-semibold sm:text-2xl">
+                    {showReport
+                      ? "Mainboard IPO Readiness Assessment Report"
+                      : "Generate Your IPO Readiness Report"}
+                  </CardTitle>
+                  {!showReport && (
+                    <CardDescription className="pt-2 text-sm text-evernile-navy/70 sm:text-base">
+                      Almost there! Share your details and we will email the detailed IPO readiness assessment report.
+                    </CardDescription>
+                  )}
+                </CardHeader>
+                <CardContent className="space-y-6 px-6 pb-6">
+                  {!showReport && step === QUESTIONS.length && (
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 gap-4">
+                        <div className="grid gap-1">
+                          <Label htmlFor="name" className="text-sm sm:text-base">
+                            Name<span className="text-evernile-red">*</span>
+                          </Label>
+                          <Input
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Your name"
+                            className="h-10 sm:h-11 text-sm sm:text-base"
+                          />
                         </div>
-                      ) : (
-                        <>
-                          <span className="hidden sm:inline">Generate & Email IPO Readiness Assessment Report</span>
-                          <span className="sm:hidden">Generate IPO Report</span>
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </div>
-              )}
+                        <div className="grid gap-1">
+                          <Label htmlFor="email" className="text-sm sm:text-base">
+                            Email ID<span className="text-evernile-red">*</span>
+                          </Label>
+                          <Input
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="you@company.com"
+                            className="h-10 sm:h-11 text-sm sm:text-base"
+                          />
+                        </div>
+                        <div className="grid gap-1">
+                          <Label htmlFor="phone" className="text-sm sm:text-base">
+                            Mobile No.
+                          </Label>
+                          <Input
+                            id="phone"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="XXXXXXXXXX"
+                            className="h-10 sm:h-11 text-sm sm:text-base"
+                          />
+                        </div>
+                      </div>
 
-              {showReport && (
-                <div className="space-y-6 text-center">
-                  <div className="space-y-4">
-                    <div className="text-6xl">📧</div>
-                    <h2 className="text-2xl font-bold text-evernile-navy">Report Sent Successfully!</h2>
-                    <p className="text-lg text-gray-600">
-                      Your Mainboard IPO Readiness Assessment report has been sent to <strong>{email}</strong>
-                    </p>
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <p className="text-green-800">
-                        <strong>Readiness Score:</strong> {scoreMeta.readiness} out of 5<br/>
-                        <strong>Readiness Level:</strong> {scoreMeta.label}
-                      </p>
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handlePrevious}
+                          className="w-full rounded-none border border-evernile-navy text-evernile-navy hover:bg-evernile-navy hover:text-white sm:w-auto"
+                        >
+                          ‹ Back
+                        </Button>
+                        <Button
+                          disabled={!canCreateReport || isGeneratingReport}
+                          onClick={async () => {
+                            await saveAssessmentData();
+                            await sendEmailReport();
+                          }}
+                          className="w-full rounded-none bg-evernile-red text-white hover:bg-evernile-red/90 sm:w-auto"
+                        >
+                          {isGeneratingReport ? (
+                            <div className="flex items-center gap-2">
+                              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                              <span>Generating Report...</span>
+                            </div>
+                          ) : (
+                            "Generate & Email IPO Readiness Assessment Report"
+                          )}
+                        </Button>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-500">
-                      Please check your email inbox (and spam folder) for the detailed report.
-                    </p>
-                  </div>
-                  
-                  {/* Book Readiness Call and Contact Details side by side */}
-                  <div className="flex flex-col md:flex-row gap-4 mt-6">
-                    <div className="flex-1 p-3 sm:p-4 bg-evernile-red rounded-lg flex items-center justify-center">
-                      <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                        <Button className="bg-transparent hover:bg-transparent text-white border-0 h-auto py-2 px-4 text-sm sm:text-base font-medium">Book a call with our IPO Expert</Button>
-                      </a>
+                  )}
+
+                  {showReport && (
+                    <div className="space-y-6 text-center">
+                      <div className="space-y-4">
+                        <div className="text-6xl">📧</div>
+                        <h2 className="text-2xl font-semibold text-evernile-navy">
+                          Report Sent Successfully!
+                        </h2>
+                        <p className="text-base text-gray-600 sm:text-lg">
+                          Your Mainboard IPO Readiness Assessment report has been sent to{" "}
+                          <strong>{email}</strong>
+                        </p>
+                        <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-left text-green-800">
+                          <p>
+                            <strong>Readiness Score:</strong> {scoreMeta.readiness} out of 5
+                          </p>
+                          <p>
+                            <strong>Readiness Level:</strong> {scoreMeta.label}
+                          </p>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          Please check your inbox (and spam folder) for the detailed report.
+                        </p>
+                      </div>
+
+                      <div className="mt-6 flex flex-col gap-4 md:flex-row">
+                        <div className="flex-1 rounded-lg bg-evernile-red p-4 text-white">
+                          <a
+                            href="https://calendly.com/bdinesh-evernile/30min"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                          >
+                            <Button className="h-auto w-full bg-transparent px-4 py-2 text-white hover:bg-white/10">
+                              Book a call with our IPO Expert
+                            </Button>
+                          </a>
+                        </div>
+                        <div className="flex-1 rounded-lg bg-gray-50 p-4 text-left text-gray-700">
+                          <div className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">
+                            Contact Details
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Email: bdinesh@evernile.com
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            Mobile: +91-8889926196
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 border-t border-gray-200 pt-4 text-left text-xs text-gray-500">
+                        This is an initial readiness assessment and is not a substitute for a comprehensive evaluation.
+                        For full eligibility verification, please book a free consultation with us.
+                      </div>
                     </div>
-                    <div className="flex-1 p-3 sm:p-4 bg-gray-50 rounded-lg">
-                      <div className="text-xs sm:text-sm font-medium text-gray-700 mb-2">Contact Details:</div>
-                      <div className="text-xs sm:text-sm text-gray-600">Email: bdinesh@evernile.com</div>
-                      <div className="text-xs sm:text-sm text-gray-600">Mobile: +91-8889926196</div>
-                    </div>
-                  </div>
-                  
-                  {/* Disclaimer at the end */}
-                  <div className="mt-6 pt-4 border-t border-gray-200">
-                    <p className="text-xs text-muted-foreground text-center">
-                      This is an initial readiness assessment and is not a substitute for a comprehensive evaluation. For full eligibility verification, please book a free consultation with us.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )}
       </main>
 
-      {/* Copyright Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-4 z-10">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-gray-600">Copyright © 2025 Evernile. All Rights Reserved.</p>
+      <footer className="mt-auto bg-evernile-navy py-6">
+        <div className="mx-auto w-full max-w-6xl px-4 text-center">
+          <p className="text-xs text-white/70 sm:text-sm">
+            Copyright © 2025 Evernile. All Rights Reserved.
+          </p>
         </div>
       </footer>
 
-      {/* Information Modal */}
       <Dialog open={infoModalOpen} onOpenChange={setInfoModalOpen}>
-        <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-h-[80vh] overflow-y-auto sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-evernile-navy">
               {infoContent?.title}
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-gray-700 leading-relaxed">
+          <div className="space-y-4 text-evernile-navy">
+            <p className="leading-relaxed text-gray-700">
               {infoContent?.description}
             </p>
             {infoContent?.formula && (
-              <div className="bg-gray-50 p-4 rounded-lg border">
-                <p className="text-sm font-medium text-gray-600 mb-2">Formula:</p>
+              <div className="rounded-lg border bg-gray-50 p-4">
+                <p className="mb-2 text-sm font-medium text-gray-600">Formula:</p>
                 <p className="font-mono text-lg font-semibold text-evernile-navy">
                   {infoContent.formula}
                 </p>

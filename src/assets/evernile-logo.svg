@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="64" viewBox="0 0 220 64">
+  <rect width="220" height="64" fill="#ffffff" rx="8" />
+  <g fill="#072f5f" font-family="Inter, Arial, sans-serif" font-weight="700" text-anchor="middle">
+    <text x="110" y="34" font-size="28" letter-spacing="3">EVERNILE</text>
+  </g>
+  <g stroke="#ef3b54" stroke-width="4" stroke-linecap="round">
+    <line x1="38" y1="44" x2="95" y2="44" />
+    <line x1="125" y1="44" x2="182" y2="44" />
+  </g>
+  <text x="110" y="58" font-family="Inter, Arial, sans-serif" font-size="14" fill="#072f5f" text-anchor="middle" letter-spacing="4">
+    CAPITAL
+  </text>
+</svg>
+

@@ -1,135 +1,163 @@
-import { Gauge, ListChecks, ClipboardCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import evernileLogo from "@/assets/Evernile Capital Logo_OG (1).png";
+import ipoCompassLogo from "@/assets/IPO Compass Logo.png";
+import mainboardIllustration from "@/assets/Types-of-IPO--01.jpg";
+import smeIllustration from "@/assets/Types-of-IPO--02.jpg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-evernile-navy">
+    <div className="flex min-h-screen flex-col bg-evernile-navy">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center">
-              <div className="text-xl sm:text-2xl font-bold text-evernile-navy">EVERNILE</div>
-              <div className="flex items-center gap-1 sm:gap-2">
-                <div className="h-0.5 w-6 sm:w-8 bg-evernile-red"></div>
-                <div className="text-xs sm:text-sm text-evernile-navy">CAPITAL</div>
-                <div className="h-0.5 w-6 sm:w-8 bg-evernile-red"></div>
+      <header className="sticky top-0 z-50 border-b border-white/30 bg-white">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-8 sm:py-5">
+          <img
+            src={evernileLogo}
+            alt="Evernile Capital"
+            className="h-9 w-auto sm:h-12"
+          />
+          <img
+            src={ipoCompassLogo}
+            alt="IPO Compass"
+            className="h-9 w-auto sm:h-12"
+          />
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 py-8 sm:px-8 sm:py-12">
+        <div className="mb-8 text-center sm:mb-10">
+          <h1 className="mb-3 px-2 text-3xl font-semibold text-white sm:text-4xl md:text-5xl">
+            IPO Readiness Assessment
+          </h1>
+          <p className="px-4 text-sm text-white/70 sm:text-base md:text-lg">
+            Quick check for IPO readiness and compliance
+          </p>
+        </div>
+
+        <div className="grid w-full flex-1 items-stretch gap-5 md:grid-cols-2 lg:gap-7">
+          {/* Mainboard IPO Card */}
+          <Card className="flex h-full flex-col justify-between rounded-2xl border-2 border-[#1d3f91] bg-white shadow-md">
+            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 lg:flex-row lg:items-center lg:gap-10">
+              <div className="flex w-full items-center justify-center lg:w-[42%]">
+                <img
+                  src={mainboardIllustration}
+                  alt="Mainboard IPO illustration"
+                  className="max-h-40 w-full max-w-[230px] object-contain"
+                />
+              </div>
+              <div className="text-left lg:flex-1">
+                <CardTitle className="text-2xl font-semibold text-[#1d3f91] sm:text-3xl">
+                  Mainboard IPO
+                </CardTitle>
+                <CardDescription className="mt-2 text-sm text-[#445b9c] sm:text-base">
+                  For larger companies targeting main stock exchanges
+                </CardDescription>
+              </div>
+            </CardContent>
+            <div className="px-6 pb-6">
+              <Button
+                variant="outline"
+                className="flex h-11 w-full items-center justify-center gap-3 rounded-lg border-2 border-[#1d3f91] text-sm font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 sm:text-base"
+                onClick={() => navigate("/mainboard-eligibility")}
+              >
+                Start Assessment
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-evernile-red text-white sm:h-7 sm:w-7">
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </span>
+              </Button>
+            </div>
+          </Card>
+
+          {/* SME IPO Card */}
+          <Card className="flex h-full flex-col justify-between rounded-2xl border-2 border-[#1d3f91] bg-white shadow-md">
+            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 lg:flex-row lg:items-center lg:gap-10">
+              <div className="flex w-full items-center justify-center lg:w-[42%]">
+                <img
+                  src={smeIllustration}
+                  alt="SME IPO illustration"
+                  className="max-h-40 w-full max-w-[230px] object-contain"
+                />
+              </div>
+              <div className="text-left lg:flex-1">
+                <CardTitle className="text-2xl font-semibold text-[#1d3f91] sm:text-3xl">
+                  SME IPO
+                </CardTitle>
+                <CardDescription className="mt-2 text-sm text-[#445b9c] sm:text-base">
+                  For small & medium enterprises listing on SME platforms
+                </CardDescription>
+              </div>
+            </CardContent>
+            <div className="px-6 pb-6">
+              <Button
+                variant="outline"
+                className="flex h-11 w-full items-center justify-center gap-3 rounded-lg border-2 border-[#1d3f91] text-sm font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 sm:text-base"
+                onClick={() => navigate("/sme-eligibility")}
+              >
+                Start Assessment
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-evernile-red text-white sm:h-7 sm:w-7">
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </span>
+              </Button>
+            </div>
+          </Card>
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-10 mb-12">
+          <div className="flex flex-col gap-6 rounded-xl border border-white/40 bg-[#0a1f4e] p-6 text-white shadow-lg sm:p-8 md:flex-row md:items-center md:justify-between">
+            <div className="flex-1 space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-400 text-sm font-semibold text-[#0a1f4e]">
+                  ✓
+                </span>
+                <p className="text-base sm:text-lg">
+                  <span className="font-semibold">Initial Criteria Check</span> – Eligibility & listing thresholds
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-400 text-sm font-semibold text-[#0a1f4e]">
+                  ✓
+                </span>
+                <p className="text-base sm:text-lg">
+                  <span className="font-semibold">Readiness Score</span> – Measure of preparedness level
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-400 text-sm font-semibold text-[#0a1f4e]">
+                  ✓
+                </span>
+                <p className="text-base sm:text-lg">
+                  <span className="font-semibold">Readiness Assessment</span> – Detailed evaluation & roadmap
+                </p>
               </div>
             </div>
-            <div className="flex gap-1 sm:gap-2">
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/admin')}
-                className="border-white text-white hover:bg-white hover:text-evernile-navy h-8 sm:h-9 px-2 sm:px-4 text-xs sm:text-sm"
+            <div className="flex flex-col gap-4 md:w-[300px]">
+              <p className="text-xs leading-relaxed text-white/80 sm:text-sm">
+                Need support with your assessment? Book a session with our team for tailored guidance.
+              </p>
+              <a
+                href="https://calendly.com/bdinesh-evernile/30min"
+                target="_blank"
+                rel="noreferrer noopener"
               >
-                Admin
-              </Button>
-              <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-                <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-8 sm:h-9 px-2 sm:px-4 text-xs sm:text-sm">
-                  Book session
+                <Button className="h-11 w-full rounded-md bg-evernile-red text-base font-semibold text-white transition hover:bg-evernile-red/90 sm:h-12">
+                  Book Session
                 </Button>
               </a>
             </div>
           </div>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 sm:py-12 min-h-[calc(100vh-120px)] sm:min-h-[calc(100vh-144px)] flex flex-col">
-        <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 px-2">
-            IPO Readiness Assessment
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg text-white/80 px-4">
-            Quick check for IPO readiness and compliance.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-5xl w-full mx-auto flex-1 items-stretch">
-          {/* Mainboard IPO Card */}
-          <Card className="bg-white text-evernile-navy shadow-md h-full flex flex-col">
-            <CardHeader className="pb-2 md:pb-3 px-4 sm:px-6">
-              <CardTitle className="text-2xl sm:text-3xl md:text-4xl">Mainboard IPO</CardTitle>
-              <CardDescription className="text-evernile-navy/70 text-xs sm:text-sm md:text-base">
-                For larger companies targeting main stock exchanges.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-2 flex flex-col px-4 sm:px-6">
-              <div className="space-y-3 md:space-y-4 text-left">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <Gauge className="h-4 w-4 sm:h-5 sm:w-5 text-evernile-navy/70 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm md:text-base">Readiness Score</span>
-                </div>
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <ListChecks className="h-4 w-4 sm:h-5 sm:w-5 text-evernile-navy/70 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm md:text-base">Initial criteria check</span>
-                </div>
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <ClipboardCheck className="h-4 w-4 sm:h-5 sm:w-5 text-evernile-navy/70 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm md:text-base">Readiness assessment</span>
-                </div>
-              </div>
-              <Button
-                className="mt-4 sm:mt-6 w-full bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-10 sm:h-11 text-sm sm:text-base"
-                onClick={() => navigate('/mainboard-eligibility')}
-              >
-                Start Assessment
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* SME IPO Card */}
-          <Card className="bg-white text-evernile-navy shadow-md h-full flex flex-col">
-            <CardHeader className="pb-2 md:pb-3 px-4 sm:px-6">
-              <CardTitle className="text-2xl sm:text-3xl md:text-4xl">SME IPO</CardTitle>
-              <CardDescription className="text-evernile-navy/70 text-xs sm:text-sm md:text-base">
-                For small and medium enterprises listing on SME platforms.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-2 flex flex-col px-4 sm:px-6">
-              <div className="space-y-3 md:space-y-4 text-left">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <Gauge className="h-4 w-4 sm:h-5 sm:w-5 text-evernile-navy/70 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm md:text-base">Readiness Score</span>
-                </div>
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <ListChecks className="h-4 w-4 sm:h-5 sm:w-5 text-evernile-navy/70 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm md:text-base">Initial criteria check</span>
-                </div>
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <ClipboardCheck className="h-4 w-4 sm:h-5 sm:w-5 text-evernile-navy/70 flex-shrink-0" />
-                  <span className="text-xs sm:text-sm md:text-base">Readiness assessment</span>
-                </div>
-              </div>
-              <Button
-                className="mt-4 sm:mt-6 w-full bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-10 sm:h-11 text-sm sm:text-base"
-                onClick={() => navigate('/sme-eligibility')}
-              >
-                Start Assessment
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-8 sm:mt-12 mb-6 sm:mb-8 px-4">
-          <p className="text-white mb-3 sm:mb-4 text-sm sm:text-base">Need support with your assessment? Book a session with our team for tailored guidance.</p>
-          <a href="https://calendly.com/bdinesh-evernile/30min" target="_blank" rel="noreferrer noopener">
-            <Button className="bg-evernile-red hover:bg-evernile-red/90 text-evernile-red-foreground h-10 sm:h-11 text-sm sm:text-base px-4 sm:px-6">
-              Book session
-            </Button>
-          </a>
-        </div>
       </main>
 
       {/* Copyright Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-evernile-navy py-3 sm:py-4 z-10">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-xs sm:text-sm text-white">Copyright © 2025 Evernile. All Rights Reserved.</p>
+      <footer className="bg-evernile-navy py-6 sm:py-7">
+        <div className="mx-auto w-full max-w-6xl px-4 text-center">
+          <p className="text-xs text-white/70 sm:text-sm">Copyright © 2025 Evernile. All Rights Reserved.</p>
         </div>
       </footer>
     </div>

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Download, Filter } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Download, Filter } from "lucide-react";
 import { getAssessmentResponses, type AssessmentResponse } from "@/lib/supabase";
+import evernileLogo from "@/assets/Evernile Capital Logo_OG (1).png";
+import ipoCompassLogo from "@/assets/IPO Compass Logo.png";
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
   const [responses, setResponses] = useState<AssessmentResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'mainboard' | 'sme'>('all');
@@ -94,28 +94,18 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" onClick={() => navigate('/')} className="text-evernile-navy hover:text-evernile-navy/80">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Home
-              </Button>
-              <div className="h-6 border-l border-gray-300" />
-              <div className="flex flex-col items-center">
-                <div className="text-xl font-bold text-evernile-navy">EVERNILE</div>
-                <div className="flex items-center gap-2">
-                  <div className="h-0.5 w-6 bg-evernile-red"></div>
-                  <div className="text-xs text-evernile-navy">CAPITAL</div>
-                  <div className="h-0.5 w-6 bg-evernile-red"></div>
-                </div>
-              </div>
-            </div>
-            <div className="text-lg font-semibold text-evernile-navy">
-              Assessment Responses Dashboard
-            </div>
-          </div>
+      <header className="sticky top-0 z-50 border-b border-white/30 bg-white">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-8 sm:py-5">
+          <img
+            src={evernileLogo}
+            alt="Evernile Capital"
+            className="h-9 w-auto sm:h-12"
+          />
+          <img
+            src={ipoCompassLogo}
+            alt="IPO Compass"
+            className="h-9 w-auto sm:h-12"
+          />
         </div>
       </header>
 
