@@ -329,27 +329,31 @@ const MainboardEligibility = () => {
             src={evernileLogo}
             alt="Evernile Capital"
             className="h-9 w-auto sm:h-12"
+            loading="eager"
+            decoding="async"
           />
           <img
             src={ipoCompassLogo}
             alt="IPO Compass"
             className="h-9 w-auto sm:h-12"
+            loading="eager"
+            decoding="async"
           />
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-5 sm:px-8 lg:px-10">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-2 sm:px-8 lg:px-10">
         {!showReport && step < QUESTIONS.length && current ? (
-          <div className="mt-6 flex flex-1 flex-col items-center text-center">
-            <div className="mb-6 text-center">
-              <h1 className="text-3xl font-semibold sm:text-4xl">
+          <div className="flex flex-1 flex-col items-center text-center">
+            <div className="mt-3 mb-6 text-center">
+              <h1 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">
                 Mainboard IPO Readiness Assessment
               </h1>
-              <p className="mt-1 text-sm text-white/80 sm:text-base">
+              <p className="-mt-1 px-2 text-white/80 text-[clamp(14px,2.6vw,18px)]">
                 For larger companies targeting main stock exchanges
               </p>
             </div>
-            <h2 className="text-2xl font-semibold sm:text-3xl">
+            <h2 className="mt-[25px] text-2xl font-semibold sm:text-3xl">
               {current.question}
             </h2>
             <div className="mt-3 flex w-full max-w-4xl items-center gap-3">
@@ -398,20 +402,21 @@ const MainboardEligibility = () => {
             </div>
           </div>
         ) : !showReport ? (
-          <div className="mt-8 flex flex-1 flex-col items-center text-center text-white">
-            <div className="w-full max-w-4xl space-y-6">
-              <div>
-                <h1 className="text-3xl font-semibold sm:text-4xl">Mainboard IPO Readiness Assessment</h1>
-                <p className="mt-1 text-sm text-white/80 sm:text-base">
+          <div className="mt-3 flex flex-1 flex-col items-center text-center text-white">
+            <div className="w-full max-w-4xl">
+              <div className="mb-6 text-center">
+                <h1 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">Mainboard IPO Readiness Assessment</h1>
+                <p className="-mt-1 px-2 text-white/80 text-[clamp(14px,2.6vw,18px)]">
                   For larger companies targeting main stock exchanges
                 </p>
               </div>
-              <h2 className="text-left text-xl font-semibold leading-snug text-white sm:text-2xl">
+              <div className="pt-[5px] space-y-6">
+              <h2 className="text-left text-[16px] font-semibold leading-snug text-white sm:text-[20px]">
                 Almost there! Please fill out few details & generate your IPO Readiness Assessment Report.
               </h2>
               <div className="text-left">
-                <p className="text-left text-sm font-medium tracking-wide text-white/80">
-                  Please fill in your details
+                <p className="text-left text-base font-medium tracking-wide text-white/80">
+                  Please Fill in Your Details
                 </p>
                 <div className="mt-2 h-[2px] w-full bg-white/40" />
               </div>
@@ -470,17 +475,18 @@ const MainboardEligibility = () => {
                   "Generate & Email IPO Readiness Assessment Report"
                 )}
               </Button>
+              </div>
             </div>
           </div>
         ) : !showReport ? (
           <div className="mt-14 flex flex-1 flex-col items-center text-left">
             <div className="mt-6 w-full max-w-3xl space-y-6">
-              <h2 className="text-xl font-semibold leading-snug sm:text-2xl">
+              <h2 className="text-[16px] font-semibold leading-snug sm:text-[20px]">
                 Almost there! Please fill out few details & generate your IPO Readiness Assessment Report.
               </h2>
               <div>
-                <p className="text-sm font-medium tracking-wide text-white/80">
-                  Please fill in your details
+                <p className="text-base font-medium tracking-wide text-white/80">
+                  Please Fill in Your Details
                 </p>
                 <div className="mt-2 h-[2px] w-full bg-white/40" />
               </div>
@@ -542,56 +548,58 @@ const MainboardEligibility = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-8 flex flex-1 flex-col items-center text-center">
-            <div className="w-full max-w-4xl space-y-6">
-              <h2 className="text-3xl font-semibold sm:text-4xl">
-                Mainboard IPO Readiness Assessment Report!
-              </h2>
+          <div className="mt-3 flex flex-1 flex-col items-center justify-start text-center">
+            <div className="w-full max-w-4xl space-y-4">
+              <div className="mb-4 text-center">
+                <h2 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">
+                  Mainboard IPO Readiness Assessment Report!
+                </h2>
+              </div>
               <img
                 src={emailIcon}
                 alt="Email sent icon"
-                className="mx-auto h-20 w-20 sm:h-24 sm:w-24"
+                className="mx-auto h-16 w-16 sm:h-20 sm:w-20"
               />
-              <div className="space-y-3 text-center text-white">
+              <div className="space-y-0 text-center text-white">
                 <p className="text-2xl font-semibold">Report Sent Successfully!</p>
-                <p className="text-sm text-white/80 sm:text-base">
+                <p className="mt-0 text-sm text-white/80 sm:text-base">
                   Your Mainboard IPO Readiness Assessment report has been sent to{" "}
                   <strong>{email}</strong>
                 </p>
               </div>
-              <div className="flex flex-col gap-3 text-white sm:flex-row sm:items-stretch">
-                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-5 py-4 text-lg font-semibold">
+              <div className="flex flex-col gap-2 text-white sm:flex-row sm:items-stretch">
+                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-4 py-3 text-base font-semibold">
                   <span className="whitespace-nowrap text-white/80">Readiness Score:</span>
                   <span className="ml-3 rounded bg-[#0d3a78] px-3 py-1 text-white">
                     {scoreMeta.readiness}/5
                   </span>
                 </div>
-                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-5 py-4 text-lg font-semibold">
+                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-4 py-3 text-base font-semibold">
                   <span className="whitespace-nowrap text-white/80">Readiness Level:</span>
                   <span className="ml-3 rounded bg-[#0d3a78] px-3 py-1 text-white">
                     {scoreMeta.label}
                   </span>
                 </div>
               </div>
-              <p className="text-xs italic text-white/70 sm:text-sm">
+              <p className="-mt-4 text-[10px] italic text-white/70 sm:text-xs">
                 Please check your email inbox (and spam folder) for the detailed report.
               </p>
-              <div className="w-full">
+              <div className="mt-[10px] w-full">
                 <a
                   href="https://calendly.com/bdinesh-evernile/30min"
                   target="_blank"
                   rel="noreferrer noopener"
                   className="block"
                 >
-                  <Button className="h-14 w-full rounded-none bg-evernile-red text-base font-semibold text-white hover:bg-evernile-red/90">
+                  <Button className="h-12 w-full rounded-none bg-evernile-red text-sm font-semibold text-white hover:bg-evernile-red/90">
                     Book a call with our IPO Expert
                   </Button>
                 </a>
               </div>
-              <div className="flex flex-col gap-3 text-left text-white md:flex-row md:gap-6">
+              <div className="mt-[20px] flex flex-col gap-2 text-left text-white md:flex-row md:gap-4">
                 <div className="flex-1 space-y-2">
-                  <p className="text-sm tracking-wide text-white/60">Contact Details</p>
-                  <p className="text-base font-semibold">Banala Dinesh, Associate VP</p>
+                  <p className="text-base tracking-wide text-white/60 mb-0">Contact Details</p>
+                  <p className="-mt-2 text-base font-semibold">Banala Dinesh, Associate VP</p>
                   <p className="text-sm text-white/80">
                     <a href="mailto:bdinesh@evernile.com" className="text-[#9ecbff] underline hover:text-white">
                       bdinesh@evernile.com
@@ -603,7 +611,7 @@ const MainboardEligibility = () => {
                   </p>
                 </div>
                 <div className="flex-1 text-white/70">
-                  <p className="mt-2 text-[12.5px] leading-relaxed text-left sm:mt-3 sm:text-sm">
+                  <p className="mt-0 text-[12.5px] leading-relaxed text-left sm:mt-1 sm:text-sm">
                     This is an initial readiness assessment and is not a substitute for a comprehensive
                     evaluation. For full eligibility verification, please book a free consultation.
                   </p>

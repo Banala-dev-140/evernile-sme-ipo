@@ -19,47 +19,53 @@ const Dashboard = () => {
             src={evernileLogo}
             alt="Evernile Capital"
             className="h-9 w-auto sm:h-12"
+            loading="eager"
+            decoding="async"
           />
           <img
             src={ipoCompassLogo}
             alt="IPO Compass"
             className="h-9 w-auto sm:h-12"
+            loading="eager"
+            decoding="async"
           />
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-5 sm:px-8 lg:px-10">
-        <div className="mt-6 mb-6 text-center sm:mb-8">
-          <h1 className="mb-2 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)]">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-2 sm:px-8 lg:px-10">
+        <div className="mt-3 mb-6 text-center">
+          <h1 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">
             IPO Readiness Assessment
           </h1>
-          <p className="px-2 text-white/80 text-[clamp(14px,2.6vw,18px)]">
+          <p className="-mt-1 px-2 text-white/80 text-[clamp(14px,2.6vw,18px)]">
             Quick check for IPO readiness and compliance
           </p>
         </div>
 
-        <div className="grid w-full flex-1 items-stretch gap-6 sm:gap-7 md:grid-cols-2">
+        <div className="grid w-full items-start gap-5 md:grid-cols-2">
           {/* Mainboard IPO Card */}
-          <Card className="flex h-full flex-col justify-between border-2 border-[#1d3f91] bg-white shadow-md rounded-none">
-            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 md:flex-row md:items-center md:gap-8">
+          <Card className="flex flex-col border-2 border-[#1d3f91] bg-white shadow-md rounded-none">
+            <CardContent className="flex flex-col gap-4 px-6 pt-4 pb-3 md:flex-row md:items-start md:gap-4">
               <div className="flex w-full items-center justify-center md:w-[40%]">
                 <img
                   src={mainboardIllustration}
                   alt="Mainboard IPO illustration"
                   className="max-h-40 w-full max-w-[220px] object-contain md:max-h-44"
+                  loading="eager"
+                  decoding="async"
                 />
               </div>
-              <div className="text-left md:flex-1">
-                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)]">
+              <div className="text-left md:flex-1 md:mt-5">
+                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)] leading-tight">
                   Mainboard IPO
                 </CardTitle>
-                <CardDescription className="mt-2 text-[#445b9c] text-[clamp(14px,2.6vw,18px)]">
+                <CardDescription className="mt-0 text-[#445b9c] text-[clamp(14px,2.6vw,18px)]">
                   For larger companies targeting main stock exchanges
-              </CardDescription>
+                </CardDescription>
               </div>
             </CardContent>
-            <div className="px-6 pb-6">
+            <div className="px-6 pb-5">
               <Button 
                 variant="outline"
                 className="flex h-11 w-full items-center justify-center gap-3 border-2 border-[#1d3f91] font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 rounded-none text-[clamp(14px,2.4vw,16px)]"
@@ -74,25 +80,27 @@ const Dashboard = () => {
           </Card>
 
           {/* SME IPO Card */}
-          <Card className="flex h-full flex-col justify-between border-2 border-[#1d3f91] bg-white shadow-md rounded-none">
-            <CardContent className="flex flex-col gap-6 px-6 pt-6 pb-3 md:flex-row md:items-center md:gap-8">
+          <Card className="flex flex-col border-2 border-[#1d3f91] bg-white shadow-md rounded-none">
+            <CardContent className="flex flex-col gap-4 px-6 pt-4 pb-3 md:flex-row md:items-start md:gap-4">
               <div className="flex w-full items-center justify-center md:w-[40%]">
                 <img
                   src={smeIllustration}
                   alt="SME IPO illustration"
                   className="max-h-40 w-full max-w-[220px] object-contain md:max-h-44"
+                  loading="eager"
+                  decoding="async"
                 />
               </div>
-              <div className="text-left md:flex-1">
-                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)]">
+              <div className="text-left md:flex-1 md:mt-5">
+                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)] leading-tight">
                   SME IPO
                 </CardTitle>
-                <CardDescription className="mt-2 text-[#445b9c] text-[clamp(14px,2.6vw,18px)]">
+                <CardDescription className="mt-0 text-[#445b9c] text-[clamp(14px,2.6vw,18px)]">
                   For small & medium enterprises listing on SME platforms
                 </CardDescription>
               </div>
             </CardContent>
-            <div className="px-6 pb-6">
+            <div className="px-6 pb-5">
               <Button
                 variant="outline"
                 className="flex h-11 w-full items-center justify-center gap-3 border-2 border-[#1d3f91] font-semibold text-[#1d3f91] transition hover:border-[#152d6a] hover:bg-[#f4f7ff] sm:h-12 rounded-none text-[clamp(14px,2.4vw,16px)]"
@@ -108,9 +116,9 @@ const Dashboard = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-8 mb-4">
-          <div className="flex flex-col gap-6 border border-white/40 bg-[#0a1f4e] p-6 text-white shadow-lg sm:p-8 md:flex-row md:items-center md:justify-between rounded-none">
-            <div className="flex-1 space-y-4 text-left">
+        <div className="mt-[25px] mb-2">
+          <div className="flex flex-col gap-3 border border-white/40 bg-[#0a1f4e] p-4 text-white shadow-lg sm:p-5 md:flex-row md:items-center md:justify-between rounded-none">
+            <div className="flex-1 space-y-2.5 text-left">
               <div className="flex items-center gap-3">
                 <span className="text-2xl leading-none">✅</span>
                 <p className="text-[clamp(15px,2.4vw,18px)]">
@@ -149,9 +157,11 @@ const Dashboard = () => {
       </main>
 
       {/* Copyright Footer */}
-      <footer className="bg-evernile-navy py-1.5 sm:py-2.5">
+      <footer className="mt-auto bg-evernile-navy py-4 sm:py-5">
         <div className="mx-auto w-full max-w-6xl px-4 text-center">
-          <p className="text-xs text-white/70 sm:text-sm">Copyright © 2025 Evernile. All Rights Reserved.</p>
+          <p className="text-xs text-white/70 sm:text-sm">
+            Copyright © 2025 Evernile. All Rights Reserved.
+          </p>
         </div>
       </footer>
     </div>
