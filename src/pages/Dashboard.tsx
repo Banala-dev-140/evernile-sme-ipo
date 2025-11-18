@@ -34,7 +34,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-2 sm:px-8 lg:px-10">
-        <div className="mt-3 mb-6 text-center">
+        <div className="mt-[30px] mb-6 text-center">
           <h1 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">
             IPO Readiness Assessment
           </h1>

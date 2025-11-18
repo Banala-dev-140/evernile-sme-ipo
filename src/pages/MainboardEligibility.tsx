@@ -345,7 +345,7 @@ const MainboardEligibility = () => {
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-2 sm:px-8 lg:px-10">
         {!showReport && step < QUESTIONS.length && current ? (
           <div className="flex flex-1 flex-col items-center text-center">
-            <div className="mt-3 mb-6 text-center">
+            <div className="mt-[30px] mb-6 text-center">
               <h1 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">
                 Mainboard IPO Readiness Assessment
               </h1>
@@ -402,7 +402,7 @@ const MainboardEligibility = () => {
             </div>
           </div>
         ) : !showReport ? (
-          <div className="mt-3 flex flex-1 flex-col items-center text-center text-white">
+          <div className="mt-[30px] flex flex-1 flex-col items-center text-center text-white">
             <div className="w-full max-w-4xl">
               <div className="mb-6 text-center">
                 <h1 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">Mainboard IPO Readiness Assessment</h1>
@@ -548,7 +548,7 @@ const MainboardEligibility = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-3 flex flex-1 flex-col items-center justify-start text-center">
+          <div className="mt-[30px] flex flex-1 flex-col items-center justify-start text-center">
             <div className="w-full max-w-4xl space-y-4">
               <div className="mb-4 text-center">
                 <h2 className="mb-0 px-2 font-semibold text-white text-[clamp(26px,4vw,34px)] leading-tight">

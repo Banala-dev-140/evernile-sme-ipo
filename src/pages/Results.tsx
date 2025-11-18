@@ -75,7 +75,7 @@ const Results = () => {
       {/* Main Content with top margin for fixed header */}
       <main className="pt-24 pb-8">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto mt-[30px]">
             
             {/* Results Card */}
             {result.isEligible ? (

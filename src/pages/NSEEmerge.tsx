@@ -122,7 +122,7 @@ const NSEEmerge = () => {
       {/* Main Content with top margin for fixed header */}
       <main className="pt-32 pb-8">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto mt-[30px]">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-evernile-navy mb-3">NSE Emerge Eligibility Checklist</h2>
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto">

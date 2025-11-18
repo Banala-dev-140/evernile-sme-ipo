@@ -110,7 +110,7 @@ const AdminDashboard = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="space-y-6">
+        <div className="space-y-6 mt-[30px]">
           {/* Controls */}
           <div className="flex justify-between items-center">
             <div className="flex gap-2">

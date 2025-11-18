@@ -153,11 +153,17 @@ All colors MUST be HSL.
     transform-origin: top left;
     width: 133.33%;
     min-height: 133.33vh;
+    background-color: #f3f4f6;
+    padding: 0;
   }
   
   #root {
     width: 100%;
     min-height: 100vh;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   /* Financial Dashboard Gradients */
