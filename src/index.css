@@ -149,6 +149,15 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     font-family: "Aileron";
+    transform: scale(0.75);
+    transform-origin: top left;
+    width: 133.33%;
+    min-height: 133.33vh;
+  }
+  
+  #root {
+    width: 100%;
+    min-height: 100vh;
   }
   
   /* Financial Dashboard Gradients */
