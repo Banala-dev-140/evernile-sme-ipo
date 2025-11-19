@@ -149,37 +149,58 @@ All colors MUST be HSL.
   html {
     margin: 0;
     padding: 0;
-    background-color: #f3f4f6;
+    background-color: transparent;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
+    max-width: 100vw;
     height: 100vh;
+    box-sizing: border-box;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-family: "Aileron";
-    transform: scale(0.75);
-    transform-origin: center center;
-    width: 133.33vw;
-    max-width: 133.33vw;
-    min-height: 133.33vh;
-    background-color: #f3f4f6;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    background-color: transparent !important;
     padding: 0;
     margin: 0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   #root {
-    width: 100%;
-    min-height: 100vh;
+    max-width: 100vw;
     margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    position: relative;
+    transform: scale(0.75);
+    transform-origin: center center;
+    width: 133.33%;
+    min-height: 133.33vh;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Prevent overflow at any zoom level */
+  img, video, iframe, embed, object {
+    max-width: 100%;
+    height: auto;
   }
   
   /* Financial Dashboard Gradients */

@@ -322,9 +322,9 @@ const MainboardEligibility = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-evernile-navy text-white">
-      <header className="sticky top-0 z-50 border-b border-white/30 bg-white">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-8 sm:py-5">
+    <div className="flex flex-col bg-evernile-navy text-white" style={{ width: '100%', maxWidth: '100vw', minHeight: '100vh', overflowX: 'hidden', overflowY: 'auto', borderRadius: '12px' }}>
+      <header className="sticky top-0 z-50 h-[73px] border-b border-white/30 bg-white">
+        <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between px-6 sm:px-8" style={{ maxWidth: 'min(900px, 100vw)' }}>
           <img
             src={evernileLogo}
             alt="Evernile Capital"
@@ -342,7 +342,7 @@ const MainboardEligibility = () => {
         </div>
       </header>
 
-      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-2 sm:px-8 lg:px-10">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-3 py-2 sm:px-6 lg:px-8" style={{ maxWidth: 'min(900px, calc(100vw - 3rem))', width: '100%', boxSizing: 'border-box' }}>
         {!showReport && step < QUESTIONS.length && current ? (
           <div className="flex flex-1 flex-col items-center text-center">
             <div className="mt-[30px] mb-6 text-center">
@@ -622,8 +622,8 @@ const MainboardEligibility = () => {
         )}
       </main>
 
-      <footer className="mt-auto bg-evernile-navy py-4 sm:py-5">
-        <div className="mx-auto w-full max-w-6xl px-4 text-center">
+      <footer className="mt-auto h-[60px] bg-evernile-navy">
+        <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-center px-4" style={{ maxWidth: 'min(900px, 100vw)' }}>
           <p className="text-xs text-white/70 sm:text-sm">
             Copyright © 2025 Evernile. All Rights Reserved.
           </p>
