@@ -335,6 +335,7 @@ const SMEEligibility = () => {
 
   return (
     <div className="flex flex-col bg-evernile-navy text-white" style={{ width: '100%', maxWidth: '100vw', minHeight: '100vh', overflowX: 'hidden', overflowY: 'auto', borderRadius: '12px' }}>
+      {/* Header */}
       <header className="sticky top-0 z-50 h-[73px] border-b border-white/30 bg-white">
         <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between px-6 sm:px-8" style={{ maxWidth: 'min(900px, 100vw)' }}>
           <img
@@ -423,18 +424,18 @@ const SMEEligibility = () => {
                 </p>
               </div>
               <div className="pt-[5px] space-y-6">
-              <h2 className="text-left text-[16px] font-semibold leading-snug text-white sm:text-[20px]">
+              <h2 className="text-left text-[14px] font-semibold leading-snug text-white sm:text-[18px]">
                 Almost there! Please fill out few details & generate your IPO Readiness Assessment Report.
               </h2>
               <div className="text-left">
-                <p className="text-left text-base font-medium tracking-wide text-white/80">
+                <p className="text-left text-sm font-medium tracking-wide text-white/80">
                   Please Fill in Your Details
                 </p>
                 <div className="mt-2 h-[2px] w-full bg-white/40" />
               </div>
               <div className="space-y-5">
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="name" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-3 text-[10px] text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-xs">
+                  <Label htmlFor="name" className="text-[10px] text-white sm:text-xs">
                     Your Name<span className="text-evernile-red">*</span>
                   </Label>
                   <Input
@@ -442,11 +443,11 @@ const SMEEligibility = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your Name"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="rounded-none border border-white/40 bg-transparent !text-xs text-white placeholder:!text-[10px] placeholder:text-white/40 sm:placeholder:!text-xs focus:border-evernile-red focus:ring-0 !sm:text-sm"
                   />
                 </div>
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="email" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-3 text-[10px] text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-xs">
+                  <Label htmlFor="email" className="text-[10px] text-white sm:text-xs">
                     Email ID<span className="text-evernile-red">*</span>
                   </Label>
                   <Input
@@ -454,11 +455,11 @@ const SMEEligibility = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="rounded-none border border-white/40 bg-transparent !text-xs text-white placeholder:!text-[10px] placeholder:text-white/40 sm:placeholder:!text-xs focus:border-evernile-red focus:ring-0 !sm:text-sm"
                   />
                 </div>
-                <div className="grid items-center gap-3 text-sm text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-base">
-                  <Label htmlFor="phone" className="text-sm text-white sm:text-base">
+                <div className="grid items-center gap-3 text-[10px] text-white sm:grid-cols-[180px_minmax(0,1fr)] sm:text-xs">
+                  <Label htmlFor="phone" className="text-[10px] text-white sm:text-xs">
                     Mobile No.
                   </Label>
                   <Input
@@ -466,7 +467,7 @@ const SMEEligibility = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="xxxx xxxxx"
-                    className="rounded-none border border-white/40 bg-transparent text-white placeholder:text-white/40 focus:border-evernile-red focus:ring-0"
+                    className="rounded-none border border-white/40 bg-transparent !text-xs text-white placeholder:!text-[10px] placeholder:text-white/40 sm:placeholder:!text-xs focus:border-evernile-red focus:ring-0 !sm:text-sm"
                   />
                 </div>
               </div>
@@ -476,7 +477,7 @@ const SMEEligibility = () => {
                   await saveAssessmentData();
                   await sendEmailReport();
                 }}
-                className="w-full rounded-none bg-evernile-red py-6 text-lg font-semibold text-white hover:bg-evernile-red/90"
+                className="w-full rounded-none bg-evernile-red py-4 text-sm font-semibold text-white hover:bg-evernile-red/90"
               >
                 {isGeneratingReport ? (
                   <div className="flex items-center justify-center gap-2">
@@ -501,30 +502,30 @@ const SMEEligibility = () => {
               <img
                 src={emailIcon}
                 alt="Email sent icon"
-                className="mx-auto h-16 w-16 sm:h-20 sm:w-20"
+                className="mx-auto h-12 w-12 sm:h-16 sm:w-16"
               />
               <div className="space-y-0 text-center text-white">
-                <p className="text-2xl font-semibold">Report Sent Successfully!</p>
-                <p className="mt-0 text-sm text-white/80 sm:text-base">
+                <p className="text-[20px] font-semibold">Report Sent Successfully!</p>
+                <p className="mt-0 text-xs text-white/80 sm:text-sm">
                   Your SME IPO Readiness Assessment report has been sent to{" "}
                   <strong>{email}</strong>
                 </p>
               </div>
               <div className="flex flex-col gap-2 text-white sm:flex-row sm:items-stretch">
-                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-4 py-3 text-base font-semibold">
+                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-4 py-3 text-sm font-semibold">
                   <span className="whitespace-nowrap text-white/80">Readiness Score:</span>
                   <span className="ml-3 rounded bg-[#0d3a78] px-3 py-1 text-white">
                     {scoreMeta.readiness}/5
                   </span>
                 </div>
-                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-4 py-3 text-base font-semibold">
+                <div className="flex flex-1 items-center justify-center rounded-none border border-white/25 bg-white/5 px-4 py-3 text-sm font-semibold">
                   <span className="whitespace-nowrap text-white/80">Readiness Level:</span>
                   <span className="ml-3 rounded bg-[#0d3a78] px-3 py-1 text-white">
                     {scoreMeta.label}
                   </span>
                 </div>
               </div>
-              <p className="-mt-4 text-[10px] italic text-white/70 sm:text-xs">
+              <p className="-mt-4 text-[8px] italic text-white/70 sm:text-[10px]">
                 Please check your email inbox (and spam folder) for the detailed report.
               </p>
               <div className="mt-[10px] w-full">
@@ -534,16 +535,16 @@ const SMEEligibility = () => {
                   rel="noreferrer noopener"
                   className="block"
                 >
-                  <Button className="h-12 w-full rounded-none bg-evernile-red text-sm font-semibold text-white hover:bg-evernile-red/90">
+                  <Button className="h-10 w-full rounded-none bg-evernile-red text-[10px] font-semibold text-white hover:bg-evernile-red/90 sm:text-xs">
                     Book a call with our IPO Expert
                   </Button>
                 </a>
               </div>
               <div className="mt-[20px] flex flex-col gap-2 text-left text-white md:flex-row md:gap-4">
                 <div className="flex-1 space-y-2">
-                  <p className="text-base tracking-wide text-white/60 mb-0">Contact Details</p>
-                  <p className="-mt-2 text-base font-semibold">Banala Dinesh, Associate VP</p>
-                  <p className="text-sm text-white/80">
+                  <p className="text-sm tracking-wide text-white/60 mb-0">Contact Details</p>
+                  <p className="-mt-2 text-sm font-semibold">Banala Dinesh, Associate VP</p>
+                  <p className="text-xs text-white/80">
                     <a href="mailto:bdinesh@evernile.com" className="text-[#9ecbff] underline hover:text-white">
                       bdinesh@evernile.com
                     </a>
@@ -554,7 +555,7 @@ const SMEEligibility = () => {
                   </p>
                 </div>
                 <div className="flex-1 text-white/70">
-                  <p className="mt-0 text-[12.5px] leading-relaxed text-left sm:mt-1 sm:text-sm">
+                  <p className="mt-0 text-[10.5px] leading-relaxed text-left sm:mt-1 sm:text-xs">
                     This is an initial readiness assessment and is not a substitute for a comprehensive
                     evaluation. For full eligibility verification, please book a free consultation.
                   </p>

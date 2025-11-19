@@ -58,7 +58,7 @@ const Dashboard = () => {
                 />
               </div>
               <div className="flex-1 text-left mt-3">
-                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)] leading-tight">
+                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(18px,3.2vw,26px)] leading-tight">
                   Mainboard IPO
                 </CardTitle>
                 <CardDescription className="mt-0 text-[#445b9c] text-[clamp(10px,2.6vw,14px)]">
@@ -94,7 +94,7 @@ const Dashboard = () => {
                 />
               </div>
               <div className="flex-1 text-left mt-3">
-                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(20px,3.2vw,28px)] leading-tight">
+                <CardTitle className="font-semibold text-[#1d3f91] text-[clamp(18px,3.2vw,26px)] leading-tight">
                   SME IPO
                 </CardTitle>
                 <CardDescription className="mt-0 text-[#445b9c] text-[clamp(10px,2.6vw,14px)]">
@@ -118,7 +118,7 @@ const Dashboard = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-[25px] mb-2" style={{ maxWidth: '100%', width: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
+        <div className="mt-4 mb-2" style={{ maxWidth: '100%', width: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
           <div className="flex flex-col gap-3 border border-white/40 bg-[#0a1f4e] p-3 text-white shadow-lg sm:p-3 md:flex-row md:items-center md:justify-between rounded-none" style={{ maxWidth: '100%', width: '100%', boxSizing: 'border-box' }}>
             <div className="flex-1 space-y-2.5 text-left">
               <div className="flex items-center gap-3">
